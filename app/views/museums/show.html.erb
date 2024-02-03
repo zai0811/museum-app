@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @museum %>
+
+<div>
+  <%= link_to "Edit this museum", edit_museum_path(@museum) %> |
+  <%= link_to "Back to museums", museums_path %>
+
+  <%= button_to "Destroy this museum", @museum, method: :delete %>
+</div>

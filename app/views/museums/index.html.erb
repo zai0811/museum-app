@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Museums</h1>
+
+<div id="museums">
+  <% @museums.each do |museum| %>
+    <%= render museum %>
+    <p>
+      <%= link_to "Show this museum", museum %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New museum", new_museum_path %>
