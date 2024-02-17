@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :registrations
+  devise_for :users
   resources :museums
   resources :users
   # get 'home/index' # could be a route for the home if necessary
