@@ -1,0 +1,2 @@
+class MuseumRegistrationRequest < ApplicationRecord
+end

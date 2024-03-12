@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_11_234527) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_12_012138) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_11_234527) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_departments_on_name", unique: true
+  end
+
+  create_table "museum_registration_requests", force: :cascade do |t|
+    t.string "museum_name", null: false
+    t.string "museum_code", null: false
+    t.string "museum_address"
+    t.string "manager_email", null: false
+    t.string "manager_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "museums", force: :cascade do |t|

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :museum_registration_requests
   devise_for :users
   resources :museums
   resources :users
