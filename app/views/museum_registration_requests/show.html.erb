@@ -3,8 +3,12 @@
 <%= render @museum_registration_request %>
 
 <div>
-  <%= link_to "Edit this museum registration request", edit_museum_registration_request_path(@museum_registration_request) %> |
   <%= link_to "Back to museum registration requests", museum_registration_requests_path %>
 
-  <%= button_to "Destroy this museum registration request", @museum_registration_request, method: :delete %>
+  <% if @museum_registration_request.not_reviewed? %>
+    <%= button_to"Approve", update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: :approved), method: :patch %>
+    <%= button_to"Reject", update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: :rejected), method: :patch %>
+  <% elsif !@museum_registration_request.archived? %>
+    <%= button_to"Archive", update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: :archived), method: :patch %>
+  <%end %>
 </div>

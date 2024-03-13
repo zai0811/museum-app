@@ -57,6 +57,13 @@ class MuseumRegistrationRequestsController < ApplicationController
     end
   end
 
+  def update_registration_status
+    @museum_registration_request = MuseumRegistrationRequest.find(params[:id])
+    @museum_registration_request.update!(registration_status: params[:registration_status])
+    redirect_to @museum_registration_request, notice: "Se actualizo el a #{@museum_registration_request.registration_status}"
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_museum_registration_request

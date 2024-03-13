@@ -36,6 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_12_012138) do
     t.string "museum_address"
     t.string "manager_email", null: false
     t.string "manager_name", null: false
+    t.integer "registration_status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
