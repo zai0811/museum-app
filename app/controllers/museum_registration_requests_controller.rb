@@ -60,7 +60,13 @@ class MuseumRegistrationRequestsController < ApplicationController
   def update_registration_status
     @museum_registration_request = MuseumRegistrationRequest.find(params[:id])
     @museum_registration_request.update!(registration_status: params[:registration_status])
-    redirect_to @museum_registration_request, notice: "Se actualizo el a #{@museum_registration_request.registration_status}"
+
+    if params[:registration_status] == "approved"
+      @museum = @museum_registration_request.accept_registration_request
+      redirect_to museum_url(@museum), notice: "Solicitud approbada! Nuevo museo creado: #{@museum.name}."
+    else
+      redirect_to @museum_registration_request, notice: "El estado de la Solicitud de registro cambió a: #{@museum_registration_request.registration_status}."
+    end
   end
 
 
