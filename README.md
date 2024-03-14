@@ -13,8 +13,9 @@ Versiones:
 Pasos:
 
 * Preparar el ambiente de desarrollo y asegurarse de tener acceso a git por ssh
-* Clonar el repositorio, ir a musuem-app/
+* Clonar el repositorio, ir a museum-app/
 * Ir a config/database.yml y actualizar el usuario y contrasenha de la db
 * Hacer rails db:create
 * Hacer rails db:migrate
+* Hacer rails db:seed
 * Levantar la app con rails s
