@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @museum_registration_request %>
+
+<div>
+  <%= link_to "Back to museum registration requests", museum_registration_requests_path %>
+
+  <% if @museum_registration_request.not_reviewed? %>
+    <%= button_to "Approve", update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: :approved), method: :patch %>
+    <%= button_to "Reject", update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: :rejected), method: :patch %>
+  <% elsif !@museum_registration_request.archived? %>
+    <%= button_to "Archive", update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: :archived), method: :patch %>
+  <%end %>
+</div>

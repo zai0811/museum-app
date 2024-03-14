@@ -10,17 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_17_191658) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_12_012138) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "cities", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "department_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_cities_on_department_id"
+    t.index ["name", "department_id"], name: "index_cities_on_name_and_department_id", unique: true
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_departments_on_name", unique: true
+  end
+
+  create_table "museum_registration_requests", force: :cascade do |t|
+    t.string "museum_name", null: false
+    t.string "museum_code", null: false
+    t.string "museum_address"
+    t.string "manager_email", null: false
+    t.string "manager_name", null: false
+    t.integer "registration_status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "museums", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.string "code", null: false
     t.text "about"
     t.string "email"
     t.string "phone"
     t.string "page"
     t.string "address"
+    t.integer "museum_status", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -42,5 +71,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_17_191658) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cities", "departments"
   add_foreign_key "museums", "users"
 end

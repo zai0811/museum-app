@@ -1,0 +1,1 @@
+json.partial! "museum_registration_requests/museum_registration_request", museum_registration_request: @museum_registration_request

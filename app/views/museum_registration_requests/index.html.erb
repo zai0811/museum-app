@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Museum registration requests</h1>
+
+<div id="museum_registration_requests">
+  <% @museum_registration_requests.each do |museum_registration_request| %>
+    <%= render museum_registration_request %>
+    <p>
+      <%= link_to "Show this museum registration request", museum_registration_request %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New museum registration request", new_museum_registration_request_path %>

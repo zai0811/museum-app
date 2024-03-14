@@ -1,0 +1,42 @@
+<%= form_with(model: museum_registration_request) do |form| %>
+  <% if museum_registration_request.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(museum_registration_request.errors.count, "error") %> prohibited this museum_registration_request from being saved:</h2>
+
+      <ul>
+        <% museum_registration_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :museum_name, style: "display: block" %>
+    <%= form.text_field :museum_name %>
+  </div>
+
+  <div>
+    <%= form.label :museum_code, style: "display: block" %>
+    <%= form.text_field :museum_code %>
+  </div>
+
+  <div>
+    <%= form.label :museum_address, style: "display: block" %>
+    <%= form.text_field :museum_address %>
+  </div>
+
+  <div>
+    <%= form.label :manager_email, style: "display: block" %>
+    <%= form.text_field :manager_email %>
+  </div>
+
+  <div>
+    <%= form.label :manager_name, style: "display: block" %>
+    <%= form.text_field :manager_name %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

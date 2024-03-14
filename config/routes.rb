@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :museum_registration_requests do
+    member do
+      patch :update_registration_status
+    end
+  end
   devise_for :users
   resources :museums
   resources :users
