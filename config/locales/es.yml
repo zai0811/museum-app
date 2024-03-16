@@ -9,6 +9,7 @@ es:
   global:
     menu:
       home: Página principal
+      users_list: Usuarios
       profile: Perfil
       log_out: Cerrar sesión
   date:

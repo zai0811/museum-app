@@ -1,5 +1,6 @@
 class MuseumRegistrationRequestsController < ApplicationController
   before_action :set_museum_registration_request, only: %i[ show edit update destroy ]
+  skip_before_action :authenticate_user!, only: %i[ new ]
 
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index

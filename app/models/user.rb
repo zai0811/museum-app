@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  has_many :invitees, class_name: 'User', foreign_key: :invited_by_id
   has_many :museums
   validates_presence_of :email
 end

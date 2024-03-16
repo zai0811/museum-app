@@ -11,13 +11,19 @@
   </head>
 
   <body>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
     <div>
-      <%= link_to t('global.menu.home'), root_path %>
+      <%= link_to t('global.menu.home'), root_path %> |
       <% if user_signed_in? %>
-        <%= link_to t('global.menu.profile'), edit_user_registration_path %>
+        <%= link_to t('global.menu.profile'), edit_user_registration_path %> |
+        <%= link_to t('devise.invitations.new.header'), new_user_registration_path %> |
+        <%= link_to t('global.menu.users_list'), users_path %> |
         <%= button_to t('global.menu.log_out'), destroy_user_session_path, method: :delete %>
       <% else %>
-        <%= link_to t('devise.shared.links.sign_in'), new_user_session_path %>
+        <%= link_to t('devise.shared.links.sign_in'), new_user_session_path %> |
         <%= link_to t('devise.shared.links.sign_up') , new_user_registration_path %>
       <% end %>
     </div>
