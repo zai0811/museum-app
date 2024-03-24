@@ -1,5 +1,6 @@
 class MuseumRegistrationRequestsController < ApplicationController
   before_action :set_museum_registration_request, only: %i[ show edit update destroy ]
+  skip_before_action :authenticate_user!, only: %i[ new create ]
 
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
@@ -25,11 +26,9 @@ class MuseumRegistrationRequestsController < ApplicationController
 
     respond_to do |format|
       if @museum_registration_request.save
-        format.html { redirect_to museum_registration_request_url(@museum_registration_request), notice: "Museum registration request was successfully created." }
-        format.json { render :show, status: :created, location: @museum_registration_request }
+        format.html { redirect_to root_path, notice: "Museum registration request was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @museum_registration_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,13 +58,18 @@ class MuseumRegistrationRequestsController < ApplicationController
 
   def update_registration_status
     @museum_registration_request = MuseumRegistrationRequest.find(params[:id])
-    @museum_registration_request.update!(registration_status: params[:registration_status])
+    status = params[:registration_status].to_i
 
-    if params[:registration_status] == "approved"
-      @museum = @museum_registration_request.accept_registration_request
-      redirect_to museum_url(@museum), notice: "Solicitud approbada! Nuevo museo creado: #{@museum.name}."
+    if status == MuseumRegistrationRequest::APPROVED
+      begin
+        @museum = @museum_registration_request.accept_registration_request!
+        redirect_to museum_url(@museum), notice: "Solicitud approbada! Nuevo museo creado: #{@museum.name}."
+      rescue StandardError => e
+        redirect_to museum_registration_requests_path, alert: e.message
+      end
     else
-      redirect_to @museum_registration_request, notice: "El estado de la Solicitud de registro cambió a: #{@museum_registration_request.registration_status}."
+      @museum_registration_request.update_registration_status(status)
+      redirect_to @museum_registration_request, notice: "Se actualizó el estado correctamente."
     end
   end
 
