@@ -1,23 +1,36 @@
 class MuseumRegistrationRequest < ApplicationRecord
-  # USAR CONSNTANTES EN VEZ DE VALORES FLOTANTES
-  enum :registration_status, { not_reviewed: 0, approved: 1, rejected: 2, archived: 3}, default: :not_reviewed
-  validates_presence_of :manager_email, :museum_name, :museum_code, :museum_address
+  NOT_REVIEWED = 0
+  APPROVED = 1
+  REJECTED = 2
+  ARCHIVED = 3
 
-  def accept_registration_request
-    user_email = self.manager_email
-    museum_name = self.museum_name
-    museum_code = self.museum_code
-    museum_address = self.museum_address
+  enum :registration_status, { not_reviewed: NOT_REVIEWED, approved: APPROVED, rejected: REJECTED, archived: ARCHIVED }, default: :not_reviewed
+  validates_presence_of :manager_email, :manager_name, :museum_name, :museum_code, :museum_address
 
-    user = User.find_by(email: user_email)
-
-    # ver como hacer que no sea la contraseña requerida
-    # usar transacciones (toleracia de errores)
-    # manejo de excepciones jajsjsjsidj
-    if user.nil?
-      user = User.create!(email: user_email, password: "temporary_password", password_confirmation: "temporary_password")
+  def accept_registration_request!
+    if Museum.exists?(code: museum_code)
+      raise StandardError, "El museo ya existe! No se puede procesar la aceptación de esta solicitud."
     end
-    #validar que el museo ya existe ? EL CODIGO DEBE SER UNIKOOO
-    Museum.create!(name: museum_name, code: museum_code, address: museum_address, user_id: user.id)
+
+    ActiveRecord::Base.transaction do
+      update_registration_status(APPROVED)
+      user = find_or_invite_user!
+      Museum.create!(name: museum_name, code: museum_code, address: museum_address, user_id: user.id)
+    end
+  end
+
+  def update_registration_status(status)
+    self.update!(registration_status: status)
+  end
+
+  private
+
+  def find_or_invite_user!
+    user = User.find_by(email: manager_email)
+    unless user
+      #TODO should do User.getAdminID or ignore the invited_by
+      user = User.invite!(email: manager_email)
+    end
+    user
   end
 end

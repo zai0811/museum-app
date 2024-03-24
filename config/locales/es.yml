@@ -10,6 +10,8 @@ es:
     menu:
       home: Página principal
       users_list: Usuarios
+      registrations_request_list: Solicitudes de Registro
+      museums_list: Mis Museos
       profile: Perfil
       log_out: Cerrar sesión
   date:
