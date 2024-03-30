@@ -6,14 +6,16 @@
   <table>
     <tr>
       <th>Nombre</th>
+      <th>Apellido</th>
       <th>Email</th>
       <th>Creado por invitación?</th>
       <th>Invitación aceptada?</th>
-      <th>Detalles</th>
+      <th>Acciones</th>
     </tr>
   <% @users.each do |user| %>
     <tr id="<%= dom_id user %>">
       <td> <%= user.first_name %></td>
+      <td> <%= user.last_name %></td>
       <td> <%= user.email %></td>
       <td> <%= user.created_by_invite?%></td>
       <td> <%= user.invitation_accepted? %></td>

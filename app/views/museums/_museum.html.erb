@@ -1,11 +1,20 @@
 <div id="<%= dom_id museum %>">
   <p>
-    <strong>Name:</strong>
+    <strong>Museum Name:</strong>
     <%= museum.name %>
   </p>
 
   <p>
-    <strong>About:</strong>
+    <strong>Created from registration request?:</strong>
+    <% if museum.museum_registration_request_id %>
+      <%= "Yes" %>
+    <% else %>
+      <%= "No" %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
     <%= museum.about %>
   </p>
 
@@ -30,8 +39,8 @@
   </p>
 
   <p>
-    <strong>User:</strong>
-    <%= museum.user_id %>
+    <strong>Museum Manager:</strong>
+    <%= museum.user.email %>
   </p>
 
 </div>

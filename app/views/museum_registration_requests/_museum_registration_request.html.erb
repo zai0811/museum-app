@@ -1,12 +1,13 @@
 <div id="<%= dom_id museum_registration_request %>">
 
+  <h2> Solicitud de Registro #<%= museum_registration_request.id %></h2>
   <p>
-    <strong>Status:</strong>
-    <%= museum_registration_request.registration_status %>
+    <strong><%= t("museum_registration_request.attributes.registration_status") %>:</strong>
+
   </p>
 
   <p>
-    <strong>Museum name:</strong>
+    <strong><%= t("museum_registration_request.attributes.name") %>:</strong>
     <%= museum_registration_request.museum_name %>
   </p>
 
