@@ -2,6 +2,8 @@ es:
   activerecord:
     errors:
       messages:
+        museum_taken: "El museo ya existe! No se puede procesar la aceptación de esta solicitud."
+        museum_registration_invalid_status: "Estado inválido!"
         record_invalid: 'La validación falló: %{errors}'
         restrict_dependent_destroy:
           has_one: No se puede eliminar el registro porque existe un %{record} dependiente
@@ -11,9 +13,12 @@ es:
       home: Página principal
       users_list: Usuarios
       registrations_request_list: Solicitudes de Registro
-      museums_list: Mis Museos
+      museums_list: Explorar Museos
       profile: Perfil
       log_out: Cerrar sesión
+    errors:
+      messages:
+        unauthorized: "No estás autorizado para realizar esta accion."
   date:
     abbr_day_names:
       - dom

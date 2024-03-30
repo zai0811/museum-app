@@ -1,0 +1,16 @@
+es:
+  museum_registration_request:
+    attributes:
+      name: "Nombre del Museo"
+      code: "Código de Registro"
+      address: "Dirección"
+      city: "Ciudad"
+      department: "Departamento"
+      manager_email: "Correo del/de la Administrador/a"
+      manager_name: "Nombre del/de la Administrador/a"
+      registration_status: "Estatus"
+    status:
+      not_reviewed: "No Procesada"
+      approved: "Approvada"
+      rejected: "Rechazada"
+      archived: "Archivada"

@@ -6,4 +6,12 @@ class User < ApplicationRecord
   has_many :invitees, class_name: 'User', foreign_key: :invited_by_id
   has_many :museums
   validates_presence_of :email
+
+  def owner?(museum)
+    museum.in?(museums)
+  end
+
+  def owner_or_admin?(museum)
+    admin? || owner?(museum)
+  end
 end

@@ -31,5 +31,5 @@ end
 
 # Create default admin user
 admin_user = User.find_or_initialize_by(email: 'admin@com.com')
-admin_user.assign_attributes( password: 'admin_pass', password_confirmation: 'admin_pass')
+admin_user.assign_attributes( first_name: "System", last_name: "Admin", password: 'admin_pass', password_confirmation: 'admin_pass', admin: true)
 admin_user.save!

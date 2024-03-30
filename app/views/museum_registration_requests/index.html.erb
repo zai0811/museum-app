@@ -1,14 +1,36 @@
-<p style="color: green"><%= notice %></p>
-
+<%= link_to "Crear solicitud de registro", new_museum_registration_request_path %>
+<style>
+    table, th, td {
+        text-align: left;
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 15px;
+    }
+</style>
 <h1>Museum registration requests</h1>
+<table>
+  <tr>
+    <th>Museo</th>
+    <th>Estado</th>
+    <th>Resolución</th>
+    <th>Dirección</th>
+    <th>Ciudad</th>
+    <th>Departamento</th>
+    <th>Administrador/a</th>
+    <th>Acciones</th>
+  </tr>
 
-<div id="museum_registration_requests">
   <% @museum_registration_requests.each do |museum_registration_request| %>
-    <%= render museum_registration_request %>
-    <p>
-      <%= link_to "Show this museum registration request", museum_registration_request %>
-    </p>
+    <tr id="<%= dom_id museum_registration_request %>">
+      <td> <%= museum_registration_request.museum_name %></td>
+      <td> <%= museum_registration_request.registration_status.humanize %></td>
+      <td> <%= museum_registration_request.museum_code %></td>
+      <td> <%= museum_registration_request.museum_address %></td>
+      <td> todo - add city</td>
+      <td> todo - add department</td>
+      <td> <%= museum_registration_request.manager_email %></td>
+      <td> <%= link_to "Ver solicitud de registro", museum_registration_request %> </td>
+    </tr>
   <% end %>
-</div>
 
-<%= link_to "New museum registration request", new_museum_registration_request_path %>
+</table>

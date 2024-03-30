@@ -1,6 +1,7 @@
 class MuseumRegistrationRequestsController < ApplicationController
   before_action :set_museum_registration_request, only: %i[ show edit update destroy ]
   skip_before_action :authenticate_user!, only: %i[ new create ]
+  skip_before_action :authorize_user!, only: %i[ new create ]
 
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
@@ -60,28 +61,29 @@ class MuseumRegistrationRequestsController < ApplicationController
     @museum_registration_request = MuseumRegistrationRequest.find(params[:id])
     status = params[:registration_status].to_i
 
-    if status == MuseumRegistrationRequest::APPROVED
-      begin
-        @museum = @museum_registration_request.accept_registration_request!
-        redirect_to museum_url(@museum), notice: "Solicitud approbada! Nuevo museo creado: #{@museum.name}."
-      rescue StandardError => e
-        redirect_to museum_registration_requests_path, alert: e.message
-      end
-    else
-      @museum_registration_request.update_registration_status(status)
-      redirect_to @museum_registration_request, notice: "Se actualizó el estado correctamente."
+    begin
+      message = @museum_registration_request.update_registration_status!(status) ? "Se actualizó el estado correctamente." : "Estado inválido."
+      redirect_to @museum_registration_request, notice: message
+
+    rescue StandardError => e # todo add more classes
+      redirect_to @museum_registration_request, alert: e.message
     end
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_museum_registration_request
-      @museum_registration_request = MuseumRegistrationRequest.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def museum_registration_request_params
-      params.require(:museum_registration_request).permit(:museum_name, :museum_code, :museum_address, :manager_email, :manager_name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_museum_registration_request
+    @museum_registration_request = MuseumRegistrationRequest.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def museum_registration_request_params
+    params.require(:museum_registration_request).permit(:museum_name, :museum_code, :museum_address, :manager_email, :manager_name)
+  end
+
+  def authorize_user!
+    authorized = current_user.admin?
+    not_authorized  unless authorized
+  end
 end
