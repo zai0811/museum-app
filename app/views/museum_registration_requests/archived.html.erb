@@ -1,0 +1,4 @@
+<h1><%= MuseumRegistrationRequest.model_name.human(count: 2) %></h1>
+<%= link_to t("museum_registration_requests.archived.back"), museum_registration_requests_path %>
+
+<%= render "museum_registration_request_table", museum_registration_requests: @museum_registration_requests %>

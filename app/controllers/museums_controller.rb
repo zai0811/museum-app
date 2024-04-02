@@ -1,7 +1,7 @@
 class MuseumsController < ApplicationController
   before_action :set_museum, only: %i[ show edit update destroy ]
   skip_before_action :authenticate_user!, only: %i[ index show ]
-  skip_before_action :authorize_user!, only: %i[ index show ]
+  skip_before_action :authorize_user!, only: %i[ index show edit update ]
 
   # GET /museums or /museums.json
   def index
@@ -19,6 +19,9 @@ class MuseumsController < ApplicationController
 
   # GET /museums/1/edit
   def edit
+    # Need to add authorize user here becuase the before_action that comes from the action controller is
+    # executed before the set_museum so the method becomes authorize_user!(nil) = false
+    authorize_user!
   end
 
   # POST /museums or /museums.json
@@ -28,7 +31,7 @@ class MuseumsController < ApplicationController
 
     respond_to do |format|
       if @museum.save
-        format.html { redirect_to museum_url(@museum), notice: "Museum was successfully created." }
+        format.html { redirect_to museum_url(@museum), notice: t(".success") }
         format.json { render :show, status: :created, location: @museum }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,9 +42,11 @@ class MuseumsController < ApplicationController
 
   # PATCH/PUT /museums/1 or /museums/1.json
   def update
+    authorize_user!
+
     respond_to do |format|
       if @museum.update(museum_params)
-        format.html { redirect_to museum_url(@museum), notice: "Museum was successfully updated." }
+        format.html { redirect_to museum_url(@museum), notice: t(".success") }
         format.json { render :show, status: :ok, location: @museum }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,13 +59,9 @@ class MuseumsController < ApplicationController
   def destroy
     @museum.destroy!
     respond_to do |format|
-      format.html { redirect_to museums_url, notice: "Museum was successfully destroyed." }
+      format.html { redirect_to museums_url, notice: t(".success") }
       format.json { head :no_content }
     end
-  end
-
-  def my_museums
-
   end
 
   private
@@ -77,16 +78,13 @@ class MuseumsController < ApplicationController
 
   def authorize_user!
     authorized = case action_name
-                 when "new" then current_user.admin?
-                 when "create" then current_user.admin?
-                 when "update" then current_user.owner_or_admin?(@museum)
-                 when "edit" then current_user.owner_or_admin?(@museum)
-                 when "destroy" then current_user.admin?
+                 when "new", "create", "destroy" then current_user.admin?
+                 when "update", "edit" then current_user.admin_or_museum_owner?(@museum)
                  else
                    false
                  end
 
-    not_authorized  unless authorized
+    not_authorized unless authorized
   end
 
 end

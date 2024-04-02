@@ -1,7 +1,11 @@
 class Museum < ApplicationRecord
+  DRAFT = 0
+  PUBLISHED = 1
+  ARCHIVED = 2
+
   belongs_to :user
   belongs_to :museum_registration_request
   validates_presence_of :name, :code
 
-  enum :museum_status, { draft: 0, published: 2, archived: 3}, default: :draft
+  enum :museum_status, { draft: DRAFT, published: PUBLISHED, archived: ARCHIVED}, default: :draft
 end

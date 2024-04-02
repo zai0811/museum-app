@@ -19,9 +19,9 @@
       <%= link_to t('global.menu.home'), root_path %> |
       <% if user_signed_in? %>
         <%= link_to t('global.menu.profile'), edit_user_registration_path %> |
+        <%= link_to t('global.menu.registrations_request_list'), museum_registration_requests_path %> |
         <% if current_user.admin? %>
           <%= link_to t('devise.invitations.new.header'), new_user_invitation_path %> |
-          <%= link_to t('global.menu.registrations_request_list'), museum_registration_requests_path %> |
           <%= link_to t('global.menu.users_list'), users_path %> |
         <% end %>
         <%= link_to t('global.menu.museums_list'), museums_path %> |

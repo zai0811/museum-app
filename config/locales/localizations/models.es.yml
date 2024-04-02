@@ -1,0 +1,44 @@
+es:
+  activerecord:
+    models:
+      museum_registration_request:
+        one: "Solicitud de Registro"
+        other: "Solicitudes de Registro"
+      museum:
+        one: "Museo"
+        other: "Museos"
+    attributes:
+      museum_registration_request:
+        museum_name: "Nombre del museo"
+        museum_code: "Código de registro"
+        museum_address: "Dirección"
+        manager_email: "Correo del/de la administrador/a"
+        manager_name: "Nombre del/de la administrador/a"
+        created_at: "Creado el"
+        updated_at: "Actualizado el"
+        created_by: "Creado por"
+        updated_by: "Actualizado por"
+        anonymous: "Anónimo"
+        registration_status: "Estado"
+        registration_statuses:
+          not_reviewed: "No Procesado"
+          approved: "Aprobado"
+          rejected: "Rechazado"
+          archived: "Archivado"
+      museum:
+        name: "Nombre"
+        code: "Resolución"
+        about: "Descripción"
+        email: "Correo electrónico del museo"
+        phone: "Teléfono del museo"
+        page: "Página web del museo"
+        address: "Dirección"
+        museum/user:
+          email: "Correo del/la administrador/a"
+        museum_status: "Estado"
+        museum_statuses:
+          draft: "Borrador"
+          published: "Publicado"
+          archived: "Archivado"
+        museum/museum_registration_request:
+          id: "Solicitud de registro"
