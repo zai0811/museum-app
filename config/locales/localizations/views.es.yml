@@ -1,0 +1,37 @@
+es:
+  global:
+    partials:
+      empty_list: "No hay items para mostrar."
+
+  museum_registration_requests:
+    index:
+      create: "Crear una nueva solicitud de registro"
+      view: "Ver solicitud de registro"
+      view_archived: "Ver solicitudes archivadas"
+    show:
+      back: "Volver a la lista de solicitudes"
+      approve_button: "Aprobar solicitud"
+      reject_button: "Rechazar solicitud"
+      archive_button: "Archivar solicitud"
+    new:
+      title: "Nueva Solicitud de Registro"
+      back: "Volver a la lista de solicitudes"
+    archived:
+      back: "Volver a la lista de solicitudes"
+  museums:
+    index:
+      create: "Crear nuevo museo"
+      view: "Ver museo"
+    show:
+      back: "Volver a explorar museos"
+      edit: "Editar museo"
+      destroy: "Eliminar museo"
+    new:
+      title: "Nuevo Museo"
+      back: "Volver a explorar museos"
+    edit:
+      title: "Editar Museo"
+      view: "Ver museo"
+      back: "Volver a explorar museos"
+    other:
+      created_by_request: "Creado por solicidud de registro"

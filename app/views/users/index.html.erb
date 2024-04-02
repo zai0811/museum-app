@@ -1,5 +1,11 @@
-<p style="color: green"><%= notice %></p>
-
+<style>
+    table, th, td {
+        text-align: left;
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 15px;
+    }
+</style>
 <h1>Users</h1>
 <%= link_to "New user", new_user_path %>
 <div id="users">
@@ -7,6 +13,7 @@
     <tr>
       <th>Nombre</th>
       <th>Apellido</th>
+      <th>Cédula de Ideantidad</th>
       <th>Email</th>
       <th>Creado por invitación?</th>
       <th>Invitación aceptada?</th>
@@ -16,6 +23,7 @@
     <tr id="<%= dom_id user %>">
       <td> <%= user.first_name %></td>
       <td> <%= user.last_name %></td>
+      <td> <%= user.ci %></td>
       <td> <%= user.email %></td>
       <td> <%= user.created_by_invite?%></td>
       <td> <%= user.invitation_accepted? %></td>

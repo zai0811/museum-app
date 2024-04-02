@@ -1,36 +1,10 @@
-<%= link_to "Crear solicitud de registro", new_museum_registration_request_path %>
-<style>
-    table, th, td {
-        text-align: left;
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 15px;
-    }
-</style>
-<h1>Museum registration requests</h1>
-<table>
-  <tr>
-    <th>Museo</th>
-    <th>Estado</th>
-    <th>Resolución</th>
-    <th>Dirección</th>
-    <th>Ciudad</th>
-    <th>Departamento</th>
-    <th>Administrador/a</th>
-    <th>Acciones</th>
-  </tr>
+<% admin = current_user.admin? ? true : false %>
 
-  <% @museum_registration_requests.each do |museum_registration_request| %>
-    <tr id="<%= dom_id museum_registration_request %>">
-      <td> <%= museum_registration_request.museum_name %></td>
-      <td> <%= museum_registration_request.registration_status.humanize %></td>
-      <td> <%= museum_registration_request.museum_code %></td>
-      <td> <%= museum_registration_request.museum_address %></td>
-      <td> todo - add city</td>
-      <td> todo - add department</td>
-      <td> <%= museum_registration_request.manager_email %></td>
-      <td> <%= link_to "Ver solicitud de registro", museum_registration_request %> </td>
-    </tr>
-  <% end %>
+<h1><%= MuseumRegistrationRequest.model_name.human(count: 2) %></h1>
+<%= link_to t(".create"), new_museum_registration_request_path %>
 
-</table>
+<% if admin %>
+  | <%= link_to t(".view_archived"), archived_museum_registration_requests_path %>
+<% end %>
+
+<%= render "museum_registration_request_table", museum_registration_requests: @museum_registration_requests %>

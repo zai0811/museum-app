@@ -1,9 +1,9 @@
-<h1>New museum</h1>
+<h1><%=t(".title") %></h1>
 
 <%= render "form", museum: @museum %>
 
 <br>
 
 <div>
-  <%= link_to "Back to museums", museums_path %>
+  <%= link_to t(".back"), museums_path %>
 </div>

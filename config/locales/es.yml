@@ -10,7 +10,7 @@ es:
           has_many: No se puede eliminar el registro porque existen %{record} dependientes
   global:
     menu:
-      home: Página principal
+      home: Museum App Dev
       users_list: Usuarios
       registrations_request_list: Solicitudes de Registro
       museums_list: Explorar Museos
@@ -227,7 +227,7 @@ es:
   time:
     am: am
     formats:
-      default: "%A, %-d de %B de %Y %H:%M:%S %z"
-      long: "%-d de %B de %Y %H:%M"
-      short: "%-d de %b %H:%M"
+      default: "%-d/%-m/%y %H:%M"
+      long:  "%A, %-d de %B de %Y %H:%M:%S %z"
+      short: "%-d/%-m/%y %H:%M"
     pm: pm

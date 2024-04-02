@@ -1,10 +1,10 @@
-<h1>Editing museum</h1>
+<h1><%= t(".title") %> </h1>
 
 <%= render "form", museum: @museum %>
 
 <br>
 
 <div>
-  <%= link_to "Show this museum", @museum %> |
-  <%= link_to "Back to museums", museums_path %>
+  <%= link_to t(".view"), @museum %> |
+  <%= link_to t(".back"), museums_path %>
 </div>

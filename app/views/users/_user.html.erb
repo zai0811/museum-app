@@ -1,12 +1,7 @@
 <div id="<%= dom_id user %>">
   <p>
-    <strong>First name:</strong>
-    <%= user.first_name %>
-  </p>
-
-  <p>
-    <strong>Last name:</strong>
-    <%= user.last_name %>
+    <strong>Nombre completo:</strong>
+    <%= user.last_name %>, <%= user.first_name %>
   </p>
 
   <p>
@@ -19,5 +14,14 @@
     <%= user.ci %>
   </p>
 
+  <p>
+    <strong>Creado por invitación?:</strong>
+    <%= user.created_by_invite? %>
+  </p>
+
+  <p>
+    <strong>Invitación aceptada?:</strong>
+    <%= user.invitation_accepted? %>
+  </p>
 
 </div>

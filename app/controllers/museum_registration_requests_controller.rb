@@ -1,11 +1,16 @@
 class MuseumRegistrationRequestsController < ApplicationController
-  before_action :set_museum_registration_request, only: %i[ show edit update destroy ]
+  before_action :set_museum_registration_request, only: %i[ show ]
   skip_before_action :authenticate_user!, only: %i[ new create ]
-  skip_before_action :authorize_user!, only: %i[ new create ]
+  skip_before_action :authorize_user!, only: %i[ new create index ]
 
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
-    @museum_registration_requests = MuseumRegistrationRequest.all
+    if current_user.admin?
+      @museum_registration_requests = MuseumRegistrationRequest.active_status
+    else
+      @museum_registration_requests = MuseumRegistrationRequest.active_status.where(created_by_id: current_user.id)
+    end
+
   end
 
   # GET /museum_registration_requests/1 or /museum_registration_requests/1.json
@@ -17,43 +22,20 @@ class MuseumRegistrationRequestsController < ApplicationController
     @museum_registration_request = MuseumRegistrationRequest.new
   end
 
-  # GET /museum_registration_requests/1/edit
-  def edit
-  end
-
   # POST /museum_registration_requests or /museum_registration_requests.json
   def create
     @museum_registration_request = MuseumRegistrationRequest.new(museum_registration_request_params)
 
+    if current_user
+      @museum_registration_request.created_by = current_user
+    end
+
     respond_to do |format|
       if @museum_registration_request.save
-        format.html { redirect_to root_path, notice: "Museum registration request was successfully created." }
+        format.html { redirect_to root_path, notice: t(".success") }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # PATCH/PUT /museum_registration_requests/1 or /museum_registration_requests/1.json
-  def update
-    respond_to do |format|
-      if @museum_registration_request.update(museum_registration_request_params)
-        format.html { redirect_to museum_registration_request_url(@museum_registration_request), notice: "Museum registration request was successfully updated." }
-        format.json { render :show, status: :ok, location: @museum_registration_request }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @museum_registration_request.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /museum_registration_requests/1 or /museum_registration_requests/1.json
-  def destroy
-    @museum_registration_request.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to museum_registration_requests_url, notice: "Museum registration request was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
@@ -62,12 +44,18 @@ class MuseumRegistrationRequestsController < ApplicationController
     status = params[:registration_status].to_i
 
     begin
-      message = @museum_registration_request.update_registration_status!(status) ? "Se actualizó el estado correctamente." : "Estado inválido."
+      message = @museum_registration_request.update_registration_status!(status, current_user) ?
+                  t(".success", status: t("activerecord.attributes.museum_registration_request.registration_statuses.#{@museum_registration_request.registration_status}"))
+                  : t(".failure")
       redirect_to @museum_registration_request, notice: message
 
     rescue StandardError => e # todo add more classes
       redirect_to @museum_registration_request, alert: e.message
     end
+  end
+
+  def archived
+    @museum_registration_requests = MuseumRegistrationRequest.where(registration_status: MuseumRegistrationRequest::ARCHIVED)
   end
 
   private
@@ -83,7 +71,12 @@ class MuseumRegistrationRequestsController < ApplicationController
   end
 
   def authorize_user!
-    authorized = current_user.admin?
-    not_authorized  unless authorized
+    autorized = case action_name
+                when "update_registration_status", "show", "archived" then current_user.admin?
+                else
+                  false
+                end
+
+    not_authorized unless autorized
   end
 end

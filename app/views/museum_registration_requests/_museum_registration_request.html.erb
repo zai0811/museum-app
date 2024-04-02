@@ -1,34 +1,69 @@
 <div id="<%= dom_id museum_registration_request %>">
+  <% admin = current_user.admin? ? true : false %>
 
-  <h2> Solicitud de Registro #<%= museum_registration_request.id %></h2>
+  <h2> <%= MuseumRegistrationRequest.model_name.human %></h2>
+
   <p>
-    <strong><%= t("museum_registration_request.attributes.registration_status") %>:</strong>
-
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("registration_status") %>:</strong>
+    <%= t("activerecord.attributes.museum_registration_request.registration_statuses.#{museum_registration_request.registration_status}") %>
   </p>
 
   <p>
-    <strong><%= t("museum_registration_request.attributes.name") %>:</strong>
-    <%= museum_registration_request.museum_name %>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_name") %>:</strong>
+    <% if museum_registration_request.museum %>
+      <%= link_to museum_registration_request.museum_name, museum_registration_request.museum %>
+    <% else %>
+      <%= museum_registration_request.museum_name %>
+    <% end %>
   </p>
 
   <p>
-    <strong>Museum code:</strong>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_code") %>:</strong>
     <%= museum_registration_request.museum_code %>
   </p>
 
   <p>
-    <strong>Museum address:</strong>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_address") %>:</strong>
     <%= museum_registration_request.museum_address %>
   </p>
 
   <p>
-    <strong>Manager email:</strong>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("manager_email") %>:</strong>
     <%= museum_registration_request.manager_email %>
   </p>
 
   <p>
-    <strong>Manager name:</strong>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("manager_name") %>:</strong>
     <%= museum_registration_request.manager_name %>
   </p>
 
+  <p>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("created_at") %>:</strong>
+    <%= l(museum_registration_request.created_at) %>
+  </p>
+
+  <% if admin %>
+    <p>
+      <strong><%= t("activerecord.attributes.museum_registration_request.created_by") %>:</strong>
+    <% if museum_registration_request.created_by %>
+        <%= link_to museum_registration_request.created_by.email, museum_registration_request.created_by %>
+    <% else %>
+      <%= t("activerecord.attributes.museum_registration_request.anonymous") %>
+    <% end %>
+    </p>
+
+    <p>
+      <strong><%= MuseumRegistrationRequest.human_attribute_name("updated_at") %>:</strong>
+      <%= l(museum_registration_request.updated_at) %>
+    </p>
+
+    <p>
+      <strong><%= t("activerecord.attributes.museum_registration_request.updated_by") %>:</strong>
+      <% if museum_registration_request.updated_by %>
+        <%= link_to museum_registration_request.updated_by.email, museum_registration_request.updated_by %>
+      <% else %>
+        <%= t("activerecord.attributes.museum_registration_request.anonymous") %>
+      <% end %>
+    </p>
+  <% end %>
 </div>

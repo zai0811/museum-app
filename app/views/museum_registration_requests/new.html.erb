@@ -1,9 +1,9 @@
-<h1>New museum registration request</h1>
+<h1><%= t(".title") %></h1>
 
 <%= render "form", museum_registration_request: @museum_registration_request %>
 
 <br>
 
 <div>
-  <%= link_to "Back to museum registration requests", museum_registration_requests_path %>
+  <%= link_to t(".back"), museum_registration_requests_path %>
 </div>

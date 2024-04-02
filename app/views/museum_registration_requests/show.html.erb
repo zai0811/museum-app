@@ -1,14 +1,12 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @museum_registration_request %>
 
 <div>
-  <%= link_to "Back to museum registration requests", museum_registration_requests_path %>
-
   <% if @museum_registration_request.not_reviewed? %>
-    <%= button_to "Approve", update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::APPROVED), method: :patch %>
-    <%= button_to "Reject", update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::REJECTED), method: :patch %>
+    <%= button_to t(".approve_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::APPROVED), method: :patch %>
+    <%= button_to t(".reject_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::REJECTED), method: :patch %>
   <% elsif !@museum_registration_request.archived? %>
-    <%= button_to "Archive", update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::ARCHIVED), method: :patch %>
+    <%= button_to t(".archive_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::ARCHIVED), method: :patch %>
   <%end %>
+
+  <%= link_to t(".back"), museum_registration_requests_path %>
 </div>

@@ -1,0 +1,14 @@
+es:
+  museum_registration_requests:
+    create:
+      success: "La solicitud fue creada exitosamente!"
+    update_registration_status:
+      success: "Se actualizó el estado existosamente! Nuevo estado: %{status}"
+      failure: "El estado proveido es inválido"
+  museums:
+    create:
+      success: "El museo fue creado exitosamente!"
+    update:
+      success: "El museo fue editado exitosamente!"
+    destroy:
+      success: "El museo fue eliminado exitosamente!"

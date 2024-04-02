@@ -1,10 +1,13 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @museum %>
 
 <div>
-  <%= link_to "Edit this museum", edit_museum_path(@museum) %> |
-  <%= link_to "Back to museums", museums_path %>
+  <% if current_user.admin_or_museum_owner?(@museum) %>
+    <%= link_to t(".edit"), edit_museum_path(@museum) %> |
+  <% end %>
 
-  <%= button_to "Destroy this museum", @museum, method: :delete %>
+  <%= link_to t(".back"), museums_path %>
+
+  <% if current_user.admin? %>
+    <%= button_to t(".destroy"), @museum, method: :delete %>
+  <% end %>
 </div>

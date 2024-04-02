@@ -1,46 +1,49 @@
 <div id="<%= dom_id museum %>">
+  <% admin = current_user.admin? ? true : false %>
+
+  <h2> <%= museum.name %></h2>
   <p>
-    <strong>Museum Name:</strong>
-    <%= museum.name %>
+    <strong><%= Museum.human_attribute_name("museum_status") %>:</strong>
+    <%= t("activerecord.attributes.museum.museum_statuses.#{museum.museum_status}") %>
   </p>
 
-  <p>
-    <strong>Created from registration request?:</strong>
-    <% if museum.museum_registration_request_id %>
-      <%= "Yes" %>
-    <% else %>
-      <%= "No" %>
-    <% end %>
-  </p>
+  <% if museum.museum_registration_request && admin %>
+    <p>
+      <strong> <%= t("museums.other.created_by_request") %>: </strong>
+      <%= link_to t("activerecord.attributes.museum.museum/museum_registration_request.id"), museum.museum_registration_request %>
+    </p>
+  <% end %>
+
 
   <p>
-    <strong>Description:</strong>
+    <strong><%= Museum.human_attribute_name("about") %>:</strong>
     <%= museum.about %>
   </p>
 
   <p>
-    <strong>Email:</strong>
+    <strong><%= Museum.human_attribute_name("email") %>:</strong>
     <%= museum.email %>
   </p>
 
   <p>
-    <strong>Phone:</strong>
+    <strong><%= Museum.human_attribute_name("phone") %>:</strong>
     <%= museum.phone %>
   </p>
 
   <p>
-    <strong>Page:</strong>
+    <strong><%= Museum.human_attribute_name("page") %>:</strong>
     <%= museum.page %>
   </p>
 
   <p>
-    <strong>Address:</strong>
+    <strong><%= Museum.human_attribute_name("address") %>:</strong>
     <%= museum.address %>
   </p>
 
+  <% if admin %>
   <p>
-    <strong>Museum Manager:</strong>
-    <%= museum.user.email %>
+    <strong><%= t("activerecord.attributes.museum.museum/user.email") %>:</strong>
+    <%= link_to museum.user.email, museum.user %>
   </p>
-
+    <% end %>
 </div>

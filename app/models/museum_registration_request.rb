@@ -5,27 +5,31 @@ class MuseumRegistrationRequest < ApplicationRecord
   ARCHIVED = 3
 
   has_one :museum
+  belongs_to :created_by, class_name: "User", optional: true
+  belongs_to :updated_by, class_name: "User", optional: true
   enum :registration_status, { not_reviewed: NOT_REVIEWED, approved: APPROVED, rejected: REJECTED, archived: ARCHIVED }, default: :not_reviewed
   validates_presence_of :manager_email, :manager_name, :museum_name, :museum_code, :museum_address
+  scope :active_status, -> { where(registration_status: [ NOT_REVIEWED, APPROVED, REJECTED ]) }
 
-  def update_registration_status!(status)
+  def update_registration_status!(status, updated_by)
     return false unless valid_status?(status)
     if status == APPROVED
       approve_registration_request!
     end
     update!(registration_status: status)
+    update!(updated_by: updated_by)
     true
   end
 
   private
 
   def valid_status?(status)
-    status.in?([ APPROVED, REJECTED, ARCHIVED ])
+    status.in?([APPROVED, REJECTED, ARCHIVED])
   end
 
   def approve_registration_request!
     if Museum.exists?(code: museum_code)
-      #todo add i18n new yml for each object
+      # todo add i18n new yml for each object
       raise StandardError, I18n.t("activerecord.errors.messages.museum_taken")
     end
 
@@ -38,9 +42,10 @@ class MuseumRegistrationRequest < ApplicationRecord
   def find_or_invite_user!
     user = User.find_by(email: manager_email)
     unless user
-      #TODO should do User.getAdminID or ignore the invited_by?
+      # TODO should do User.getAdminID or ignore the invited_by?
       user = User.invite!(email: manager_email)
     end
+    update!(created_by: user) unless created_by
     user
   end
 
