@@ -71,3 +71,6 @@ end
 gem "devise", "~> 4.9"
 gem 'devise-i18n'
 gem 'devise_invitable'
+gem "cssbundling-rails", "~> 1.4"
+
+gem "jsbundling-rails", "~> 1.3"
