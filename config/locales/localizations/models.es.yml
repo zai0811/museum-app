@@ -9,11 +9,11 @@ es:
         other: "Museos"
     attributes:
       museum_registration_request:
-        museum_name: "Nombre del museo"
+        museum_name: "Museo"
         museum_code: "Código de registro"
         museum_address: "Dirección"
-        manager_email: "Correo del/de la administrador/a"
-        manager_name: "Nombre del/de la administrador/a"
+        manager_email: "Correo electrónico"
+        manager_name: "Administrador/a"
         created_at: "Creado el"
         updated_at: "Actualizado el"
         created_by: "Creado por"

@@ -1,13 +1,13 @@
 <%= render @museum %>
 
 <div>
-  <% if current_user.admin_or_museum_owner?(@museum) %>
+  <% if current_user && current_user.admin_or_museum_owner?(@museum) %>
     <%= link_to t(".edit"), edit_museum_path(@museum) %> |
   <% end %>
 
   <%= link_to t(".back"), museums_path %>
 
-  <% if current_user.admin? %>
+  <% if current_user&.admin? %>
     <%= button_to t(".destroy"), @museum, method: :delete %>
   <% end %>
 </div>
