@@ -20,6 +20,7 @@ es:
       back: "Volver a la lista de solicitudes"
   museums:
     index:
+      title: "Explorar Museos"
       create: "Crear nuevo museo"
       view: "Ver museo"
     show:

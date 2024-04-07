@@ -1,11 +1,15 @@
-<div id="<%= dom_id museum %>">
-  <% admin = current_user.admin? ? true : false %>
+<div class="museum" id="<%= dom_id museum %>">
+  <% admin = current_user&.admin? ? true : false %>
 
   <h2> <%= museum.name %></h2>
-  <p>
-    <strong><%= Museum.human_attribute_name("museum_status") %>:</strong>
-    <%= t("activerecord.attributes.museum.museum_statuses.#{museum.museum_status}") %>
-  </p>
+
+  <% if admin %>
+    <p>
+      <strong><%= Museum.human_attribute_name("museum_status") %>:</strong>
+      <%= t("activerecord.attributes.museum.museum_statuses.#{museum.museum_status}") %>
+    </p>
+  <% end %>
+
 
   <% if museum.museum_registration_request && admin %>
     <p>
@@ -41,9 +45,10 @@
   </p>
 
   <% if admin %>
-  <p>
-    <strong><%= t("activerecord.attributes.museum.museum/user.email") %>:</strong>
-    <%= link_to museum.user.email, museum.user %>
-  </p>
-    <% end %>
+    <p>
+      <strong><%= t("activerecord.attributes.museum.museum/user.email") %>:</strong>
+      <%= link_to museum.user.email, museum.user %>
+    </p>
+  <% end %>
+  <%= link_to t("museums.index.view"), museum %>
 </div>

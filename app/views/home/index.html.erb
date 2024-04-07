@@ -1,15 +1,17 @@
-<div>
-  <div>
-    <h1> Descubrí la Riqueza cultural del país </h1>
-    <h4> Busca museos por nombre, ciudad, etc.</h4>
-    <input type="text" placeholder="Buscar museos...">
-  </div>
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+  <div class="row align-items-center g-lg-5 py-5">
+    <div class="col-lg-7 text-center text-lg-start">
+      <h1 class="display-4 fw-bold lh-1 mb-3"> Descubrí la Riqueza cultural del país </h1>
+      <p class="col-lg-10 fs-4"> Busca museos por nombre, ciudad, etc.</p>
 
-  <div>
-    <h3>  <%= link_to "Registrar Museo", new_museum_registration_request_path %> </h3>
-  </div>
-  <br>
-  <br>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Buscar museos">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      </form>
 
+    </div>
+  </div>
 </div>
+
+
 
