@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
   resources :museum_registration_requests, except: [:edit, :update, :destroy] do
     patch :update_registration_status, on: :member
-    get :archived, on: :collection, to: "museum_registration_requests#archived"
   end
+
+  resources :departments, only: [] do
+    resources :cities, only: [:index]
+  end
+
   devise_for :users
   resources :museums
   resources :users

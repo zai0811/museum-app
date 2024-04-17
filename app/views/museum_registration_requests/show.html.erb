@@ -1,12 +1,92 @@
-<%= render @museum_registration_request %>
+<% admin = current_user.admin? ? true : false %>
+<% if @museum_registration_request.approved? %>
+  <% color = "text-bg-success" %>
+<% elsif @museum_registration_request.rejected? %>
+  <% color = "text-bg-danger" %>
+<% elsif @museum_registration_request.not_reviewed? %>
+  <% color = "text-bg-primary" %>
+<% else %>
+  <% color = "text-bg-secondary" %>
+<% end %>
 
-<div>
+<h2> <%= MuseumRegistrationRequest.model_name.human %> </h2>
+<h5>
+    <span class="badge rounded-pill <%= color %> column">
+      <%= t("activerecord.attributes.museum_registration_request.registration_statuses.#{@museum_registration_request.registration_status}") %>
+    </span>
+</h5>
+
+<p>
+  <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_name") %>:</strong>
+  <% if @museum_registration_request.museum %>
+    <%= link_to @museum_registration_request.museum_name, @museum_registration_request.museum %>
+  <% else %>
+    <%= @museum_registration_request.museum_name %>
+  <% end %>
+</p>
+
+<p>
+  <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_code") %>:</strong>
+  <%= @museum_registration_request.museum_code %>
+</p>
+
+<p>
+  <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_address") %>:</strong>
+  <%= @museum_registration_request.museum_address %>
+</p>
+
+<p>
+  <strong><%= MuseumRegistrationRequest.human_attribute_name("manager_email") %>:</strong>
+  <%= @museum_registration_request.manager_email %>
+</p>
+
+<p>
+  <strong><%= MuseumRegistrationRequest.human_attribute_name("created_at") %>:</strong>
+  <%= l(@museum_registration_request.created_at) %>
+</p>
+
+<% if admin %>
+  <p>
+    <strong><%= t("activerecord.attributes.museum_registration_request.created_by") %>:</strong>
+    <% if @museum_registration_request.created_by %>
+      <%= link_to @museum_registration_request.created_by.email, @museum_registration_request.created_by %>
+    <% else %>
+      <%= t("activerecord.attributes.museum_registration_request.anonymous") %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("updated_at") %>:</strong>
+    <% if @museum_registration_request.updated_by %>
+      <%= l(@museum_registration_request.updated_at) %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong><%= t("activerecord.attributes.museum_registration_request.updated_by") %>:</strong>
+    <% if @museum_registration_request.updated_by %>
+      <%= link_to @museum_registration_request.updated_by.email, @museum_registration_request.updated_by %>
+    <% end %>
+  </p>
+<% end %>
+
+<div class="row">
   <% if @museum_registration_request.not_reviewed? %>
-    <%= button_to t(".approve_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::APPROVED), method: :patch %>
-    <%= button_to t(".reject_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::REJECTED), method: :patch %>
+    <div class="col-auto">
+      <%= button_to t(".approve_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::APPROVED), method: :patch, class: "btn btn-success btn-sm" %>
+    </div>
+    <div class="col-auto">
+      <%= button_to t(".reject_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::REJECTED), method: :patch, class: "btn btn-danger btn-sm" %>
+    </div>
   <% elsif !@museum_registration_request.archived? %>
-    <%= button_to t(".archive_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::ARCHIVED), method: :patch %>
-  <%end %>
-
-  <%= link_to t(".back"), museum_registration_requests_path %>
+    <div class="col-auto">
+      <%= button_to t(".archive_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::ARCHIVED), method: :patch, class: "btn btn-secondary btn-sm" %>
+    </div>
+  <% end %>
 </div>
+<div class="mt-3">
+  <%= link_to t(".back"), museum_registration_requests_path, class: "bi bi-arrow-left" %>
+</div>
+
+
+

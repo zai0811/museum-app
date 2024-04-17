@@ -6,33 +6,47 @@ es:
   museum_registration_requests:
     index:
       create: "Crear una nueva solicitud de registro"
-      view: "Ver solicitud de registro"
+      view: " Ver"
       view_archived: "Ver solicitudes archivadas"
+      department: "Departamento"
+      city: "Ciudad"
     show:
       back: "Volver a la lista de solicitudes"
       approve_button: "Aprobar solicitud"
       reject_button: "Rechazar solicitud"
       archive_button: "Archivar solicitud"
+      department: "Departamento"
+      city: "Ciudad"
     new:
       title: "Nueva Solicitud de Registro"
       back: "Volver a la lista de solicitudes"
+      department: "Departamento"
+      city: "Ciudad"
     archived:
       back: "Volver a la lista de solicitudes"
   museums:
     index:
       title: "Explorar Museos"
       create: "Crear nuevo museo"
-      view: "Ver museo"
+      view: "Ver más"
+      department: "Departamento"
+      city: "Ciudad"
     show:
       back: "Volver a explorar museos"
       edit: "Editar museo"
       destroy: "Eliminar museo"
+      department: "Departamento"
+      city: "Ciudad"
     new:
       title: "Nuevo Museo"
       back: "Volver a explorar museos"
+      department: "Departamento"
+      city: "Ciudad"
     edit:
       title: "Editar Museo"
       view: "Ver museo"
       back: "Volver a explorar museos"
+      department: "Departamento"
+      city: "Ciudad"
     other:
       created_by_request: "Creado por solicidud de registro"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_01_224948) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_14_233205) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,13 +35,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_01_224948) do
     t.string "museum_code", null: false
     t.string "museum_address", null: false
     t.string "manager_email", null: false
-    t.string "manager_name", null: false
     t.integer "registration_status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
+    t.bigint "department_id", null: false
+    t.bigint "city_id", null: false
+    t.index ["city_id"], name: "index_museum_registration_requests_on_city_id"
     t.index ["created_by_id"], name: "index_museum_registration_requests_on_created_by_id"
+    t.index ["department_id"], name: "index_museum_registration_requests_on_department_id"
     t.index ["updated_by_id"], name: "index_museum_registration_requests_on_updated_by_id"
   end
 
@@ -58,6 +61,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_01_224948) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "museum_registration_request_id"
+    t.bigint "department_id", null: false
+    t.bigint "city_id", null: false
+    t.index ["city_id"], name: "index_museums_on_city_id"
+    t.index ["department_id"], name: "index_museums_on_department_id"
     t.index ["museum_registration_request_id"], name: "index_museums_on_museum_registration_request_id"
     t.index ["user_id"], name: "index_museums_on_user_id"
   end
@@ -90,8 +97,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_01_224948) do
   end
 
   add_foreign_key "cities", "departments"
+  add_foreign_key "museum_registration_requests", "cities"
+  add_foreign_key "museum_registration_requests", "departments"
   add_foreign_key "museum_registration_requests", "users", column: "created_by_id"
   add_foreign_key "museum_registration_requests", "users", column: "updated_by_id"
+  add_foreign_key "museums", "cities"
+  add_foreign_key "museums", "departments"
   add_foreign_key "museums", "museum_registration_requests"
   add_foreign_key "museums", "users"
 end

@@ -1,10 +1,70 @@
 <% admin = current_user.admin? ? true : false %>
+<div class="row">
+  <div class="col-auto me-auto">
+    <h2><%= MuseumRegistrationRequest.model_name.human(count: 2) %></h2>
+  </div>
+  <div class="col text-end">
+    <%= button_to t(".create"), new_museum_registration_request_path, method: :get, class: "btn btn-outline-secondary" %>
+  </div>
+</div>
 
-<h1><%= MuseumRegistrationRequest.model_name.human(count: 2) %></h1>
-<%= link_to t(".create"), new_museum_registration_request_path %>
+<div class="table-responsive mt-3">
+  <table class="table">
+    <thead class="table-light align-middle">
+    <tr>
+      <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("museum_name") %></th>
+      <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("registration_status") %></th>
+      <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("museum_code") %></th>
+      <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("museum_address") %></th>
+      <th scope="col"><%= t(".city") %></th>
+      <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("manager_email") %></th>
+      <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("created_at") %></th>
+      <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("updated_at") %></th>
+      <% if admin %>
+        <th scope="col">Acciones</th>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody class="align-middle">
+    <% if @museum_registration_requests %>
+      <% @museum_registration_requests.each do |museum_registration_request| %>
+        <% if museum_registration_request.approved? %>
+          <% color = "text-bg-success" %>
+        <% elsif museum_registration_request.rejected? %>
+          <% color = "text-bg-danger" %>
+        <% elsif museum_registration_request.not_reviewed? %>
+          <% color = "text-bg-primary" %>
+        <% else %>
+          <% color = "text-bg-secondary" %>
+        <% end %>
 
-<% if admin %>
-  | <%= link_to t(".view_archived"), archived_museum_registration_requests_path %>
-<% end %>
+        <tr id="<%= dom_id museum_registration_request %>">
+          <td> <%= museum_registration_request.museum_name %></td>
+          <td>
+            <span class="badge rounded-pill <%= color %> px-2 py-2">
+            <%= t("activerecord.attributes.museum_registration_request.registration_statuses.#{museum_registration_request.registration_status}") %>
+            </span>
+          </td>
+          <td> <%= museum_registration_request.museum_code %></td>
+          <td> <%= museum_registration_request.museum_address %></td>
+          <td> <%= museum_registration_request.city.name %> </td>
+          <td> <%= museum_registration_request.manager_email %></td>
+          <td> <%= l(museum_registration_request.created_at) %></td>
+          <td>
+            <% if museum_registration_request.updated_by %>
+              <%= l(museum_registration_request.updated_at) %>
+            <% end %>
+          </td>
 
-<%= render "museum_registration_request_table", museum_registration_requests: @museum_registration_requests %>
+          <% if admin %>
+            <td class="text-end"> <%= link_to t("museum_registration_requests.index.view"), museum_registration_request, class: "bi bi-eye-fill" %> </td>
+          <% end %>
+        </tr>
+      <% end %>
+      </tbody>
+      </table>
+    <% else %>
+      <p> <%= t("global.partials.empty_list") %>  </p>
+    <% end %>
+
+    </div>
