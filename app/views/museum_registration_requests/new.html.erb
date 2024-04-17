@@ -1,9 +1,12 @@
-<h1><%= t(".title") %></h1>
+<h2><%= t(".title") %></h2>
+<% if current_user %><p> Serás asignado como el administrador de este museo automáticamente.</p>
+<% end %>
 
 <%= render "form", museum_registration_request: @museum_registration_request %>
 
 <br>
-
-<div>
-  <%= link_to t(".back"), museum_registration_requests_path %>
-</div>
+<% if current_user&.admin? %>
+  <div>
+    <%= link_to t(".back"), museum_registration_requests_path %>
+  </div>
+<% end %>

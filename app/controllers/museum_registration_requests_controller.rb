@@ -6,9 +6,9 @@ class MuseumRegistrationRequestsController < ApplicationController
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
     if current_user.admin?
-      @museum_registration_requests = MuseumRegistrationRequest.active_status
+      @museum_registration_requests = MuseumRegistrationRequest.all
     else
-      @museum_registration_requests = MuseumRegistrationRequest.active_status.where(created_by_id: current_user.id)
+      @museum_registration_requests = MuseumRegistrationRequest.where(created_by_id: current_user.id)
     end
 
   end
@@ -20,6 +20,8 @@ class MuseumRegistrationRequestsController < ApplicationController
   # GET /museum_registration_requests/new
   def new
     @museum_registration_request = MuseumRegistrationRequest.new
+    @cities = City.all
+    @deparments = Department.all
   end
 
   # POST /museum_registration_requests or /museum_registration_requests.json
@@ -28,6 +30,7 @@ class MuseumRegistrationRequestsController < ApplicationController
 
     if current_user
       @museum_registration_request.created_by = current_user
+      @museum_registration_request.manager_email = current_user.email
     end
 
     respond_to do |format|
@@ -54,10 +57,6 @@ class MuseumRegistrationRequestsController < ApplicationController
     end
   end
 
-  def archived
-    @museum_registration_requests = MuseumRegistrationRequest.where(registration_status: MuseumRegistrationRequest::ARCHIVED)
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -67,7 +66,11 @@ class MuseumRegistrationRequestsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def museum_registration_request_params
-    params.require(:museum_registration_request).permit(:museum_name, :museum_code, :museum_address, :manager_email, :manager_name)
+    params.require(:museum_registration_request).permit(:museum_name, :museum_code, :museum_address, :manager_email, :department_id, :city_id)
+  end
+
+  def get_archived
+    @museum_registration_requests = MuseumRegistrationRequest.where(registration_status: MuseumRegistrationRequest::ARCHIVED)
   end
 
   def authorize_user!

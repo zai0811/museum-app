@@ -5,7 +5,9 @@ class Museum < ApplicationRecord
 
   belongs_to :user
   belongs_to :museum_registration_request
-  validates_presence_of :name, :code
+  belongs_to :department
+  belongs_to :city
+  validates_presence_of :name, :code, :city, :department
 
   enum :museum_status, { draft: DRAFT, published: PUBLISHED, archived: ARCHIVED}, default: :draft
 end

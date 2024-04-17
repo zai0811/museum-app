@@ -34,14 +34,14 @@
           <%= link_to t('devise.shared.links.sign_in'), new_user_session_path, class: "nav-link" %>
         <% end %>
       </div>
-      <% if user_signed_in %>
-        <%= button_to t('global.menu.log_out'), destroy_user_session_path, method: :delete, class: "btn btn-secondary btn-sm" %>
-      <% end %>
     </div>
+    <% if user_signed_in %>
+      <%= button_to t('global.menu.log_out'), destroy_user_session_path, method: :delete, class: "btn btn-secondary btn-sm" %>
+    <% end %>
   </div>
 </nav>
 
-<div class="container">
+<div class="container mt-5">
   <%= yield %>
   <p class="notice" style="color: green"><%= notice %></p>
   <p class="alert" style="color: red"><%= alert %></p>

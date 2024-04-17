@@ -7,8 +7,10 @@ class MuseumRegistrationRequest < ApplicationRecord
   has_one :museum
   belongs_to :created_by, class_name: "User", optional: true
   belongs_to :updated_by, class_name: "User", optional: true
+  belongs_to :department
+  belongs_to :city
   enum :registration_status, { not_reviewed: NOT_REVIEWED, approved: APPROVED, rejected: REJECTED, archived: ARCHIVED }, default: :not_reviewed
-  validates_presence_of :manager_email, :manager_name, :museum_name, :museum_code, :museum_address
+  validates_presence_of :manager_email, :museum_name, :museum_code, :museum_address
   scope :active_status, -> { where(registration_status: [ NOT_REVIEWED, APPROVED, REJECTED ]) }
 
   def update_registration_status!(status, updated_by)
@@ -21,6 +23,13 @@ class MuseumRegistrationRequest < ApplicationRecord
     true
   end
 
+  def departments
+    Department.all
+  end
+
+  def cities
+    City.find_by(department: department)
+  end
   private
 
   def valid_status?(status)
@@ -35,7 +44,7 @@ class MuseumRegistrationRequest < ApplicationRecord
 
     ActiveRecord::Base.transaction do
       user = find_or_invite_user!
-      Museum.create!(name: museum_name, code: museum_code, address: museum_address, user_id: user.id, museum_registration_request_id: id)
+      Museum.create!(name: museum_name, code: museum_code, address: museum_address, user_id: user.id, museum_registration_request_id: id, department_id: department_id, city_id: city_id)
     end
   end
 

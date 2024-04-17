@@ -73,7 +73,7 @@ class MuseumsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def museum_params
-    params.require(:museum).permit(:name, :code, :about, :email, :phone, :page, :address, :user_id)
+    params.require(:museum).permit(:name, :code, :about, :email, :phone, :page, :address, :user_id, :department_id, :city_id)
   end
 
   def authorize_user!
