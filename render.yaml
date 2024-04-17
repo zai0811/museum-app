@@ -1,13 +1,14 @@
 databases:
   - name: postgres
-    ipAllowList: []
     databaseName: museum_app
     user: museum_app
+    plan: free
 
 services:
   - type: web
     name: museum_app
-    env: ruby
+    runtime: ruby
+    plan: free
     buildCommand: "./render-build.sh"
     startCommand: "bundle exec rails s"
     envVars:
