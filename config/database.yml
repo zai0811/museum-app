@@ -1,5 +1,6 @@
 default: &default
   adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   username: alex
@@ -18,4 +19,7 @@ test:
 
 production:
   <<: *default
-  database: mapp_production
+  url: <%= ENV['DATABASE_URL'] %>
+  database: museum_app_production
+  username: museum_app
+  password: <%= ENV['MUSEUM_APP_DATABASE_PASSWORD'] %>
