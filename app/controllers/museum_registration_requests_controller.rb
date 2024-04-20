@@ -21,7 +21,7 @@ class MuseumRegistrationRequestsController < ApplicationController
   def new
     @museum_registration_request = MuseumRegistrationRequest.new
     @cities = City.all
-    @deparments = Department.all
+    @departments = Department.all
   end
 
   # POST /museum_registration_requests or /museum_registration_requests.json

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     patch :update_registration_status, on: :member
   end
 
-  resources :departments, only: [] do
+  resources :departments do
     resources :cities, only: [:index]
   end
 
