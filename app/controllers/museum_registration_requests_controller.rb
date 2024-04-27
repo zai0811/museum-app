@@ -1,7 +1,7 @@
 class MuseumRegistrationRequestsController < ApplicationController
   before_action :set_museum_registration_request, only: %i[ show ]
-  skip_before_action :authenticate_user!, only: %i[ new create ]
-  skip_before_action :authorize_user!, only: %i[ new create index ]
+  skip_before_action :authenticate_user!, only: %i[ new create cities ]
+  skip_before_action :authorize_user!, only: %i[ new create index cities ]
 
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
@@ -21,7 +21,7 @@ class MuseumRegistrationRequestsController < ApplicationController
   def new
     @museum_registration_request = MuseumRegistrationRequest.new
     @cities = City.all
-    @departments = Department.all
+    @departments = Department.order(:name).map{ |department| [department.name, department.id]}
   end
 
   # POST /museum_registration_requests or /museum_registration_requests.json
@@ -54,6 +54,17 @@ class MuseumRegistrationRequestsController < ApplicationController
 
     rescue StandardError => e # todo add more classes
       redirect_to @museum_registration_request, alert: e.message
+    end
+  end
+
+  def cities
+    # set a "target" this will contain the id of the html tag we want to update
+    # this function will be connected with cities.turbo_stream.erb passing the @target and @cities attributes
+    @target = params[:target]
+    @department = Department.find(params[:department])
+    @cities = @department.cities.order(:name).map{ |city| [city.name, city.id]}
+    respond_to do |format|
+      format.turbo_stream
     end
   end
 
