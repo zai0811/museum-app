@@ -73,14 +73,26 @@
 <div class="row">
   <% if @museum_registration_request.not_reviewed? %>
     <div class="col-auto">
-      <%= button_to t(".approve_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::APPROVED), method: :patch, class: "btn btn-success btn-sm" %>
+      <%= button_to t(".approve_button"),
+                    update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::APPROVED),
+                    method: :patch,
+                    form: { data: { turbo_confirm: "Are you sure?" } },
+                    class: "btn btn-success btn-sm" %>
     </div>
     <div class="col-auto">
-      <%= button_to t(".reject_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::REJECTED), method: :patch, class: "btn btn-danger btn-sm" %>
+      <%= button_to t(".reject_button"),
+                    update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::REJECTED),
+                    method: :patch,
+                    form: { data: { turbo_confirm: "Are you sure?" } },
+                    class: "btn btn-danger btn-sm" %>
     </div>
   <% elsif !@museum_registration_request.archived? %>
     <div class="col-auto">
-      <%= button_to t(".archive_button"), update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::ARCHIVED), method: :patch, class: "btn btn-secondary btn-sm" %>
+      <%= button_to t(".archive_button"),
+                    update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::ARCHIVED),
+                    method: :patch,
+                    form: { data: { turbo_confirm: "Are you sure?" } },
+                    class: "btn btn-secondary btn-sm" %>
     </div>
   <% end %>
 </div>

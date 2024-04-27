@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
-  resources :museum_registration_requests, except: [:edit, :update, :destroy] do
+  resources :museum_registration_requests, except: [ :edit, :update, :destroy ] do
     patch :update_registration_status, on: :member
-  end
-
-  resources :departments, only: [] do
-    resources :cities, only: [:index]
+    get :cities, on: :collection
   end
 
   devise_for :users
