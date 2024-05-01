@@ -35,7 +35,7 @@
   <div data-controller="department-city-picker" class="row"  >
     <div class="col-md-2 mb-3">
       <%= form.label t("museum_registration_requests.new.department"), class: "form-label" %>
-      <%= form.select :department,
+      <%= form.select :department_id,
                       @departments,
                       { prompt: "Elegir" },
                       { class: "form-select", data: { action: "change->department-city-picker#change" } }%>
@@ -44,7 +44,7 @@
 
     <div class="col-md-2 mb-3">
       <%= form.label t("museum_registration_requests.new.city"), class: "form-label" %>
-      <%= form.select :city,
+      <%= form.select :city_id,
                       [],
                       { prompt: "Elegir" },
                       { class: "form-select", data: { department_city_picker_target: "citySelect" } } %>

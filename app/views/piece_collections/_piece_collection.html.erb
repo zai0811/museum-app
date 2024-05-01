@@ -1,17 +1,9 @@
 <div id="<%= dom_id piece_collection %>">
-  <p>
-    <strong>Name:</strong>
-    <%= piece_collection.name %>
-  </p>
-
-  <p>
-    <strong>Status:</strong>
-    <%= piece_collection.status %>
-  </p>
-
-  <p>
-    <strong>Museum:</strong>
-    <%= piece_collection.museum_id %>
-  </p>
-
+ <!-- This partial will be rendered in the museum list, don't delete -->
+  <%= turbo_frame_tag piece_collection do %>
+    <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
+    <%= link_to piece_collection.name,
+                piece_collection_path(piece_collection),
+                data: { turbo_frame: "_top" } %>
+  <% end %>
 </div>

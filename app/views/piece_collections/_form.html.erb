@@ -1,32 +1,30 @@
-<%= form_with(model: piece_collection) do |form| %>
-  <% if piece_collection.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(piece_collection.errors.count, "error") %> prohibited this piece_collection from being saved:</h2>
+<div class="card">
+  <div class="card-body">
+    <div class="card-title"> Agregar colección</div>
 
-      <ul>
-        <% piece_collection.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <%= form_with(model: [@museum, piece_collection]) do |form| %>
+      <% if piece_collection.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(piece_collection.errors.count, "error") %> prohibited this piece_collection from being
+            saved:</h2>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+          <ul>
+            <% piece_collection.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div>
+        <%= form.label :name, style: "display: block" %>
+        <%= form.text_field :name %>
+      </div>
+
+      <div>
+        <%= form.submit %>
+        <%= link_to "Cancelar", museum_path(@museum) %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div>
-    <%= form.label :museum_id, style: "display: block" %>
-    <%= form.text_field :museum_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

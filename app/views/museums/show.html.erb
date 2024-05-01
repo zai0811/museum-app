@@ -1,15 +1,94 @@
-<%= render @museum %>
+<% admin = current_user&.admin? ? true : false %>
+<%= link_to t(".back"), museums_path, class: "bi bi-arrow-left" %>
 
-<div>
-  <% if current_user && current_user.admin_or_museum_owner?(@museum) %>
-    <%= link_to t(".edit"), edit_museum_path(@museum) %> |
-  <% end %>
+<div class="row mt-2">
+  <div class="col-auto me-auto" id="<%= dom_id @museum %>">
+    <h2> <%= @museum.name %></h2>
+  </div>
+  <div class="col text-end">
+    <% if current_user && current_user.admin_or_museum_owner?(@museum) %>
+      <%= link_to t(".edit"), edit_museum_path(@museum), class: "btn btn-outline-secondary" %>
+    <% end %>
+  </div>
+  <div class="col-auto">
+    <% if current_user&.admin? %>
+      <%= button_to "",
+                    @museum, method: :delete,
+                    class: "btn btn-outline-danger bi bi-trash3-fill",
+                    form: { data: { turbo_confirm: "Are you sure?" } } %>
+    <% end %>
+  </div>
+</div>
 
-  <%= link_to t(".back"), museums_path %>
+<% if admin %>
+  <p>
+    <strong><%= Museum.human_attribute_name("museum_status") %>:</strong>
+    <%= t("activerecord.attributes.museum.museum_statuses.#{@museum.museum_status}") %>
+  </p>
+<% end %>
 
-  <% if current_user&.admin? %>
-    <%= button_to t(".destroy"), @museum, method: :delete %>
+
+<% if @museum.museum_registration_request && admin %>
+  <p>
+    <strong> <%= t("museums.other.created_by_request") %>: </strong>
+    <%= link_to t("activerecord.attributes.museum.museum/museum_registration_request.id"), @museum.museum_registration_request %>
+  </p>
+<% end %>
+
+<p>
+  <strong><%= Museum.human_attribute_name("code") %>:</strong>
+  <%= @museum.code %>
+</p>
+
+
+
+<p>
+  <strong><%= Museum.human_attribute_name("about") %>:</strong>
+  <%= @museum.about %>
+</p>
+
+<p>
+  <strong><%= Museum.human_attribute_name("email") %>:</strong>
+  <%= @museum.email %>
+</p>
+
+<p>
+  <strong><%= Museum.human_attribute_name("phone") %>:</strong>
+  <%= @museum.phone %>
+</p>
+
+<p>
+  <strong><%= Museum.human_attribute_name("page") %>:</strong>
+  <%= @museum.page %>
+</p>
+
+<p>
+  <strong><%= Museum.human_attribute_name("address") %>:</strong>
+  <%= @museum.address %>
+</p>
+
+<% if admin %>
+  <p>
+    <strong><%= t("activerecord.attributes.museum.museum/user.email") %>:</strong>
+    <%= link_to @museum.user.email, @museum.user %>
+  </p>
+<% end %>
+
+<div class="header">
+  <strong>Colecciones</strong>
+  <%= link_to "",
+              new_museum_piece_collection_path(@museum),
+              class: "bi bi-plus-circle-fill",
+              data: { turbo_frame: dom_id(PieceCollection.new) } %>
+
+  <!-- Empty tag that will be replaced with the New Form for the piece collection -->
+  <%= turbo_frame_tag PieceCollection.new %>
+
+  <!-- Render the piece_collections/_piece_collection partial -->
+  <%= turbo_frame_tag "piece_collections" do %>
+    <%= render @piece_collections %>
   <% end %>
 </div>
+
 
 

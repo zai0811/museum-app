@@ -10,6 +10,7 @@ class MuseumsController < ApplicationController
 
   # GET /museums/1 or /museums/1.json
   def show
+    @piece_collections = @museum.piece_collections
   end
 
   # GET /museums/new

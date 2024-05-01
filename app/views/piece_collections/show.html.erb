@@ -1,10 +1,16 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @piece_collection %>
+<!-- TODO: add link to go back to museum, move the buttons to near the header as in museum, and add the form to create new pieces form here -->
+<h2><%= @piece_collection.name %></h2>
+<%= @piece_collection.status %>
 
-<div>
-  <%= link_to "Edit this piece collection", edit_piece_collection_path(@piece_collection) %> |
-  <%= link_to "Back to piece collections", piece_collections_path %>
-
-  <%= button_to "Destroy this piece collection", @piece_collection, method: :delete %>
+<!-- TODO localize this -->
+<div class="btn-group">
+  <%= button_to "Eliminar",
+                piece_collection_path(@piece_collection),
+                method: :delete,
+                class: "btn btn-outline-danger btn-sm" %>
+  <%= link_to "Editar",
+              edit_piece_collection_path(@piece_collection),
+              class: "btn btn-outline-secondary btn-sm" %>
 </div>

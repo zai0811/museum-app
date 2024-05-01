@@ -1,0 +1,2 @@
+<%= turbo_stream.prepend "piece_collections" , partial: "piece_collections/piece_collection", locals: { piece_collection: @piece_collection } %>
+<%= turbo_stream.update PieceCollection.new, "" %>
