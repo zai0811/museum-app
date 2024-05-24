@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :museums, shallow: true do
-    resources :pieces
-    resources :piece_collections
+  resources :museums do
+    resources :piece_collections, shallow: true
+  end
+
+  resources :piece_collections  do
+    resources :pieces, shallow: true
   end
 
   resources :museum_registration_requests, except: [ :edit, :update, :destroy ] do

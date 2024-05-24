@@ -1,0 +1,31 @@
+<div class="table-responsive mt-3">
+  <table class="table">
+    <thead class="table-light align-middle">
+    <tr>
+      <th scope="col"> <%= Museum.human_attribute_name("name") %> </th>
+      <th scope="col"> <%= Museum.human_attribute_name("code") %> </th>
+      <th scope="col"> <%= Museum.human_attribute_name("museum_status") %> </th>
+      <th scope="col"> Encargado </th>
+      <th scope="col"> Ciudad </th>
+      <th scope="col"> Acciones </th>
+    </tr>
+    </thead>
+    <tbody class="align-middle">
+    <% @museums.each do |museum| %>
+    <tr id="">
+      <td> <%= museum.name %>  </td>
+      <td> <%= museum.code %>  </td>
+      <td> <%= museum.museum_status %>  </td>
+      <td> <%= museum.user.email %>  </td>
+      <td> <%= museum.city.name %>  </td>
+      <td>
+        <div class="btn-group">
+          <%= link_to "", museum, class: "btn btn-outline-secondary btn-sm bi bi-eye-fill" %>
+          <%= link_to "", edit_museum_path(museum), class: "btn btn-outline-secondary btn-sm bi bi-pencil-fill" %>
+        </div>
+      </td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

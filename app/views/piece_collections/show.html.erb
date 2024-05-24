@@ -1,16 +1,35 @@
 <p style="color: green"><%= notice %></p>
 
-<!-- TODO: add link to go back to museum, move the buttons to near the header as in museum, and add the form to create new pieces form here -->
-<h2><%= @piece_collection.name %></h2>
+<!-- TODO:  add the form to create new pieces form here -->
+<%= link_to "Atrás", museum_path(@piece_collection.museum_id), class: "bi bi-arrow-left" %>
+<div class="row mt-2">
+  <div class="col-auto me-auto" id="<%= dom_id @piece_collection %>">
+    <h2><%= @piece_collection.name %></h2>
+  </div>
+  <div class="col text-end">
+    <%= link_to "",
+                edit_piece_collection_path(@piece_collection),
+                class: "btn btn-outline-secondary bi bi-pencil-fill" %>
+  </div>
+  <div class="col-auto">
+    <%= button_to "",
+                  piece_collection_path(@piece_collection),
+                  method: :delete,
+                  class: "btn btn-outline-danger bi bi-trash3-fill" %>
+
+  </div>
+</div>
+
 <%= @piece_collection.status %>
 
-<!-- TODO localize this -->
-<div class="btn-group">
-  <%= button_to "Eliminar",
-                piece_collection_path(@piece_collection),
-                method: :delete,
-                class: "btn btn-outline-danger btn-sm" %>
-  <%= link_to "Editar",
-              edit_piece_collection_path(@piece_collection),
-              class: "btn btn-outline-secondary btn-sm" %>
-</div>
+<strong>Piezas</strong>
+<%= link_to "",
+            new_piece_collection_piece_path(@piece_collection),
+            class: "bi bi-plus-circle-fill",
+            data: { turbo_frame: dom_id( Piece.new ) } %>
+
+<%= turbo_frame_tag Piece.new %>
+
+<%= turbo_frame_tag "pieces" do %>
+  <%= render @pieces %>
+<% end %>

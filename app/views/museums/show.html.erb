@@ -7,7 +7,7 @@
   </div>
   <div class="col text-end">
     <% if current_user && current_user.admin_or_museum_owner?(@museum) %>
-      <%= link_to t(".edit"), edit_museum_path(@museum), class: "btn btn-outline-secondary" %>
+      <%= link_to "", edit_museum_path(@museum), class: "btn btn-outline-secondary bi bi-pencil-fill" %>
     <% end %>
   </div>
   <div class="col-auto">
@@ -74,20 +74,32 @@
   </p>
 <% end %>
 
-<div class="header">
-  <strong>Colecciones</strong>
-  <%= link_to "",
-              new_museum_piece_collection_path(@museum),
-              class: "bi bi-plus-circle-fill",
-              data: { turbo_frame: dom_id(PieceCollection.new) } %>
 
-  <!-- Empty tag that will be replaced with the New Form for the piece collection -->
-  <%= turbo_frame_tag PieceCollection.new %>
+<strong>Colecciones</strong>
+<%= link_to "",
+            new_museum_piece_collection_path(@museum),
+            class: "bi bi-plus-circle-fill",
+            data: { turbo_frame: dom_id( PieceCollection.new ) } %>
 
-  <!-- Render the piece_collections/_piece_collection partial -->
-  <%= turbo_frame_tag "piece_collections" do %>
-    <%= render @piece_collections %>
-  <% end %>
+<!-- Empty tag that will be replaced with the New Form for the piece collection -->
+<%= turbo_frame_tag PieceCollection.new %>
+
+<!-- Render the piece_collections/_piece_collection partial -->
+<div class="table-responsive mt-3" >
+  <table class="table">
+    <thead class="table-light align-middle">
+    <tr>
+      <th scope="col"> Nombre </th>
+      <th scope="col"> Actualizado el</th>
+      <th scope="col"> Acciones </th>
+    </tr>
+    </thead>
+    <tbody class="align-middle" id="collections_table">
+    <% @piece_collections.each do |piece_collection| %>
+      <%= render "piece_collections/piece_collection", piece_collection: piece_collection %>
+    <% end %>
+    </tbody>
+  </table>
 </div>
 
 

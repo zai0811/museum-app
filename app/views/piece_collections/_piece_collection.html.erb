@@ -1,9 +1,15 @@
-<div id="<%= dom_id piece_collection %>">
- <!-- This partial will be rendered in the museum list, don't delete -->
-  <%= turbo_frame_tag piece_collection do %>
-    <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
-    <%= link_to piece_collection.name,
-                piece_collection_path(piece_collection),
-                data: { turbo_frame: "_top" } %>
-  <% end %>
-</div>
+<tr id="<%= dom_id piece_collection %>">
+  <td> <%= piece_collection.name %></td>
+  <td> <%= piece_collection.updated_at %></td>
+
+  <!-- This partial will be rendered in the museum list, don't delete -->
+  <td>
+    <%= turbo_frame_tag piece_collection do %>
+      <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
+      <%= link_to "",
+                  piece_collection_path(piece_collection),
+                  class: "btn btn-outline-secondary btn-sm bi bi-eye-fill",
+                  data: { turbo_frame: "_top" } %>
+    <% end %>
+  </td>
+</tr>

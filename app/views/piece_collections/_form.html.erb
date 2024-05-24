@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="card-title"> Agregar colección</div>
 
-    <%= form_with(model: [@museum, piece_collection]) do |form| %>
+    <%= form_with(model: [ @museum, piece_collection ]) do |form| %>
       <% if piece_collection.errors.any? %>
         <div style="color: red">
           <h2><%= pluralize(piece_collection.errors.count, "error") %> prohibited this piece_collection from being

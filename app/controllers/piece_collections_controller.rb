@@ -9,6 +9,7 @@ class PieceCollectionsController < ApplicationController
 
   # GET /piece_collections/1 or /piece_collections/1.json
   def show
+    @pieces = @piece_collection.pieces
   end
 
   # GET /piece_collections/new
@@ -26,8 +27,9 @@ class PieceCollectionsController < ApplicationController
 
     respond_to do |format|
       if @piece_collection.save
-        format.html { redirect_to museum_piece_collections_path(@museum), notice: "Piece collection was successfully created." }
-        format.turbo_stream
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.prepend("collections_table", partial: "piece_collections/piece_collection", locals: { piece_collection: @piece_collection})
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
       end

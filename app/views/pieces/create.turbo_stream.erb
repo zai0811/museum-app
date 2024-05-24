@@ -1,0 +1,2 @@
+<%= turbo_stream.prepend "pieces" , partial: "pieces/piece", locals: { piece: @piece } %>
+<%= turbo_stream.update Piece.new, "" %>
