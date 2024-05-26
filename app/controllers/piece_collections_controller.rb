@@ -27,9 +27,8 @@ class PieceCollectionsController < ApplicationController
 
     respond_to do |format|
       if @piece_collection.save
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.prepend("collections_table", partial: "piece_collections/piece_collection", locals: { piece_collection: @piece_collection})
-        end
+        format.html { redirect_to museum_piece_collections_path(@museum), notice: "Piece collection was successfully created." }
+        format.turbo_stream { flash.now[:notice] = "Piece collection was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
