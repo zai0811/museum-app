@@ -1,5 +1,5 @@
 class Museum < ApplicationRecord
-  DRAFT = 0
+  NOT_PUBLISHED = 0
   PUBLISHED = 1
   ARCHIVED = 2
 
@@ -11,5 +11,12 @@ class Museum < ApplicationRecord
   has_many :pieces, through: :piece_collections
   validates_presence_of :name, :code, :city, :department
 
-  enum :museum_status, { draft: DRAFT, published: PUBLISHED, archived: ARCHIVED}, default: :draft
+  enum :museum_status, { not_published: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED}, default: :not_published
+
+  def update_status!(status)
+    return false unless status.in?([ NOT_PUBLISHED, PUBLISHED, ARCHIVED ])
+    update!(museum_status: status)
+    true
+  end
+
 end

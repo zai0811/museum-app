@@ -40,7 +40,7 @@ es:
           email: "Correo del/la administrador/a"
         museum_status: "Estado"
         museum_statuses:
-          draft: "Borrador"
+          not_published: "No Publicado "
           published: "Publicado"
           archived: "Archivado"
         museum/museum_registration_request:

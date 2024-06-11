@@ -7,8 +7,8 @@ import { application } from "./application"
 import DepartmentCityPickerController from "./department_city_picker_controller"
 application.register("department-city-picker", DepartmentCityPickerController)
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import FlashActionsController from "./flash_actions_controller"
+application.register("flash-actions", FlashActionsController)
 
 import MuseumRegistrationRequestController from "./museum_registration_request_controller"
 application.register("museum-registration-request", MuseumRegistrationRequestController)

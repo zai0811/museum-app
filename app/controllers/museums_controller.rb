@@ -65,6 +65,20 @@ class MuseumsController < ApplicationController
     end
   end
 
+  def update_museum_status
+    @museum = Museum.find(params[:id])
+    status = params[:museum_status].to_i
+
+    begin
+      message = @museum.update_status!(status) ?
+                  "Actualizado!" : "Algo salio mal!"
+      redirect_to @museum, notice: message
+
+    rescue StandardError => e
+      redirect_to @museum, alert: e.message
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -80,7 +94,7 @@ class MuseumsController < ApplicationController
   def authorize_user!
     authorized = case action_name
                  when "new", "create", "destroy" then current_user.admin?
-                 when "update", "edit" then current_user.admin_or_museum_owner?(@museum)
+                 when "update", "edit", "update_museum_status" then current_user.admin_or_museum_owner?(@museum)
                  else
                    false
                  end

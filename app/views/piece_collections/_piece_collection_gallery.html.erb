@@ -1,0 +1,17 @@
+<div class="col">
+  <div class="card shadow-sm" id="<%= dom_id piece_collection %>">
+
+    <%= image_tag("placeholder.png", class: "card-img-top") %>
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= turbo_frame_tag piece_collection do %>
+          <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
+          <h5> <%= link_to  piece_collection.name,
+                      piece_collection_path(piece_collection),
+                      data: { turbo_frame: "_top" } %>
+          </h5>
+        <% end %>
+      </h5>
+    </div>
+  </div>
+</div>
