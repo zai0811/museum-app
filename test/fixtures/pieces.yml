@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  description: MyText
+  material: MyString
+  measurement: MyString
+  conservation_state: 1
+  status: 1
+  piece_collection: one
+
+two:
+  number: 1
+  description: MyText
+  material: MyString
+  measurement: MyString
+  conservation_state: 1
+  status: 1
+  piece_collection: two

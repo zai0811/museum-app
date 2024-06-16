@@ -10,6 +10,7 @@ class MuseumsController < ApplicationController
 
   # GET /museums/1 or /museums/1.json
   def show
+    @piece_collections = @museum.piece_collections
   end
 
   # GET /museums/new
@@ -64,6 +65,21 @@ class MuseumsController < ApplicationController
     end
   end
 
+  def update_museum_status
+    @museum = Museum.find(params[:id])
+    status = params[:status].to_i
+
+    begin
+      message = @museum.update_status!(status) ?
+                  t(".success") : t(".error")
+      redirect_to @museum, notice: message
+
+      # TODO handle exceptions with custom class
+    rescue StandardError => e
+      redirect_to @museum, alert: e.message
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -73,13 +89,13 @@ class MuseumsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def museum_params
-    params.require(:museum).permit(:name, :code, :about, :email, :phone, :page, :address, :user_id, :department_id, :city_id)
+    params.require(:museum).permit(:name, :code, :about, :email, :phone, :page, :address, :user_id, :department, :city, :status)
   end
 
   def authorize_user!
     authorized = case action_name
                  when "new", "create", "destroy" then current_user.admin?
-                 when "update", "edit" then current_user.admin_or_museum_owner?(@museum)
+                 when "update", "edit", "update_museum_status" then current_user.admin_or_museum_owner?(@museum)
                  else
                    false
                  end

@@ -1,11 +1,23 @@
 Rails.application.routes.draw do
+  resources :museums do
+    resources :piece_collections, shallow: true
+    patch :update_museum_status, on: :member
+  end
+
+  resources :piece_collections  do
+    resources :pieces, shallow: true
+    patch :update_status, on: :member
+  end
+
+  resources :pieces do
+    patch :update_status, on: :member
+  end
   resources :museum_registration_requests, except: [ :edit, :update, :destroy ] do
     patch :update_registration_status, on: :member
     get :cities, on: :collection
   end
 
   devise_for :users
-  resources :museums
   resources :users
   # get 'home/index' # could be a route for the home if necessary
   root 'home#index'

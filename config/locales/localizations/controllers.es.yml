@@ -12,3 +12,18 @@ es:
       success: "El museo fue editado exitosamente!"
     destroy:
       success: "El museo fue eliminado exitosamente!"
+    update_museum_status:
+      success: "Actualizado!"
+      error: "Algo salio mal!"
+  piece_collections:
+    create:
+      success: "Colección agregada correctamente!"
+    update_status:
+      success: "Actualizado!"
+      error: "Algo salio mal!"
+  pieces:
+    create:
+      success: "Pieza agregada correctamente!"
+    update_status:
+      success: "Actualizado!"
+      error: "Algo salio mal!"

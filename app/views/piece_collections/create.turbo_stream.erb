@@ -1,0 +1,3 @@
+<%= turbo_stream.prepend( "collections_table", partial: "piece_collections/piece_collection", locals: { piece_collection: @piece_collection } ) %>
+<%= turbo_stream.update PieceCollection.new, "" %>
+<%= turbo_stream.prepend( "flash", partial: "layouts/flash" ) %>

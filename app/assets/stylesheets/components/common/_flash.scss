@@ -1,0 +1,26 @@
+// source: https://www.hotrails.dev/turbo-rails/flash-messages-hotwire
+
+.flash {
+  position:fixed;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+
+  max-width: 100%;
+  width: max-content;
+  padding: 0 1rem;
+
+  &__message {
+    font-size: 0.875rem;
+    color: hsl(0, 0%, 100%);
+    padding: 0.5rem 1rem;
+    background-color: hsl(0, 1%, 16%);
+    animation: appear-then-fade 4s both;
+    border-radius: 999px;
+  }
+}

@@ -1,26 +1,16 @@
-<h1><%= t(".title") %></h1>
-
-<style>
-  .grid{
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: repeat( auto-fit, minmax(250px, 1fr));
-  }
-</style>
-<% if current_user&.admin?  %>
-  <%= link_to t(".create"), new_museum_path %>
-<% end %>
-
-<div class="grid" id="museums">
-  <% @museums.each do |museum| %>
-    <div class="card" id="<%= dom_id museum %>">
-      <%= image_tag("placeholder.png", class:"card-img-top") %>
-      <div class="card-body">
-        <h5 class="card-title"> <%= museum.name %> </h5>
-        <p class="card-text"><%= museum.about %></p>
-        <%= link_to t(".view"), museum, class: "card-link" %>
-      </div>
-    </div>
-  <% end %>
+<div class="row">
+  <div class="col-auto me-auto">
+    <h2><%= t(".title") %></h2>
+  </div>
+  <div class="col text-end">
+    <% if current_user&.admin? %>
+      <%= link_to t(".create"), new_museum_path, class: "btn btn-outline-secondary" %>
+    <% end %>
+  </div>
 </div>
 
+<% if current_user %>
+  <%= render 'museums_table', museums: @museums %>
+<% else %>
+  <%= render 'museums_gallery', museums: @museums %>
+<% end %>

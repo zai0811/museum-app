@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_14_233205) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_30_232738) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,7 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_233205) do
     t.string "phone"
     t.string "page"
     t.string "address"
-    t.integer "museum_status", null: false
+    t.integer "status", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -67,6 +67,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_233205) do
     t.index ["department_id"], name: "index_museums_on_department_id"
     t.index ["museum_registration_request_id"], name: "index_museums_on_museum_registration_request_id"
     t.index ["user_id"], name: "index_museums_on_user_id"
+  end
+
+  create_table "piece_collections", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "status", null: false
+    t.bigint "museum_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["museum_id"], name: "index_piece_collections_on_museum_id"
+  end
+
+  create_table "pieces", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "number"
+    t.text "description"
+    t.string "material"
+    t.string "measurement"
+    t.integer "conservation_state"
+    t.integer "status", null: false
+    t.bigint "piece_collection_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["piece_collection_id"], name: "index_pieces_on_piece_collection_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -105,4 +128,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_233205) do
   add_foreign_key "museums", "departments"
   add_foreign_key "museums", "museum_registration_requests"
   add_foreign_key "museums", "users"
+  add_foreign_key "piece_collections", "museums"
+  add_foreign_key "pieces", "piece_collections"
 end

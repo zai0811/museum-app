@@ -31,12 +31,16 @@ es:
       view: "Ver más"
       department: "Departamento"
       city: "Ciudad"
+      admin: "Encargado"
+      actions: "Acciones"
     show:
       back: "Volver a explorar museos"
       edit: "Editar museo"
       destroy: "Eliminar museo"
       department: "Departamento"
       city: "Ciudad"
+      actions: "Acciones"
+      pieces: "Piezas"
     new:
       title: "Nuevo Museo"
       back: "Volver a explorar museos"
@@ -50,3 +54,6 @@ es:
       city: "Ciudad"
     other:
       created_by_request: "Creado por solicidud de registro"
+  piece_collections:
+    show:
+      actions: "Acciones"

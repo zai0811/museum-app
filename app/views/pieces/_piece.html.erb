@@ -1,0 +1,23 @@
+<tr id="<%= dom_id piece %>">
+  <td> <%= piece.number %></td>
+  <td> <%= piece.name %></td>
+  <td>
+    <span class="status status_<%= piece.status %>">
+      <%= t("activerecord.attributes.piece.statuses.#{piece.status}") %>
+    </span>
+  </td>
+  <td>
+    <% if piece.updated_at %>
+      <%= l(piece.updated_at) %>
+    <% end %>
+  </td>
+  <td>
+    <%= turbo_frame_tag piece do %>
+      <%= link_to "",
+                  piece_path(piece),
+                  class: "bi bi-eye-fill text-secondary",
+                  data: { turbo_frame: "_top" } %>
+
+    <% end %>
+  </td>
+</tr>
