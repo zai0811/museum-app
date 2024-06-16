@@ -8,13 +8,15 @@
 
 <div class="grid" id="museums">
   <% @museums.each do |museum| %>
-    <div class="card" id="<%= dom_id museum %>">
-      <%= image_tag("placeholder.png", class: "card-img-top") %>
-      <div class="card-body">
-        <h5 class="card-title"> <%= museum.name %> </h5>
-        <p class="card-text"><%= museum.about %></p>
-        <%= link_to t(".view"), museum, class: "card-link" %>
+    <% if museum.published? %>
+      <div class="card" id="<%= dom_id museum %>">
+        <%= image_tag("placeholder.png", class: "card-img-top") %>
+        <div class="card-body">
+          <h5 class="card-title"> <%= museum.name %> </h5>
+          <p class="card-text"><%= museum.about %></p>
+          <%= link_to t(".view"), museum, class: "card-link" %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>

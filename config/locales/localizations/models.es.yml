@@ -7,13 +7,19 @@ es:
       museum:
         one: "Museo"
         other: "Museos"
+      piece_collection:
+        one: "Colección"
+        other: "Colecciones"
+      piece:
+        one: "Pieza"
+        other: "Piezas"
       deparment:
         one: "Departamento"
         other: "Departamentos"
     attributes:
       museum_registration_request:
         museum_name: "Museo"
-        museum_code: "Código de registro"
+        museum_code: "Código de resolución"
         museum_address: "Dirección"
         manager_email: "Administrador/a"
         manager_name: "Nombre del/a Administrador/a"
@@ -30,21 +36,47 @@ es:
           archived: "Archivado"
       museum:
         name: "Nombre"
-        code: "Resolución"
+        code: "Código de resolución"
         about: "Descripción"
         email: "Correo electrónico del museo"
         phone: "Teléfono del museo"
         page: "Página web del museo"
         address: "Dirección"
+        admin: "Encargado"
+        created_at: "Creado el"
+        updated_at: "Actualizado el"
         museum/user:
           email: "Correo del/la administrador/a"
-        museum_status: "Estado"
-        museum_statuses:
-          not_published: "No Publicado "
-          published: "Publicado"
+        status: "Estado"
+        statuses:
+          hidden: "Privado"
+          published: "Público"
           archived: "Archivado"
         museum/museum_registration_request:
           id: "Solicitud de registro"
+      piece_collection:
+        name: "Nombre"
+        status: "Estado"
+        created_at: "Creado el"
+        updated_at: "Actualizado el"
+        statuses:
+          hidden: "Colección Privada"
+          published: "Colección Pública"
+          archived: "Archivado"
+      piece:
+        name: "Nombre"
+        number: "Número"
+        description: "Descripción"
+        material: "Material"
+        measurement: "Medidas"
+        conservation_state: "Estado de Conservación"
+        status: "Estado"
+        created_at: "Creado el"
+        updated_at: "Actualizado el"
+        statuses:
+          hidden: "Privado"
+          published: "Público"
+          archived: "Archivado"
       department:
         name: "Nombre"
       city:

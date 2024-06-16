@@ -1,6 +1,8 @@
 class PieceCollectionsController < ApplicationController
   before_action :set_museum, only: %i[ index new create ]
   before_action :set_piece_collection, only: %i[ show edit update destroy ]
+  skip_before_action :authenticate_user!, only: %i[ index show ]
+  skip_before_action :authorize_user!, only: %i[ index show edit update ]
 
   # GET /piece_collections or /piece_collections.json
   def index
@@ -19,6 +21,7 @@ class PieceCollectionsController < ApplicationController
 
   # GET /piece_collections/1/edit
   def edit
+    authorize_user!
   end
 
   # POST /piece_collections or /piece_collections.json
@@ -37,6 +40,8 @@ class PieceCollectionsController < ApplicationController
 
   # PATCH/PUT /piece_collections/1 or /piece_collections/1.json
   def update
+    authorize_user!
+
     respond_to do |format|
       if @piece_collection.update(piece_collection_params)
         format.html { redirect_to piece_collection_url(@piece_collection), notice: "Piece collection was successfully updated." }
@@ -58,6 +63,21 @@ class PieceCollectionsController < ApplicationController
     end
   end
 
+  def update_status
+    @piece_collection = PieceCollection.find(params[:id])
+    status = params[:status].to_i
+
+    begin
+      message = @piece_collection.update_status!(status) ?
+                  t(".success") : t(".error")
+      redirect_to @piece_collection, notice: message
+
+      # TODO handle exceptions with custom class
+    rescue StandardError => e
+      redirect_to @piece_collection, alert: e.message
+    end
+  end
+
   private
 
   def set_museum
@@ -71,5 +91,17 @@ class PieceCollectionsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def piece_collection_params
     params.require(:piece_collection).permit(:name, :status, :museum_id)
+  end
+
+  def authorize_user!
+    @piece_collection = PieceCollection.find(params[:id])
+    authorized = case action_name
+                 when "destroy" then current_user.admin?
+                 when "new", "create", "update", "edit", "update_status" then current_user.admin_or_museum_owner?(@piece_collection.museum)
+                 else
+                   true
+                 end
+
+    not_authorized unless authorized
   end
 end

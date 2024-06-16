@@ -5,8 +5,8 @@
 
   <% if admin %>
     <p>
-      <strong><%= Museum.human_attribute_name("museum_status") %>:</strong>
-      <%= t("activerecord.attributes.museum.museum_statuses.#{museum.museum_status}") %>
+      <strong><%= Museum.human_attribute_name("status") %>:</strong>
+      <%= t("activerecord.attributes.museum.statuses.#{museum.status}") %>
     </p>
   <% end %>
 

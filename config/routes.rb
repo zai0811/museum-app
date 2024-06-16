@@ -6,8 +6,12 @@ Rails.application.routes.draw do
 
   resources :piece_collections  do
     resources :pieces, shallow: true
+    patch :update_status, on: :member
   end
 
+  resources :pieces do
+    patch :update_status, on: :member
+  end
   resources :museum_registration_requests, except: [ :edit, :update, :destroy ] do
     patch :update_registration_status, on: :member
     get :cities, on: :collection

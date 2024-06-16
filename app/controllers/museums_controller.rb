@@ -67,13 +67,14 @@ class MuseumsController < ApplicationController
 
   def update_museum_status
     @museum = Museum.find(params[:id])
-    status = params[:museum_status].to_i
+    status = params[:status].to_i
 
     begin
       message = @museum.update_status!(status) ?
-                  "Actualizado!" : "Algo salio mal!"
+                  t(".success") : t(".error")
       redirect_to @museum, notice: message
 
+      # TODO handle exceptions with custom class
     rescue StandardError => e
       redirect_to @museum, alert: e.message
     end
@@ -88,7 +89,7 @@ class MuseumsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def museum_params
-    params.require(:museum).permit(:name, :code, :about, :email, :phone, :page, :address, :user_id, :department, :city)
+    params.require(:museum).permit(:name, :code, :about, :email, :phone, :page, :address, :user_id, :department, :city, :status)
   end
 
   def authorize_user!

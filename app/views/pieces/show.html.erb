@@ -1,5 +1,49 @@
-<p style="color: green"><%= notice %></p>
+<% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@piece.piece_collection.museum) %>
 
+<div class="d-flex bd-highlight align-items-center">
+  <div class="p-2 bd-highlight">
+    <%= link_to "", piece_collection_path(@piece.piece_collection_id), class: "bi bi-arrow-left icon_back" %>
+  </div>
+
+  <div class="p-2 flex-grow-1 bd-highlight text-muted fs-6">
+    <%= @piece.piece_collection.name %>
+  </div>
+  <% if owner_or_admin %>
+    <% if @piece.published? %>
+      <div class="p-2 bd-highlight">
+        <%= button_to "Hacer Privado",
+                      update_status_piece_path(@piece, status: Piece::NOT_PUBLISHED),
+                      method: :patch,
+                      form: { data: { turbo_confirm: "Estas seguro?" } },
+                      class: "btn btn-warning" %>
+      </div>
+    <% else %>
+      <div class="p-2 bd-highlight">
+        <%= button_to "Publicar",
+                      update_status_piece_path(@piece, status: Piece::PUBLISHED),
+                      method: :patch,
+                      form: { data: { turbo_confirm: "Estas seguro?" } },
+                      class: "btn btn-success" %>
+      </div>
+    <% end %>
+    <div class="p-2 bd-highlight">
+      <%= link_to "",
+                  edit_piece_path(@piece),
+                  class: "bi bi-pencil-fill icon_edit" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="d-flex bd-highlight flex-column justify-content-center align-items-center border-bottom mb-4">
+  <%= image_tag("piece_placeholder_image.png", class: "img-fluid my-3") %>
+</div>
+
+<div class="">
+
+</div>
+<div>
+
+</div>
 <div id="<%= dom_id @piece %>">
   <p>
     <strong>Number:</strong>
@@ -39,8 +83,4 @@
 </div>
 
 <div>
-
-  <%= link_to "Back to pieces", piece_collection_path(@piece.piece_collection_id) %>
-
-
 </div>

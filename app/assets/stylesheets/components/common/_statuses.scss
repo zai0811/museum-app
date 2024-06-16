@@ -1,0 +1,17 @@
+
+.status {
+  display: flex;
+  align-items: center;
+  font-size: small;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  &_hidden{
+    color: #FF6347;
+  }
+
+  &_published {
+    color: $success;
+  }
+}

@@ -56,7 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_232738) do
     t.string "phone"
     t.string "page"
     t.string "address"
-    t.integer "museum_status", null: false
+    t.integer "status", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -70,8 +70,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_232738) do
   end
 
   create_table "piece_collections", force: :cascade do |t|
-    t.string "name"
-    t.integer "status"
+    t.string "name", null: false
+    t.integer "status", null: false
     t.bigint "museum_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -79,12 +79,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_232738) do
   end
 
   create_table "pieces", force: :cascade do |t|
+    t.string "name", null: false
     t.integer "number"
     t.text "description"
     t.string "material"
     t.string "measurement"
     t.integer "conservation_state"
-    t.integer "status"
+    t.integer "status", null: false
     t.bigint "piece_collection_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

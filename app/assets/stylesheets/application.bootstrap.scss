@@ -1,5 +1,7 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
-@import "components/flash";
+@import "components/common/flash";
+@import "components/common/statuses";
+@import "components/common/navigation";
 @import "components/museum/museum";
 @import "config/animations";

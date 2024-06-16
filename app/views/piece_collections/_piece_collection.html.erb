@@ -1,6 +1,16 @@
 <tr id="<%= dom_id piece_collection %>">
   <td> <%= piece_collection.name %></td>
-  <td> <%= piece_collection.updated_at %></td>
+  <td>
+    <span class="status status_<%= piece_collection.status %>">
+      <%= t("activerecord.attributes.piece_collection.statuses.#{piece_collection.status}") %>
+    </span>
+  </td>
+  <td> <%= piece_collection.pieces.count %></td>
+  <td>
+    <% if piece_collection.updated_at %>
+      <%= l(piece_collection.updated_at) %>
+    <% end %>
+  </td>
 
   <!-- This partial will be rendered in the museum list, don't delete -->
   <td>
@@ -8,7 +18,7 @@
       <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
       <%= link_to "",
                   piece_collection_path(piece_collection),
-                  class: "btn btn-outline-secondary btn-sm bi bi-eye-fill",
+                  class: "bi bi-eye-fill text-secondary",
                   data: { turbo_frame: "_top" } %>
     <% end %>
   </td>

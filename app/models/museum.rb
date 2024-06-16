@@ -11,12 +11,11 @@ class Museum < ApplicationRecord
   has_many :pieces, through: :piece_collections
   validates_presence_of :name, :code, :city, :department
 
-  enum :museum_status, { not_published: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED}, default: :not_published
+  enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED}, default: :hidden
 
   def update_status!(status)
     return false unless status.in?([ NOT_PUBLISHED, PUBLISHED, ARCHIVED ])
-    update!(museum_status: status)
+    update!(status: status)
     true
   end
-
 end

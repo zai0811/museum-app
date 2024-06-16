@@ -1,59 +1,58 @@
 <% admin = current_user&.admin? ? true : false %>
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@museum) %>
 
-<div class="row">
-  <div class="col">
-    <%= link_to "", museums_path, class: "bi bi-arrow-left" %>
+<div class="d-flex bd-highlight align-items-center">
+  <div class="p-2 flex-grow-1 bd-highlight">
+    <%= link_to "", museums_path, class: "bi bi-arrow-left icon_back" %>
   </div>
   <% if owner_or_admin %>
-    <div class="col-auto">
-      <%= button_to "Hacer Privado",
-                    update_museum_status_museum_path(@museum, museum_status: Museum::NOT_PUBLISHED),
-                    method: :patch,
-                    form: { data: { turbo_confirm: "Estas seguro?" } },
-                    class: "btn btn-warning btn-sm" %>
-    </div>
-    <div class="col-auto">
-      <%= button_to "Publicar",
-                    update_museum_status_museum_path(@museum, museum_status: Museum::PUBLISHED),
-                    method: :patch,
-                    form: { data: { turbo_confirm: "Estas seguro?" } },
-                    class: "btn btn-success btn-sm" %>
-    </div>
-    <div class="col text-end">
-      <%= link_to "", edit_museum_path(@museum), class: "btn btn-outline-secondary bi bi-pencil-fill" %>
-    </div>
-  <% end %>
-  <% if admin %>
-    <div class="col-auto">
-      <%= button_to "",
-                    @museum, method: :delete,
-                    class: "btn btn-outline-danger bi bi-trash3-fill",
-                    form: { data: { turbo_confirm: "Are you sure?" } } %>
+    <% if @museum.published? %>
+      <div class="p-2 bd-highlight">
+        <%= button_to "Hacer Privado",
+                      update_museum_status_museum_path(@museum, status: Museum::NOT_PUBLISHED),
+                      method: :patch,
+                      form: { data: { turbo_confirm: "Estas seguro?" } },
+                      class: "btn btn-warning" %>
+      </div>
+    <% else %>
+      <div class="p-2 bd-highlight">
+        <%= button_to "Publicar",
+                      update_museum_status_museum_path(@museum, status: Museum::PUBLISHED),
+                      method: :patch,
+                      form: { data: { turbo_confirm: "Estas seguro?" } },
+                      class: "btn btn-success" %>
+
+      </div>
+    <% end %>
+    <div class="p-2 bd-highlight">
+      <%= link_to "", edit_museum_path(@museum), class: "bi bi-pencil-fill icon_edit" %>
     </div>
   <% end %>
 </div>
+
 <div class="container-fluid">
   <%= image_tag("museum_top_placeholder.png", class: "img-fluid my-3") %>
 </div>
 
-<!-- Should improve the alignment by providing a custom class -->
-<div class="row text-center">
-  <div class="col museum_header" id="<%= dom_id @museum %>">
+<div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
+  <% if owner_or_admin %>
+    <div class="pb-2 bd-highlight">
+    <span class="status status_<%= @museum.status %>">
+      <%= t("activerecord.attributes.museum.statuses.#{@museum.status}") %>
+    </span>
+    </div>
+  <% end %>
+  <div class="bd-highlight" id="<%= dom_id @museum %>">
     <h2> <%= @museum.name %></h2>
   </div>
 </div>
 
-<!-- Should improve display of admin ingo-->
 <% if owner_or_admin %>
   <div class="card mb-3">
     <h5 class="card-header">Información Administrativa</h5>
 
     <div class="card-body">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <strong>Estado:</strong> <%= t("activerecord.attributes.museum.museum_statuses.#{@museum.museum_status}") %>
-        </li>
         <li class="list-group-item">
           <strong>Código:</strong> <%= @museum.code %>
         </li>
@@ -98,9 +97,11 @@
     <table class="table">
       <thead class="table-light align-middle">
       <tr>
-        <th scope="col"> Nombre</th>
-        <th scope="col"> Actualizado el</th>
-        <th scope="col"> Acciones</th>
+        <th scope="col"> <%= PieceCollection.human_attribute_name("name") %> </th>
+        <th scope="col"> <%= PieceCollection.human_attribute_name("status") %> </th>
+        <th scope="col"> <%= t(".pieces") %> </th>
+        <th scope="col"> <%= PieceCollection.human_attribute_name("updated_at") %> </th>
+        <th scope="col"> <%= t(".actions") %> </th>
       </tr>
       </thead>
       <tbody class="align-middle" id="collections_table">
@@ -123,7 +124,7 @@
   </div>
 <% end %>
 
-<div class="row">
+<div class="row mt-4">
   <div class="col">
     <strong> Visita el museo </strong>
     <p>
