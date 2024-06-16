@@ -38,49 +38,39 @@
   <%= image_tag("piece_placeholder_image.png", class: "img-fluid my-3") %>
 </div>
 
-<div class="">
-
-</div>
-<div>
-
-</div>
 <div id="<%= dom_id @piece %>">
-  <p>
-    <strong>Number:</strong>
-    <%= @piece.number %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= @piece.description %>
-  </p>
-
-  <p>
-    <strong>Material:</strong>
-    <%= @piece.material %>
-  </p>
-
-  <p>
-    <strong>Measurement:</strong>
-    <%= @piece.measurement %>
-  </p>
-
-  <p>
-    <strong>Conservation state:</strong>
-    <%= @piece.conservation_state %>
-  </p>
-
-  <p>
-    <strong>Status:</strong>
-    <%= @piece.status %>
-  </p>
-
-  <p>
-    <strong>Piece collection:</strong>
-    <%= @piece.piece_collection_id %>
-  </p>
-
-</div>
-
-<div>
+  <div class="row">
+    <div class="col">
+      <span class="mb-1 status status_<%= @piece.status %>">
+          <%= t("activerecord.attributes.piece.statuses.#{@piece.status}") %>
+        </span>
+      <h5><%= @piece.name %> </h5>
+    </div>
+    <div class="col-md-12 py-3">
+      <p> <%= @piece.description %> </p>
+    </div>
+    <div class="col">
+      <p class="fs-5"><%= t(".details") %></p>
+      <ul class="list-unstyled">
+        <% if owner_or_admin %>
+          <li>
+            <strong><%= Piece.human_attribute_name("number") %>: </strong>
+            <%= @piece.number %>
+          </li>
+          <li>
+            <strong><%= Piece.human_attribute_name("conservation_state") %>: </strong>
+            <%= @piece.conservation_state %>
+          </li>
+        <% end %>
+        <li>
+          <strong><%= Piece.human_attribute_name("material") %>: </strong>
+          <%= @piece.material %>
+        </li>
+        <li>
+          <strong><%= Piece.human_attribute_name("measurement") %>: </strong>
+          <%= @piece.measurement %>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

@@ -1,5 +1,3 @@
-<h1>Editing piece collection</h1>
-
-<%= turbo_frame_tag @piece_collection do %>
-  <%= render "form", piece_collection: @piece_collection%>
-<% end %>
+<%= link_to "", @piece_collection, class: "bi bi-arrow-left icon_back"  %>
+<h2><%= t(".title") %> </h2>
+<%= render "form", piece_collection: @piece_collection%>

@@ -94,7 +94,6 @@ class PiecesController < ApplicationController
     end
 
   def authorize_user!
-    @piece = Piece.find(params[:id])
     authorized = case action_name
                  when "destroy" then current_user.admin?
                  when "new", "create", "update", "edit", "update_status" then current_user.admin_or_museum_owner?(@piece.piece_collection.museum)
