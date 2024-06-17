@@ -1,8 +1,8 @@
 class PiecesController < ApplicationController
-  before_action :set_piece_collection, only: %i[ index new create ]
-  before_action :set_piece, only: %i[ show edit update destroy ]
+  prepend_before_action :set_piece_collection, only: %i[ index new create ]
+  prepend_before_action :set_piece, only: %i[ show edit update destroy update_status ]
   skip_before_action :authenticate_user!, only: %i[ index show ]
-  skip_before_action :authorize_user!, only: %i[ index show edit update]
+  skip_before_action :authorize_user!, only: %i[ index show ]
 
   # GET /pieces or /pieces.json
   def index
@@ -21,7 +21,6 @@ class PiecesController < ApplicationController
 
   # GET /pieces/1/edit
   def edit
-    authorize_user!
   end
 
   # POST /pieces or /pieces.json
@@ -39,11 +38,9 @@ class PiecesController < ApplicationController
 
   # PATCH/PUT /pieces/1 or /pieces/1.json
   def update
-    authorize_user!
-
     respond_to do |format|
       if @piece.update(piece_params)
-        format.html { redirect_to piece_url(@piece), notice: "Piece was successfully updated." }
+        format.html { redirect_to piece_url(@piece), notice: t(".success") }
         format.json { render :show, status: :ok, location: @piece }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,7 +61,6 @@ class PiecesController < ApplicationController
   end
 
   def update_status
-    @piece = Piece.find(params[:id])
     status = params[:status].to_i
 
     begin
@@ -84,19 +80,20 @@ class PiecesController < ApplicationController
     @piece_collection = PieceCollection.find(params[:piece_collection_id])
   end
 
-    def set_piece
-      @piece = Piece.find(params[:id])
-    end
+  def set_piece
+    @piece = Piece.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def piece_params
-      params.require(:piece).permit(:name, :number, :description, :material, :measurement, :conservation_state, :status, :piece_collection_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def piece_params
+    params.require(:piece).permit(:name, :number, :description, :measurement, :conservation_state, :status, :piece_collection_id, :material_id)
+  end
 
   def authorize_user!
+    museum = @piece_collection ? @piece_collection.museum : @piece.piece_collection.museum
     authorized = case action_name
                  when "destroy" then current_user.admin?
-                 when "new", "create", "update", "edit", "update_status" then current_user.admin_or_museum_owner?(@piece.piece_collection.museum)
+                 when "new", "create", "update", "edit", "update_status" then current_user.admin_or_museum_owner?(museum)
                  else
                    false
                  end

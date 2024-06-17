@@ -28,6 +28,8 @@ es:
   pieces:
     create:
       success: "Pieza agregada correctamente!"
+    update:
+      success: "Pieza actualizada correctamente!"
     update_status:
       success: "Actualizado!"
       error: "Algo salio mal!"

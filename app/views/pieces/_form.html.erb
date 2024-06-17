@@ -29,7 +29,7 @@
 
     <div class="col-sm-8 mb-3">
       <%= form.label :material, class: "form-label" %>
-      <%= form.text_field :material, class: "form-control" %>
+      <%= form.collection_select :material_id, Material.order(:name), :id, :name, class: "form-control" %>
     </div>
 
     <div class="col-sm-8 mb-3">

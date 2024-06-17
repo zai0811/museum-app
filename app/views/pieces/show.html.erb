@@ -63,8 +63,8 @@
           </li>
         <% end %>
         <li>
-          <strong><%= Piece.human_attribute_name("material") %>: </strong>
-          <%= @piece.material %>
+          <strong><%= t(".material") %>: </strong>
+          <%= @piece.material.name %>
         </li>
         <li>
           <strong><%= Piece.human_attribute_name("measurement") %>: </strong>
