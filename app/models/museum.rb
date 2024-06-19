@@ -13,6 +13,14 @@ class Museum < ApplicationRecord
 
   enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED}, default: :hidden
 
+  def self.ransackable_attributes(auth_object = nil)
+    [ "name", "about", "address" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["city", "department", "piece_collections", "pieces"]
+  end
+
   def update_status!(status)
     return false unless status.in?([ NOT_PUBLISHED, PUBLISHED, ARCHIVED ])
     update!(status: status)
