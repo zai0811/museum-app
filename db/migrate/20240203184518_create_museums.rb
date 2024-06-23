@@ -8,7 +8,7 @@ class CreateMuseums < ActiveRecord::Migration[7.1]
       t.string :phone
       t.string :page
       t.string :address
-      t.integer :status, null: false
+      t.integer :museum_status, null: false
       t.references :user, null: false, foreign_key: true
 
       t.timestamps
