@@ -2,7 +2,7 @@ databases:
   - name: postgres
     databaseName: museum_app
     user: museum_app
-    plan: free
+    plan: starter
 
 services:
   - type: web

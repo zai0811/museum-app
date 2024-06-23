@@ -4,7 +4,6 @@ class CreatePieces < ActiveRecord::Migration[7.1]
       t.string :name, null: false
       t.integer :number
       t.text :description
-      t.string :material
       t.string :measurement
       t.integer :conservation_state
       t.integer :status, null: false

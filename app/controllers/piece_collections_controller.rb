@@ -30,8 +30,8 @@ class PieceCollectionsController < ApplicationController
 
     respond_to do |format|
       if @piece_collection.save
-        format.html { redirect_to museum_piece_collections_path(@museum), notice: "Piece collection was successfully created." }
-        format.turbo_stream { flash.now[:notice] = "Piece collection was successfully created." }
+        format.html { redirect_to museum_piece_collections_path(@museum), notice: t(".success") }
+        format.turbo_stream { flash.now[:notice] = t(".success") }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -44,7 +44,7 @@ class PieceCollectionsController < ApplicationController
 
     respond_to do |format|
       if @piece_collection.update(piece_collection_params)
-        format.html { redirect_to piece_collection_url(@piece_collection), notice: "Piece collection was successfully updated." }
+        format.html { redirect_to piece_collection_url(@piece_collection), notice: t(".success")  }
         format.json { render :show, status: :ok, location: @piece_collection }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -94,12 +94,11 @@ class PieceCollectionsController < ApplicationController
   end
 
   def authorize_user!
-    @piece_collection = PieceCollection.find(params[:id])
     authorized = case action_name
                  when "destroy" then current_user.admin?
-                 when "new", "create", "update", "edit", "update_status" then current_user.admin_or_museum_owner?(@piece_collection.museum)
+                 when "new", "create", "update", "edit", "update_status", "update_pieces_status" then current_user.admin_or_museum_owner?(@museum)
                  else
-                   true
+                   false
                  end
 
     not_authorized unless authorized

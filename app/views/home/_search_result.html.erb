@@ -1,0 +1,19 @@
+<div id="museums">
+  <% @museums.each do |museum| %>
+    <div class="border-bottom">
+      <ul class="list-unstyled" id="<%= dom_id museum %>">
+        <li> <%= link_to museum.name, museum %> </li>
+        <li>
+        <span class="status status_<%= museum.status %>">
+          <%= t("activerecord.attributes.museum.statuses.#{museum.status}") %>
+        </span>
+        </li>
+        <li>
+          <% if museum.updated_at %>
+            <%= l(museum.updated_at) %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+</div>

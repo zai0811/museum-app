@@ -57,3 +57,12 @@ es:
   piece_collections:
     show:
       actions: "Acciones"
+    edit:
+      title: "Editar Colección"
+  pieces:
+    show:
+      details: "Detalles"
+      material: "Material"
+    edit:
+      title: "Editar Pieza"
+

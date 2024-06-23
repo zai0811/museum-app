@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_30_232738) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_17_205118) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_232738) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_departments_on_name", unique: true
+  end
+
+  create_table "materials", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "museum_registration_requests", force: :cascade do |t|
@@ -82,13 +88,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_232738) do
     t.string "name", null: false
     t.integer "number"
     t.text "description"
-    t.string "material"
     t.string "measurement"
     t.integer "conservation_state"
     t.integer "status", null: false
     t.bigint "piece_collection_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "material_id", null: false
+    t.index ["material_id"], name: "index_pieces_on_material_id"
     t.index ["piece_collection_id"], name: "index_pieces_on_piece_collection_id"
   end
 
@@ -129,5 +136,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_232738) do
   add_foreign_key "museums", "museum_registration_requests"
   add_foreign_key "museums", "users"
   add_foreign_key "piece_collections", "museums"
+  add_foreign_key "pieces", "materials"
   add_foreign_key "pieces", "piece_collections"
 end

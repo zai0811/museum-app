@@ -18,12 +18,18 @@ es:
   piece_collections:
     create:
       success: "Colección agregada correctamente!"
+      error: "Algo salio mal!"
+    update:
+      success: "Colección editada exitosamente!"
+      error: "Algo salio mal!"
     update_status:
       success: "Actualizado!"
       error: "Algo salio mal!"
   pieces:
     create:
       success: "Pieza agregada correctamente!"
+    update:
+      success: "Pieza actualizada correctamente!"
     update_status:
       success: "Actualizado!"
       error: "Algo salio mal!"

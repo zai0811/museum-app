@@ -20,12 +20,12 @@
         <%= link_to t('global.menu.home'), root_path, class: "d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none fs-4" %>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <%= link_to t('global.menu.museums_list'), museums_path, class: "nav-link px-2 link-dark" %>
-          <%= link_to "Registrar Museo", new_museum_registration_request_path, class: "nav-link px-2 link-dark" %>
+          <li><%= link_to t('global.menu.museums_list'), museums_path, class: "nav-link px-2 link-dark" %></li>
+          <li><%= link_to "Registrar Museo", new_museum_registration_request_path, class: "nav-link px-2 link-dark" %></li>
           <% if user_signed_in %>
-            <%= link_to t('global.menu.registrations_request_list'), museum_registration_requests_path, class: "nav-link px-2 link-dark" %>
+            <li><%= link_to t('global.menu.registrations_request_list'), museum_registration_requests_path, class: "nav-link px-2 link-dark" %></li>
             <% if current_user.admin? %>
-              <%= link_to t('global.menu.users_list'), users_path, class: "nav-link px-2 link-dark" %>
+              <li><%= link_to t('global.menu.users_list'), users_path, class: "nav-link px-2 link-dark" %></li>
             <% end %>
           <% end %>
         </ul>

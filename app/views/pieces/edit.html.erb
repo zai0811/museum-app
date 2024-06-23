@@ -1,10 +1,7 @@
-<h1>Editing piece</h1>
+<div class="d-flex bd-highlight align-items-center">
+  <div class="p-2 bd-highlight">
+    <%= link_to "", piece_path, class: "bi bi-arrow-left icon_back" %>
+  </div>
+</div>
 
 <%= render "form", piece: @piece %>
-
-<br>
-
-<div>
-  <%= link_to "Show this piece", @piece %> |
-  <%= link_to "Back to pieces", pieces_path %>
-</div>

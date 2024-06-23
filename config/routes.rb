@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     get :cities, on: :collection
   end
 
+  resources :materials
+
   devise_for :users
   resources :users
   # get 'home/index' # could be a route for the home if necessary
