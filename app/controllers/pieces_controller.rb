@@ -29,7 +29,7 @@ class PiecesController < ApplicationController
 
     respond_to do |format|
       if @piece.save
-        format.html { redirect_to piece_collection_pieces_path(@piece_collection), notice: t(".success") }
+        format.html { redirect_to piece_collection_path(@piece_collection), notice: t(".success") }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

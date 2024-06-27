@@ -1,12 +1,20 @@
 <% admin = current_user.admin? ? true : false %>
-<div class="row">
-  <div class="col-auto me-auto">
-    <h2><%= MuseumRegistrationRequest.model_name.human(count: 2) %></h2>
+
+<div class="d-flex bd-highlight align-items-center">
+  <div class="p-2 flex-grow-1 bd-highlight">
+    <%= link_to "", root_path, class: "bi bi-arrow-left icon_back" %>
   </div>
-  <div class="col text-end">
+</div>
+
+<div class="d-flex bd-highlight align-items-center">
+  <div class="p-2 flex-grow-1 bd-highlight">
+    <h2> <%= MuseumRegistrationRequest.model_name.human(count: 2) %> </h2>
+  </div>
+  <div class="p-2 bd-highlight">
     <%= button_to t(".create"), new_museum_registration_request_path, method: :get, class: "btn btn-outline-secondary" %>
   </div>
 </div>
+
 
 <div class="table-responsive mt-3">
   <table class="table">
@@ -28,21 +36,11 @@
     <tbody class="align-middle">
     <% if @museum_registration_requests %>
       <% @museum_registration_requests.each do |museum_registration_request| %>
-        <% if museum_registration_request.approved? %>
-          <% color = "text-bg-success" %>
-        <% elsif museum_registration_request.rejected? %>
-          <% color = "text-bg-danger" %>
-        <% elsif museum_registration_request.not_reviewed? %>
-          <% color = "text-bg-primary" %>
-        <% else %>
-          <% color = "text-bg-secondary" %>
-        <% end %>
-
         <tr id="<%= dom_id museum_registration_request %>">
           <td> <%= museum_registration_request.museum_name %></td>
           <td>
-            <span class="badge rounded-pill <%= color %> px-2 py-2">
-            <%= t("activerecord.attributes.museum_registration_request.registration_statuses.#{museum_registration_request.registration_status}") %>
+            <span class="status status_<%= museum_registration_request.registration_status %>">
+              <%= t("activerecord.attributes.museum_registration_request.registration_statuses.#{ museum_registration_request.registration_status }") %>
             </span>
           </td>
           <td> <%= museum_registration_request.museum_code %></td>

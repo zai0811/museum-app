@@ -18,11 +18,11 @@ es:
         other: "Departamentos"
     attributes:
       museum_registration_request:
-        museum_name: "Museo"
+        museum_name: "Nombre del museo"
         museum_code: "Código de resolución"
         museum_address: "Dirección"
-        manager_email: "Administrador/a"
-        manager_name: "Nombre del/a Administrador/a"
+        manager_email: "Correo electrónico del encargado"
+        manager_name: "Nombre del encargado"
         created_at: "Creado el"
         updated_at: "Actualizado el"
         created_by: "Creado por"

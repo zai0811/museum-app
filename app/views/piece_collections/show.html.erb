@@ -99,5 +99,16 @@
     </table>
   </div>
 <% else %>
-  should show a masonry or something similar
+  <h4 class="text-center"><%= t(".explore_pieces") %></h4>
+  <div class="album py-5">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <% @pieces.each do |piece| %>
+          <% if piece.published? %>
+            <%= render "pieces/piece_gallery", piece: piece %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 <% end %>

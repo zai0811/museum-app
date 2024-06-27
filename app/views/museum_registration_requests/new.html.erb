@@ -1,4 +1,14 @@
-<h2><%= t(".title") %></h2>
+<div class="d-flex bd-highlight align-items-center">
+  <div class="p-2 flex-grow-1 bd-highlight">
+    <%= link_to "", root_path, class: "bi bi-arrow-left icon_back" %>
+  </div>
+</div>
+<div class="d-flex bd-highlight flex-column justify-content-center align-items-left">
+  <div class="bd-highlight" id="<%= dom_id @museum_registration_request %>">
+    <h2> <%= t(".title") %></h2>
+  </div>
+</div>
+
 <% if current_user %>
   <p> Serás asignado como el administrador de este museo automáticamente.</p>
 <% end %>
@@ -60,12 +70,5 @@
   <% end %>
   <div>
     <%= form.submit class: "btn btn-outline-secondary" %>
-  </div>
-<% end %>
-
-<br>
-<% if current_user&.admin? %>
-  <div>
-    <%= link_to t(".back"), museum_registration_requests_path %>
   </div>
 <% end %>
