@@ -12,6 +12,7 @@
 
 <body>
 <% user_signed_in = user_signed_in? %>
+<% admin = current_user&.admin? ? true : false %>
 
 <div class="container">
   <header class="py-3 mb-4 border-bottom">
@@ -22,11 +23,9 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><%= link_to t('global.menu.museums_list'), museums_path, class: "nav-link px-2 link-dark" %></li>
           <li><%= link_to "Registrar Museo", new_museum_registration_request_path, class: "nav-link px-2 link-dark" %></li>
-          <% if user_signed_in %>
+          <% if admin %>
             <li><%= link_to t('global.menu.registrations_request_list'), museum_registration_requests_path, class: "nav-link px-2 link-dark" %></li>
-            <% if current_user.admin? %>
-              <li><% link_to t('global.menu.users_list'), users_path, class: "nav-link px-2 link-dark" %></li>
-            <% end %>
+            <li><% link_to t('global.menu.users_list'), users_path, class: "nav-link px-2 link-dark" %></li>
           <% end %>
         </ul>
 
