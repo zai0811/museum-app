@@ -1,20 +1,20 @@
 <% admin = current_user.admin? ? true : false %>
-<% if @museum_registration_request.approved? %>
-  <% color = "text-bg-success" %>
-<% elsif @museum_registration_request.rejected? %>
-  <% color = "text-bg-danger" %>
-<% elsif @museum_registration_request.not_reviewed? %>
-  <% color = "text-bg-primary" %>
-<% else %>
-  <% color = "text-bg-secondary" %>
-<% end %>
 
-<h2> <%= MuseumRegistrationRequest.model_name.human %> </h2>
-<h5>
-    <span class="badge rounded-pill <%= color %> column">
+<div class="d-flex bd-highlight align-items-center">
+  <div class="p-2 flex-grow-1 bd-highlight">
+    <%= link_to "", museum_registration_requests_path, class: "bi bi-arrow-left icon_back" %>
+  </div>
+</div>
+<div class="d-flex bd-highlight flex-column justify-content-center align-items-left">
+  <div class="pb-2 bd-highlight">
+    <span class="status status_<%= @museum_registration_request.registration_status %>">
       <%= t("activerecord.attributes.museum_registration_request.registration_statuses.#{@museum_registration_request.registration_status}") %>
     </span>
-</h5>
+  </div>
+  <div class="bd-highlight mb-3" id="<%= dom_id @museum_registration_request %>">
+    <h2> <%= MuseumRegistrationRequest.model_name.human %> </h2>
+  </div>
+</div>
 
 <p>
   <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_name") %>:</strong>
@@ -96,9 +96,7 @@
     </div>
   <% end %>
 </div>
-<div class="mt-3">
-  <%= link_to t(".back"), museum_registration_requests_path, class: "bi bi-arrow-left" %>
-</div>
+
 
 
 

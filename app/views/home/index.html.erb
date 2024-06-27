@@ -2,16 +2,20 @@
   <div class="row align-items-center g-lg-5 py-5">
     <div class="col-lg-7 text-center text-lg-start">
       <h1 class="display-4 fw-bold lh-1 mb-3"> Descubrí la Riqueza cultural del país </h1>
-      <p class="col-lg-10 fs-4"> Busca museos por nombre, ciudad, etc.</p>
-
-      <div class="d-flex" role="search">
-        <%= search_form_for @q do |f| %>
-          <%= f.search_field :name_or_about_or_address_cont, class: "form-control me-2", placeholder: "Buscar..." %>
-          <%= f.submit class: "btn btn-outline-success" %>
+      <p class="col-lg-10 fs-4"> Busca museos por nombre, dirección o descripción.</p>
+      <div role="search">
+        <%= search_form_for @q, class: "row g-3" do |f| %>
+          <div class="col-auto">
+            <%= f.search_field :name_or_about_or_address_cont, class: "form-control me-2", placeholder: "Buscar..." %>
+          </div>
+          <div class="col-auto">
+            <%= f.submit class: "btn btn-outline-success" %>
+          </div>
         <% end %>
       </div>
     </div>
   </div>
+
 </div>
 
 

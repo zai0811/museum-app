@@ -54,7 +54,7 @@
     <div class="card-body">
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          <strong>Código:</strong> <%= @museum.code %>
+          <strong><%= Museum.human_attribute_name("code") %>:</strong> <%= @museum.code %>
         </li>
         <% if admin %>
           <% if @museum.museum_registration_request %>
@@ -64,7 +64,7 @@
             </li>
           <% end %>
           <li class="list-group-item">
-            <strong>Administrador:</strong> <%= link_to @museum.user.email, @museum.user %>
+            <strong><%= t("museums.index.admin") %>:</strong> <%= link_to @museum.user.email, @museum.user %>
           </li>
         <% end %>
       </ul>
@@ -117,7 +117,9 @@
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <% @piece_collections.each do |piece_collection| %>
+          <% if piece_collection.published? %>
           <%= render "piece_collections/piece_collection_gallery", piece_collection: piece_collection %>
+            <% end %>
         <% end %>
       </div>
     </div>

@@ -5,7 +5,7 @@ es:
 
   museum_registration_requests:
     index:
-      create: "Crear una nueva solicitud de registro"
+      create: "Crear nueva solicitud"
       view: " Ver"
       view_archived: "Ver solicitudes archivadas"
       department: "Departamento"
@@ -41,6 +41,8 @@ es:
       city: "Ciudad"
       actions: "Acciones"
       pieces: "Piezas"
+      admin_title: "Museos"
+      gallery_title: "Explorar Museos"
     new:
       title: "Nuevo Museo"
       back: "Volver a explorar museos"
@@ -57,12 +59,15 @@ es:
   piece_collections:
     show:
       actions: "Acciones"
+      explore_pieces: "Conoce las piezas de esta colección"
     edit:
-      title: "Editar Colección"
+      title: "Editar colección"
   pieces:
     show:
       details: "Detalles"
       material: "Material"
     edit:
-      title: "Editar Pieza"
+      title: "Editar pieza"
+    new:
+      title: "Nueva pieza"
 

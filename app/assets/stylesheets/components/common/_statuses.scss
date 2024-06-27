@@ -7,11 +7,27 @@
   text-transform: uppercase;
   font-weight: bold;
 
-  &_hidden{
+  &_hidden {
     color: #FF6347;
   }
 
   &_published {
     color: $success;
+  }
+
+  &_not_reviewed {
+    color: $primary;
+  }
+
+  &_approved {
+    color: $success;
+  }
+
+  &_rejected {
+    color: #FF6347;
+  }
+
+  &_archived {
+    color: $secondary
   }
 }
