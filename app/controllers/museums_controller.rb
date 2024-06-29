@@ -6,7 +6,7 @@ class MuseumsController < ApplicationController
   # GET /museums or /museums.json
   def index
     @q = Museum.ransack(params[:q])
-    @museums = @q.result(distinct: true)
+    @museums = @q.result(distinct: true).includes(:city)
   end
 
   # GET /museums/1 or /museums/1.json

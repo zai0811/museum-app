@@ -20,7 +20,7 @@ end
 
 # Create cities
 cities = [
-  { name: 'Asunción', department_id: Department.find_by(name: 'Central').id },
+  { name: 'Asunción', department_id: Department.find_by(name: 'Capital').id },
   { name: 'Encarnación', department_id: Department.find_by(name: 'Itapúa').id },
 # Add more cities as needed
 ]
