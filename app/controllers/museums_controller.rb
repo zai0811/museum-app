@@ -1,7 +1,7 @@
 class MuseumsController < ApplicationController
-  before_action :set_museum, only: %i[ show edit update destroy ]
+  prepend_before_action :set_museum, only: %i[ show edit update destroy ]
   skip_before_action :authenticate_user!, only: %i[ index show ]
-  skip_before_action :authorize_user!, only: %i[ index show edit update ]
+  skip_before_action :authorize_user!, only: %i[ index show ]
 
   # GET /museums or /museums.json
   def index
@@ -21,9 +21,6 @@ class MuseumsController < ApplicationController
 
   # GET /museums/1/edit
   def edit
-    # Need to add authorize user here becuase the before_action that comes from the action controller is
-    # executed before the set_museum so the method becomes authorize_user!(nil) = false
-    authorize_user!
   end
 
   # POST /museums or /museums.json
@@ -44,8 +41,6 @@ class MuseumsController < ApplicationController
 
   # PATCH/PUT /museums/1 or /museums/1.json
   def update
-    authorize_user!
-
     respond_to do |format|
       if @museum.update(museum_params)
         format.html { redirect_to museum_url(@museum), notice: t(".success") }
