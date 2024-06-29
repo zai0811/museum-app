@@ -7,9 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-
 # Create departments
 departments = [
+  { name: 'Capital' },
   { name: 'Central' },
   { name: 'Itapúa' },
 ]
@@ -21,7 +21,12 @@ end
 # Create cities
 cities = [
   { name: 'Asunción', department_id: Department.find_by(name: 'Capital').id },
+  { name: 'Areguá', department_id: Department.find_by(name: 'Central').id },
+  { name: 'Fernando de la Mora', department_id: Department.find_by(name: 'Central').id },
+  { name: 'San Lorenzo', department_id: Department.find_by(name: 'Central').id },
   { name: 'Encarnación', department_id: Department.find_by(name: 'Itapúa').id },
+  { name: 'Cambyretá', department_id: Department.find_by(name: 'Itapúa').id },
+  { name: 'Carmen del Paraná', department_id: Department.find_by(name: 'Itapúa').id },
 # Add more cities as needed
 ]
 
