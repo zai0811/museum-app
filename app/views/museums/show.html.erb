@@ -118,8 +118,8 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <% @piece_collections.each do |piece_collection| %>
           <% if piece_collection.published? %>
-          <%= render "piece_collections/piece_collection_gallery", piece_collection: piece_collection %>
-            <% end %>
+            <%= render "piece_collections/piece_collection_gallery", piece_collection: piece_collection %>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -129,12 +129,13 @@
 <div class="row mt-4">
   <div class="col">
     <strong> Visita el museo </strong>
-    <p>
-      <%= @museum.address %> <br>
-      <%= @museum.phone %> <br>
-      <%= @museum.email %> <br>
-      <%= @museum.page %> <br>
-    </p>
+    <ul class="list-unstyled">
+      <li><%= @museum.phone %> </li>
+      <li><%= @museum.email %> </li>
+      <li> <%= @museum.page %> </li>
+      <li><%= @museum.address %> </li>
+      <li> <%= @museum.city.name %> </li>
+    </ul>
   </div>
   <div class="col">
     <strong>Horarios de atencion</strong>

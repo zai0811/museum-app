@@ -2,6 +2,9 @@ es:
   global:
     partials:
       empty_list: "No hay items para mostrar."
+    hero:
+      title: "Descubrí la Riqueza cultural del país"
+      sub_title: "Busca museos por nombre, dirección, ciudad o descripción"
 
   museum_registration_requests:
     index:

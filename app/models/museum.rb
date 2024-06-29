@@ -18,7 +18,7 @@ class Museum < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["city", "department", "piece_collections", "pieces"]
+    [ "city" ]
   end
 
   def update_status!(status)
