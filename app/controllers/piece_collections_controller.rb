@@ -1,8 +1,8 @@
 class PieceCollectionsController < ApplicationController
-  before_action :set_museum, only: %i[ index new create ]
-  before_action :set_piece_collection, only: %i[ show edit update destroy ]
+  prepend_before_action :set_museum, only: %i[ index new create ]
+  prepend_before_action :set_piece_collection, only: %i[ show edit update destroy update_status ]
   skip_before_action :authenticate_user!, only: %i[ index show ]
-  skip_before_action :authorize_user!, only: %i[ index show edit update ]
+  skip_before_action :authorize_user!, only: %i[ index show ]
 
   # GET /piece_collections or /piece_collections.json
   def index
@@ -21,7 +21,6 @@ class PieceCollectionsController < ApplicationController
 
   # GET /piece_collections/1/edit
   def edit
-    authorize_user!
   end
 
   # POST /piece_collections or /piece_collections.json
@@ -40,8 +39,6 @@ class PieceCollectionsController < ApplicationController
 
   # PATCH/PUT /piece_collections/1 or /piece_collections/1.json
   def update
-    authorize_user!
-
     respond_to do |format|
       if @piece_collection.update(piece_collection_params)
         format.html { redirect_to piece_collection_url(@piece_collection), notice: t(".success")  }
@@ -64,7 +61,6 @@ class PieceCollectionsController < ApplicationController
   end
 
   def update_status
-    @piece_collection = PieceCollection.find(params[:id])
     status = params[:status].to_i
 
     begin
@@ -94,9 +90,10 @@ class PieceCollectionsController < ApplicationController
   end
 
   def authorize_user!
+    museum = @museum ? @museum : @piece_collection.museum
     authorized = case action_name
                  when "destroy" then current_user.admin?
-                 when "new", "create", "update", "edit", "update_status", "update_pieces_status" then current_user.admin_or_museum_owner?(@museum)
+                 when "new", "create", "update", "edit", "update_status" then current_user.admin_or_museum_owner?(museum)
                  else
                    false
                  end

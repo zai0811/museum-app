@@ -1,4 +1,4 @@
-<% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@museum) %>
+<% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@piece_collection.museum) %>
 
 <div class="d-flex bd-highlight align-items-center">
   <div class="p-2 bd-highlight">

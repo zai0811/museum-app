@@ -45,6 +45,7 @@ es:
       actions: "Acciones"
       pieces: "Piezas"
       admin_title: "Museos"
+      owner_title: "Mis Museos"
       gallery_title: "Explorar Museos"
     new:
       title: "Nuevo Museo"
