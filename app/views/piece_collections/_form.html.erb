@@ -12,12 +12,22 @@
     </div>
   <% end %>
 
-  <div class="col-md-6">
-    <%= form.label :name, class: "visually-hidden" %>
+  <div class="col-sm-8 mb-3">
+    <%= form.label :name, class: "form-label" %>
     <%= form.text_field :name, class: "form-control", placeholder: "Nombre" %>
   </div>
 
-  <div class="col text-end">
+  <div class="form-check form-switch">
+    <%= form.check_box :is_temporary,  class: "form-check-input", role: "switch" %>
+    <%= form.label :is_temporary, class: "form-check-label" %>
+  </div>
+
+  <div class="col-sm-8 mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="col-sm-8">
     <%= form.submit class: "btn btn-sm btn-outline-secondary" %>
   </div>
 <% end %>

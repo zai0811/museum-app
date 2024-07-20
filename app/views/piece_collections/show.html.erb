@@ -19,11 +19,11 @@
       </div>
     <% else %>
       <div class="p-2 bd-highlight">
-      <%= button_to "Publicar",
-                    update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
-                    method: :patch,
-                    form: { data: { turbo_confirm: "Estas seguro?" } },
-                    class: "btn btn-success" %>
+        <%= button_to "Publicar",
+                      update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
+                      method: :patch,
+                      form: { data: { turbo_confirm: "Estas seguro?" } },
+                      class: "btn btn-success" %>
       </div>
     <% end %>
     <div class="p-2 bd-highlight">
@@ -45,6 +45,12 @@
   <% end %>
   <div class="bd-highlight" id="<%= dom_id @piece_collection %>">
     <h2><%= @piece_collection.name %></h2>
+  </div>
+  <div class="pb-2 bd-highlight">
+    <span class="text-secondary"> <%= @piece_collection.is_temporary ? "Disponible por tiempo limitado." : "Permanentemente exhibida en el museo."  %> </span>
+  </div>
+  <div class="pb-2 bd-highlight">
+    <%= @piece_collection.description %>
   </div>
 </div>
 

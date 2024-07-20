@@ -61,6 +61,8 @@ es:
     other:
       created_by_request: "Creado por solicidud de registro"
   piece_collections:
+    new:
+      is_temporary: "Colección temporal?"
     show:
       actions: "Acciones"
       explore_pieces: "Conoce las piezas de esta colección"
