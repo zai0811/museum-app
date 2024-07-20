@@ -16,6 +16,12 @@ es:
       deparment:
         one: "Departamento"
         other: "Departamentos"
+      author:
+        one: "Autor"
+        other: "Autores"
+      material:
+        one: "Material"
+        other: "Materiales"
     attributes:
       museum_registration_request:
         museum_name: "Nombre del museo"
@@ -59,6 +65,7 @@ es:
         status: "Estado"
         created_at: "Creado el"
         updated_at: "Actualizado el"
+        is_temporary: "Colección temporal?"
         statuses:
           hidden: "Colección Privada"
           published: "Colección Pública"
@@ -66,6 +73,7 @@ es:
       piece:
         name: "Nombre"
         number: "Número"
+        author: "Autor"
         description: "Descripción"
         material: "Material"
         measurement: "Medidas"
@@ -80,4 +88,9 @@ es:
       department:
         name: "Nombre"
       city:
+        name: "Nombre"
+      author:
+        first_name: "Nombre"
+        last_name: "Apellido"
+      material:
         name: "Nombre"

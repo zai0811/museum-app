@@ -61,6 +61,8 @@ es:
     other:
       created_by_request: "Creado por solicidud de registro"
   piece_collections:
+    new:
+      is_temporary: "Colección temporal?"
     show:
       actions: "Acciones"
       explore_pieces: "Conoce las piezas de esta colección"
@@ -70,8 +72,31 @@ es:
     show:
       details: "Detalles"
       material: "Material"
+      author: "Autor"
     edit:
       title: "Editar pieza"
     new:
       title: "Nueva pieza"
-
+  authors:
+    index:
+      title: "Autores"
+      actions: "Acciones"
+      new: "Crear autor"
+      pieces: "Piezas"
+    new:
+      title: "Nuevo autor"
+    edit:
+      title: "Editar autor"
+    show:
+      title: "Autor"
+      delete: "Eliminar autor"
+      pieces: "Piezas"
+  materials:
+    index:
+      title: "Materiales"
+      new: "Crear material"
+    edit:
+      title: "Editar material"
+    show:
+      title: "Material"
+      delete: "Eliminar"
