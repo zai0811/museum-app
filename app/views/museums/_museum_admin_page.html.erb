@@ -1,0 +1,123 @@
+<% admin = current_user&.admin? ? true : false %>
+<style>
+    dt {
+        color: dimgray;
+    }
+</style>
+
+
+<% if museum.published? %>
+  <div class="p-2 bd-highlight">
+    <%= button_to "Hacer Privado",
+                  update_museum_status_museum_path(museum, status: Museum::NOT_PUBLISHED),
+                  method: :patch,
+                  form: { data: { turbo_confirm: "Estas seguro?" } },
+                  class: "btn btn-warning" %>
+  </div>
+<% else %>
+  <div class="p-2 bd-highlight">
+    <%= button_to "Publicar",
+                  update_museum_status_museum_path(museum, status: Museum::PUBLISHED),
+                  method: :patch,
+                  form: { data: { turbo_confirm: "Estas seguro?" } },
+                  class: "btn btn-success" %>
+
+  </div>
+<% end %>
+
+<div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
+  <div class="bd-highlight" id="<%= dom_id museum %>">
+    <h2> <%= museum.name %></h2>
+  </div>
+  <div class="pb-2 bd-highlight">
+    <span class="status status_<%= museum.status %>">
+      <%= t("activerecord.attributes.museum.statuses.#{museum.status}") %>
+    </span>
+  </div>
+</div>
+
+<!-- Information section -->
+
+<div class="card">
+  <div class="card-header">
+    <h5><a class="btn" data-bs-toggle="collapse" href="#record-collapse" aria-expanded="false">
+      Ficha del Museo
+    </a></h5>
+  </div>
+  <div class="collapse" id="record-collapse">
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <button class="btn btn-outline-dark btn-sm" data-bs-toggle="collapse" data-bs-target="#admin-info-collapse" aria-expanded="false">
+            Administración
+          </button>
+          <div class="collapse" id="admin-info-collapse">
+            <dl>
+              <% if admin %>
+                <dd>Creado
+                  desde <%= link_to t("activerecord.attributes.museum.museum/museum_registration_request.id"), museum.museum_registration_request %></dd>
+                <dt><%= t("activerecord.attributes.museum.user") %></dt>
+                <dd><%= link_to museum.user.email, museum.user %></dd>
+              <% end %>
+              <dt><%= t("activerecord.attributes.museum.code") %></dt>
+              <dd><%= museum.code %></dd>
+            </dl>
+          </div>
+        <li class="list-group-item">
+          <button class="btn btn-outline-dark btn-sm" data-bs-toggle="collapse" data-bs-target="#general-info-collapse" aria-expanded="false">
+            General
+          </button>
+          <div class="collapse" id="general-info-collapse">
+            <dl>
+              <dt><%= t("activerecord.attributes.museum.about") %></dt>
+              <dd><%= museum.about %></dd>
+              <dt><%= t("activerecord.attributes.museum.address") %></dt>
+              <dd><%= museum.address %></dd>
+              <dt><%= t("activerecord.attributes.museum.city") %></dt>
+              <dd><%= museum.city.name %></dd>
+              (Horario de Atencion)
+            </dl>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <%= link_to "Editar Ficha", edit_museum_path(@museum), class: "btn btn-dark" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Collection section -->
+<!-- Render the piece_collections/_piece_collection partial -->
+
+<div class="row py-3">
+  <div class="col "><h4>Colecciones</h4></div>
+  <div class="col text-end">
+    <%= link_to "Agregar coleccion",
+                new_museum_piece_collection_path(museum),
+                class: "btn btn-outline-secondary",
+                data: { turbo_frame: dom_id(PieceCollection.new) } %>
+  </div>
+</div>
+
+<!-- Empty tag that will be replaced with the New Form for the piece collection -->
+<%= turbo_frame_tag PieceCollection.new %>
+
+<div class="table-responsive mt-3">
+  <table class="table">
+    <thead class="table-light align-middle">
+    <tr>
+      <th scope="col"> <%= PieceCollection.human_attribute_name("name") %> </th>
+      <th scope="col"> <%= PieceCollection.human_attribute_name("status") %> </th>
+      <th scope="col"> <%= t(".pieces") %> </th>
+      <th scope="col"> <%= PieceCollection.human_attribute_name("updated_at") %> </th>
+      <th scope="col"> <%= t(".actions") %> </th>
+    </tr>
+    </thead>
+    <tbody class="align-middle" id="collections_table">
+    <% museum.piece_collections.each do |piece_collection| %>
+      <%= render "piece_collections/piece_collection", piece_collection: piece_collection %>
+    <% end %>
+    </tbody>
+  </table>
+</div>

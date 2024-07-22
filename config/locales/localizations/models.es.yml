@@ -48,7 +48,9 @@ es:
         phone: "Teléfono del museo"
         page: "Página web del museo"
         address: "Dirección"
-        admin: "Encargado"
+        user: "Encargado"
+        city: "Ciudad"
+        department: "Departamento"
         created_at: "Creado el"
         updated_at: "Actualizado el"
         museum/user:
