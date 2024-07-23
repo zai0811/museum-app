@@ -1,3 +1,6 @@
+$font-family-heading: Candara, 'Noto Sans', source-sans-pro, sans-serif, system-ui;
+
+// Icons
 .icon_back {
   color: $secondary;
   font-size: 2rem;
@@ -6,4 +9,27 @@
 .icon_edit {
   color: $secondary;
   font-size: 1.5rem;
+}
+
+// Buttons
+.cta {
+  font-family: $font-family-heading;
+  text-transform: uppercase;
+  font-size: small;
+  font-weight: bold;
+}
+
+// Text
+h1, h2, h3, h4 {
+  font-family: $font-family-heading;
+}
+.main_heading{
+  font-family: $font-family-heading;
+  font-size: $h1-font-size;
+  font-weight: 600;
+}
+
+// Spacing
+.page-container {
+  margin-top: 1rem;
 }

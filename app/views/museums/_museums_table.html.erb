@@ -35,8 +35,8 @@
         </td>
         <td> <%= museum.code %>  </td>
         <td>
-            <i class="icon icon_<%= museum.status %>"></i>
-            <span>
+          <i class="icon icon_<%= museum.status %>"></i>
+          <span>
               <%= t("activerecord.attributes.museum.statuses.#{museum.status}") %>
             </span>
         </td>
@@ -44,21 +44,19 @@
         <td> <%= museum.city.name %>  </td>
         <td>
           <div class="btn-group">
-            <% if current_user && current_user.admin_or_museum_owner?(museum) %>
-              <% if museum.published? %>
-                <%= button_to "Hacer Privado",
-                              update_museum_status_museum_path(museum, status: Museum::NOT_PUBLISHED),
-                              method: :patch,
-                              form: { data: { turbo_confirm: "Estas seguro?" } },
-                              class: "btn btn-outline-dark btn-sm" %>
-              <% else %>
-                <%= button_to "Publicar",
-                              update_museum_status_museum_path(museum, status: Museum::PUBLISHED),
-                              method: :patch,
-                              form: { data: { turbo_confirm: "Estas seguro?" } },
-                              class: "btn btn-dark btn-sm" %>
+            <% if current_user && current_user.admin_or_museum_owner?(museum) && museum.published? %>
+              <%= button_to "Hacer Privado",
+                            update_museum_status_museum_path(museum, status: Museum::NOT_PUBLISHED),
+                            method: :patch,
+                            form: { data: { turbo_confirm: "Estas seguro?" } },
+                            class: "btn btn-outline-dark btn-sm" %>
+            <% else %>
+              <%= button_to "Publicar",
+                            update_museum_status_museum_path(museum, status: Museum::PUBLISHED),
+                            method: :patch,
+                            form: { data: { turbo_confirm: "Estas seguro?" } },
+                            class: "btn btn-dark btn-sm" %>
 
-              <% end %>
             <% end %>
           </div>
         </td>
