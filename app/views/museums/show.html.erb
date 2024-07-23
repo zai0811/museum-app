@@ -1,15 +1,16 @@
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@museum) %>
 
 <div class="container-fluid">
-  <%= image_tag("museum_top_placeholder.png", class: "img-fluid") %>
+  <%= image_tag("museum_top_placeholder.png", class: "img-fluid d-none d-xxl-block") %>
 </div>
 
-<% if owner_or_admin %>
-  <%= render 'museum_admin_page', museum: @museum %>
-<% else %>
-  <%= render 'museum_visitor_page', museum: @museum %>
-<% end %>
-
+<div class="container">
+  <% if owner_or_admin %>
+    <%= render 'museum_admin_page', museum: @museum %>
+  <% else %>
+    <%= render 'museum_visitor_page', museum: @museum %>
+  <% end %>
+</div>
 
 
 

@@ -47,13 +47,16 @@ es:
       admin_title: "Museos"
       owner_title: "Mis Museos"
       gallery_title: "Explorar Museos"
+      section_admin: "Información Administrativa"
+      section_general: "Información del Museo"
+      section_contact: "Información de Contacto"
     new:
       title: "Nuevo Museo"
       back: "Volver a explorar museos"
       department: "Departamento"
       city: "Ciudad"
     edit:
-      title: "Editar Museo"
+      title: "Editar ficha del museo"
       view: "Ver museo"
       back: "Volver a explorar museos"
       department: "Departamento"

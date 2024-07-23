@@ -3,3 +3,22 @@
   gap: 2rem;
   grid-template-columns: repeat( auto-fit, minmax(250px, 1fr));
 }
+
+.image-header {
+  width: 100%;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  z-index: 999;
+  opacity: 1;
+}
+.record-header{
+  font-weight: 500;
+  font-size: $h5-font-size;
+  color: dimgray;
+}
+
+.record-title{
+  font-weight: 500;
+  color: dimgray;
+}

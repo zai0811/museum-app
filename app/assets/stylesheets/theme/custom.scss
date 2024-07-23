@@ -1,12 +1,11 @@
 $white: #ffffff;
 
-$theme-colors: (
-        "light":      #e5e5e6,
-        "dark":       #050506,
-        "primary":    #8f0403,
-        "secondary":  #304069,
-        "info":       #e86a01,
-        "success":    #539400,
-        "warning":    #ffb94f,
-        "danger":     #ea0062,
-);
+$primary: #8F0403;
+$secondary: #3aa08a;
+$dark: #101a30;
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+
+$custom-theme-colors: ( "altlight" : #e9e8df );
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);

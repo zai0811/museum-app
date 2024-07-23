@@ -28,9 +28,13 @@
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="mainDropdown">
                 <li> <%= link_to t('global.menu.users_list'), users_path, class: "dropdown-item" %> </li>
-                <li> <hr class="dropdown-divider"> </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
                 <li> <%= link_to t('global.menu.registrations_request_list'), museum_registration_requests_path, class: "dropdown-item" %> </li>
-                <li> <hr class="dropdown-divider"> </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
                 <li> <%= link_to "Autores", authors_path, class: "dropdown-item" %> </li>
                 <li> <%= link_to "Materiales", materials_path, class: "dropdown-item" %> </li>
               </ul>
@@ -39,7 +43,7 @@
         <% end %>
       </ul>
 
-      <%= link_to "Registrar Museo", new_museum_registration_request_path, class: "btn btn-secondary mb-3 mb-lg-0 me-lg-3" %>
+      <%= link_to "Registrar Museo", new_museum_registration_request_path, class: "btn cta btn-primary mb-3 mb-lg-0 me-lg-3" %>
       <% if user_signed_in %>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,14 +66,12 @@
   </div>
 </header>
 
-<div class="container">
-
-  <div id="flash" class="flash">
-    <%= render "layouts/flash" %>
-  </div>
-
-  <%= yield %>
-  <p class="alert" style="color: red"><%= alert %></p>
+<div id="flash" class="flash">
+  <%= render "layouts/flash" %>
 </div>
+
+<%= yield %>
+<p class="alert" style="color: red"><%= alert %></p>
+
 </body>
 </html>
