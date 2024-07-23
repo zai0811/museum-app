@@ -1,9 +1,7 @@
-<h1><%=t(".title") %></h1>
-
-<%= render "form", museum: @museum %>
-
-<br>
-
-<div>
-  <%= link_to t(".back"), museums_path %>
+<div class="container">
+  <h1><%= t(".title") %></h1>
+  <%= render "form", museum: @museum %>
+  <div>
+    <%= link_to t(".back"), museums_path %>
+  </div>
 </div>

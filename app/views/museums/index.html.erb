@@ -1,5 +1,7 @@
-<% if current_user %>
-  <%= render 'museums_table', museums: @museums %>
-<% else %>
-  <%= render 'museums_gallery', museums: @museums %>
-<% end %>
+<div class="container">
+  <% if current_user %>
+    <%= render 'museums_table', museums: @museums %>
+  <% else %>
+    <%= render 'museums_gallery', museums: @museums %>
+  <% end %>
+</div>

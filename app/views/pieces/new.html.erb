@@ -1,9 +1,11 @@
-<div class="d-flex bd-highlight align-items-center">
-  <div class="p-2 bd-highlight">
-    <%= link_to "", piece_collection_path(@piece_collection), class: "bi bi-arrow-left icon_back" %>
+<div class="container">
+  <div class="d-flex bd-highlight align-items-center">
+    <div class="p-2 bd-highlight">
+      <%= link_to "", piece_collection_path(@piece_collection), class: "bi bi-arrow-left icon_back" %>
+    </div>
   </div>
+
+  <h2 class="mb-3"><%= t(".title") %></h2>
+
+  <%= render "form", piece: @piece %>
 </div>
-
-<h2 class="mb-3"><%= t(".title") %></h2>
-
-<%= render "form", piece: @piece %>

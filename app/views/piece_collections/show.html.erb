@@ -1,120 +1,122 @@
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@piece_collection.museum) %>
 
-<div class="d-flex bd-highlight align-items-center">
-  <div class="p-2 bd-highlight">
-    <%= link_to "", museum_path(@piece_collection.museum_id), class: "bi bi-arrow-left icon_back" %>
-  </div>
+<div class="container">
+  <div class="d-flex bd-highlight align-items-center">
+    <div class="p-2 bd-highlight">
+      <%= link_to "", museum_path(@piece_collection.museum_id), class: "bi bi-arrow-left icon_back" %>
+    </div>
 
-  <div class="p-2 flex-grow-1 bd-highlight text-muted fs-6">
-    <%= @piece_collection.museum.name %>
-  </div>
-  <% if owner_or_admin %>
-    <% if @piece_collection.published? %>
+    <div class="p-2 flex-grow-1 bd-highlight text-muted fs-6">
+      <%= @piece_collection.museum.name %>
+    </div>
+    <% if owner_or_admin %>
+      <% if @piece_collection.published? %>
+        <div class="p-2 bd-highlight">
+          <%= button_to "Hacer Privado",
+                        update_status_piece_collection_path(@piece_collection, status: PieceCollection::NOT_PUBLISHED),
+                        method: :patch,
+                        form: { data: { turbo_confirm: "Estas seguro?" } },
+                        class: "btn btn-warning" %>
+        </div>
+      <% else %>
+        <div class="p-2 bd-highlight">
+          <%= button_to "Publicar",
+                        update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
+                        method: :patch,
+                        form: { data: { turbo_confirm: "Estas seguro?" } },
+                        class: "btn btn-success" %>
+        </div>
+      <% end %>
       <div class="p-2 bd-highlight">
-        <%= button_to "Hacer Privado",
-                      update_status_piece_collection_path(@piece_collection, status: PieceCollection::NOT_PUBLISHED),
-                      method: :patch,
-                      form: { data: { turbo_confirm: "Estas seguro?" } },
-                      class: "btn btn-warning" %>
-      </div>
-    <% else %>
-      <div class="p-2 bd-highlight">
-        <%= button_to "Publicar",
-                      update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
-                      method: :patch,
-                      form: { data: { turbo_confirm: "Estas seguro?" } },
-                      class: "btn btn-success" %>
+        <%= link_to "",
+                    edit_piece_collection_path(@piece_collection),
+                    class: "bi bi-pencil-fill icon_edit" %>
       </div>
     <% end %>
-    <div class="p-2 bd-highlight">
-      <%= link_to "",
-                  edit_piece_collection_path(@piece_collection),
-                  class: "bi bi-pencil-fill icon_edit" %>
-    </div>
-  <% end %>
-</div>
+  </div>
 
 
-<div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
-  <% if owner_or_admin %>
-    <div class="pb-2 bd-highlight">
+  <div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
+    <% if owner_or_admin %>
+      <div class="pb-2 bd-highlight">
         <span class="status status_<%= @piece_collection.status %>">
           <%= t("activerecord.attributes.piece_collection.statuses.#{@piece_collection.status}") %>
         </span>
+      </div>
+    <% end %>
+    <div class="bd-highlight" id="<%= dom_id @piece_collection %>">
+      <h2><%= @piece_collection.name %></h2>
     </div>
-  <% end %>
-  <div class="bd-highlight" id="<%= dom_id @piece_collection %>">
-    <h2><%= @piece_collection.name %></h2>
-  </div>
-  <div class="pb-2 bd-highlight">
-    <span class="text-secondary"> <%= @piece_collection.is_temporary ? "Disponible por tiempo limitado." : "Permanentemente exhibida en el museo."  %> </span>
-  </div>
-  <div class="pb-2 bd-highlight">
-    <%= @piece_collection.description %>
-  </div>
-</div>
-
-<% if owner_or_admin %>
-  <div class="row py-3">
-    <div class="col"><h4><%= Piece.model_name.human(count: 2) %></h4></div>
-    <div class="col text-end">
-      <%= link_to "Agregar Pieza",
-                  new_piece_collection_piece_path(@piece_collection),
-                  class: "btn btn-outline-secondary" %>
+    <div class="pb-2 bd-highlight">
+      <span class="text-secondary"> <%= @piece_collection.is_temporary ? "Disponible por tiempo limitado." : "Permanentemente exhibida en el museo." %> </span>
+    </div>
+    <div class="pb-2 bd-highlight">
+      <%= @piece_collection.description %>
     </div>
   </div>
 
-  <div class="table-responsive mt-3">
-    <table class="table">
-      <thead class="table-light align-middle">
-      <tr>
-        <th scope="col"> <%= Piece.human_attribute_name("number") %> </th>
-        <th scope="col"> <%= Piece.human_attribute_name("name") %> </th>
-        <th scope="col"> <%= Piece.human_attribute_name("status") %> </th>
-        <th scope="col"> <%= Piece.human_attribute_name("updated_at") %> </th>
-        <th scope="col"> <%= t(".actions") %> </th>
-      </tr>
-      </thead>
-      <tbody class="align-middle" id="collections_table">
-      <% @pieces.each do |piece| %>
-        <tr id="<%= dom_id piece %>">
-          <td> <%= piece.number %></td>
-          <td> <%= piece.name %></td>
-          <td>
+  <% if owner_or_admin %>
+    <div class="row py-3">
+      <div class="col"><h4><%= Piece.model_name.human(count: 2) %></h4></div>
+      <div class="col text-end">
+        <%= link_to "Agregar Pieza",
+                    new_piece_collection_piece_path(@piece_collection),
+                    class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+
+    <div class="table-responsive mt-3">
+      <table class="table">
+        <thead class="table-light align-middle">
+        <tr>
+          <th scope="col"> <%= Piece.human_attribute_name("number") %> </th>
+          <th scope="col"> <%= Piece.human_attribute_name("name") %> </th>
+          <th scope="col"> <%= Piece.human_attribute_name("status") %> </th>
+          <th scope="col"> <%= Piece.human_attribute_name("updated_at") %> </th>
+          <th scope="col"> <%= t(".actions") %> </th>
+        </tr>
+        </thead>
+        <tbody class="align-middle" id="collections_table">
+        <% @pieces.each do |piece| %>
+          <tr id="<%= dom_id piece %>">
+            <td> <%= piece.number %></td>
+            <td> <%= piece.name %></td>
+            <td>
               <span class="status status_<%= piece.status %>">
                 <%= t("activerecord.attributes.piece.statuses.#{piece.status}") %>
               </span>
-          </td>
-          <td>
-            <% if piece.updated_at %>
-              <%= l(piece.updated_at) %>
-            <% end %>
-          </td>
-          <td>
-            <%= turbo_frame_tag piece do %>
-              <%= link_to "",
-                          piece_path(piece),
-                          class: "bi bi-eye-fill text-secondary",
-                          data: { turbo_frame: "_top" } %>
+            </td>
+            <td>
+              <% if piece.updated_at %>
+                <%= l(piece.updated_at) %>
+              <% end %>
+            </td>
+            <td>
+              <%= turbo_frame_tag piece do %>
+                <%= link_to "",
+                            piece_path(piece),
+                            class: "bi bi-eye-fill text-secondary",
+                            data: { turbo_frame: "_top" } %>
 
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-<% else %>
-  <h4 class="text-center"><%= t(".explore_pieces") %></h4>
-  <div class="album py-5">
-    <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <% @pieces.each do |piece| %>
-          <% if piece.published? %>
-            <%= render "pieces/piece_gallery", piece: piece %>
-          <% end %>
+              <% end %>
+            </td>
+          </tr>
         <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <h4 class="text-center"><%= t(".explore_pieces") %></h4>
+    <div class="album py-5">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <% @pieces.each do |piece| %>
+            <% if piece.published? %>
+              <%= render "pieces/piece_gallery", piece: piece %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

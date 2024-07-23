@@ -1,12 +1,14 @@
-<%= turbo_frame_tag @piece_collection do %>
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <div class="d-flex flex-row-reverse bd-highlight">
-        <div class="bd-highlight">
-          <%= link_to "", museum_path(@museum), type: "btn", class: "btn-close" %>
+<div class="container">
+  <%= turbo_frame_tag @piece_collection do %>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex flex-row-reverse bd-highlight">
+          <div class="bd-highlight">
+            <%= link_to "", museum_path(@museum), type: "btn", class: "btn-close" %>
+          </div>
         </div>
+        <%= render "form", piece_collection: @piece_collection %>
       </div>
-      <%= render "form", piece_collection: @piece_collection %>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

@@ -5,12 +5,12 @@
 }
 
 .image-header {
-  width: 100%;
-  position: relative;
-  left: 0px;
-  top: 0px;
-  z-index: 999;
-  opacity: 1;
+  background-color: #0c201c;
+  color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 200px;
+  padding-bottom: 200px;
 }
 .record-header{
   font-weight: 500;

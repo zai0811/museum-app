@@ -1,7 +1,12 @@
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@museum) %>
 
-<div class="container-fluid">
-  <%= image_tag("museum_top_placeholder.png", class: "img-fluid d-none d-xxl-block") %>
+<style>
+    .image-header{
+        background-image: url(<%= asset_path "museum_top_placeholder.png" %>);
+    }
+</style>
+
+<div class="image-header">
 </div>
 
 <div class="container">
