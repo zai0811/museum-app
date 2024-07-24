@@ -71,6 +71,17 @@
     </p>
   <% end %>
 
+
+  <dl>
+    <dt>Documento de Resolucion:</dt>
+    <dd>
+      <% if @museum_registration_request.registration_doc.attached? %>
+        <%= link_to @museum_registration_request.registration_doc.filename, rails_blob_path(@museum_registration_request.registration_doc, disposition: "attachment") %>
+      <% else %>
+        No hay documentos
+      <% end %>
+    </dd>
+  </dl>
   <div class="row">
     <% if @museum_registration_request.not_reviewed? %>
       <div class="col-auto">
@@ -87,7 +98,8 @@
                       form: { data: { turbo_confirm: "Are you sure?" } },
                       class: "btn btn-danger btn-sm" %>
       </div>
-    <% elsif !@museum_registration_request.archived? %>
+    <% end %>
+    <% unless @museum_registration_request.archived? %>
       <div class="col-auto">
         <%= button_to t(".archive_button"),
                       update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::ARCHIVED),

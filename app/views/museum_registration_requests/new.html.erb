@@ -39,6 +39,11 @@
     </div>
 
     <div class="col-md-4 mb-3">
+      <%= form.label :registration_doc, class: "form-label" %>
+      <%= form.file_field :registration_doc, class: "form-control" %>
+    </div>
+
+    <div class="col-md-4 mb-3">
       <%= form.label :museum_address, class: "form-label" %>
       <%= form.text_field :museum_address, class: "form-control" %>
     </div>

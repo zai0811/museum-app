@@ -36,6 +36,9 @@
 
 
   <div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
+    <div class="bd-highlight" id="<%= dom_id @piece_collection %>">
+      <span class="main_heading pb-0"><%= @piece_collection.name %></span>
+    </div>
     <div class="bd-highlight">
       <% if @piece_collection.is_temporary %>
           <span class="text-light-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_temporary") %>">
@@ -46,9 +49,6 @@
             <%= t(".permanent") %>
           </span>
       <% end %>
-    </div>
-    <div class="bd-highlight" id="<%= dom_id @piece_collection %>">
-      <span class="main_heading"><%= @piece_collection.name %></span>
     </div>
     <% if owner_or_admin %>
       <div class="pb-2 bd-highlight">

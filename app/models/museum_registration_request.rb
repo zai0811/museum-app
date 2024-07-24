@@ -9,6 +9,8 @@ class MuseumRegistrationRequest < ApplicationRecord
   belongs_to :updated_by, class_name: "User", optional: true
   belongs_to :department
   belongs_to :city
+  has_one_attached :registration_doc
+
   enum :registration_status, { not_reviewed: NOT_REVIEWED, approved: APPROVED, rejected: REJECTED, archived: ARCHIVED }, default: :not_reviewed
   validates_presence_of :manager_email, :museum_name, :museum_code, :museum_address
   scope :active_status, -> { where(registration_status: [ NOT_REVIEWED, APPROVED, REJECTED ]) }

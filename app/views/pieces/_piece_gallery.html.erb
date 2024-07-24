@@ -1,7 +1,11 @@
 <div class="col">
   <div class="card shadow-sm" id="<%= dom_id piece%>">
+    <% if piece.image.attached? %>
+      <%= image_tag( piece.image, class: "card-img-top" ) %>
+    <% else %>
+      <%= image_tag("piece_placeholder_image.png", class: "card-img-top") %>
+    <% end %>
 
-    <%= image_tag("placeholder.png", class: "card-img-top") %>
     <div class="card-body">
       <h5 class="card-title">
         <%= turbo_frame_tag piece do %>
