@@ -5,8 +5,7 @@
     <div class="p-2 bd-highlight">
       <%= link_to "", piece_collection_path(@piece.piece_collection_id), class: "bi bi-arrow-left icon_back" %>
     </div>
-
-    <div class="p-2 flex-grow-1 bd-highlight text-muted fs-6">
+    <div class="flex-grow-1 bd-highlight text-muted fs-6">
       <%= @piece.piece_collection.museum.name %> | <%= @piece.piece_collection.name %>
     </div>
     <% if owner_or_admin %>
@@ -16,7 +15,7 @@
                         update_status_piece_path(@piece, status: Piece::NOT_PUBLISHED),
                         method: :patch,
                         form: { data: { turbo_confirm: "Estas seguro?" } },
-                        class: "btn btn-warning" %>
+                        class: "btn btn-outline-dark btn-sm" %>
         </div>
       <% else %>
         <div class="p-2 bd-highlight">
@@ -24,13 +23,13 @@
                         update_status_piece_path(@piece, status: Piece::PUBLISHED),
                         method: :patch,
                         form: { data: { turbo_confirm: "Estas seguro?" } },
-                        class: "btn btn-success" %>
+                        class: "btn btn-outline-dark btn-sm" %>
         </div>
       <% end %>
       <div class="p-2 bd-highlight">
         <%= link_to "",
                     edit_piece_path(@piece),
-                    class: "bi bi-pencil-fill icon_edit" %>
+                    class: "bi bi-pencil-fill icon_back" %>
       </div>
     <% end %>
   </div>
@@ -42,10 +41,12 @@
   <div id="<%= dom_id @piece %>">
     <div class="row">
       <div class="col">
-      <span class="mb-1 status status_<%= @piece.status %>">
+        <span class="main_heading"><%= @piece.name %> </span><br>
+        <i class="icon icon_<%= @piece.status %>"></i>
+        <span class="mb-1">
           <%= t("activerecord.attributes.piece.statuses.#{@piece.status}") %>
         </span>
-        <h5><%= @piece.name %> </h5>
+
       </div>
       <div class="col-md-12 py-3">
         <p> <%= @piece.description %> </p>

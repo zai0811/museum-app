@@ -58,6 +58,7 @@ es:
       section_contact: "Información de Contacto"
       created_by_request: "Creado por"
       collections: "Colecciones"
+      create_collection: "Nueva colleción"
       cancel: "Cancelar"
     new:
       title: "Nuevo Museo"
@@ -76,6 +77,12 @@ es:
     show:
       actions: "Acciones"
       explore_pieces: "Conoce las piezas de esta colección"
+      make_private: "Ocultar"
+      make_public: "Hacer Visible"
+      temporary: "Colección temporal"
+      permanent: "Colección permanente"
+      tooltip_temporary: "La colección está disponible por tiempo limitado."
+      tooltip_permanent: "Colección exhibida en el museo permanentemente."
     edit:
       title: "Editar colección"
   pieces:
@@ -83,6 +90,8 @@ es:
       details: "Detalles"
       material: "Material"
       author: "Autor"
+      make_private: "Ocultar"
+      make_public: "Hacer Visible"
     edit:
       title: "Editar pieza"
     new:

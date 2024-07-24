@@ -34,7 +34,7 @@
                                 update_museum_status_museum_path(@museum, status: Museum::PUBLISHED),
                                 method: :patch,
                                 form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn border-0 bi bi-unlock" %>
+                                class: "btn border-0 bi bi-unlock link-body-emphasis" %>
 
                 <% end %>
               </li>
@@ -47,7 +47,7 @@
                                  update_museum_status_museum_path(@museum, status: Museum::ARCHIVED),
                                  method: :patch,
                                  form: { data: { turbo_confirm: "Estas seguro?" } },
-                                 class: "btn border-0 bi bi-archive danger"  %>
+                                 class: "btn border-0 bi bi-archive link-danger"  %>
               <%  end %>
                 </li>
             </ul>
@@ -83,10 +83,10 @@
     <!-- Collection section -->
     <!-- Render the piece_collections/_piece_collection partial -->
 
-    <div class="row py-3">
+    <div class="row pt-3">
       <div class="col "><h4><%= t("museums.show.collections") %></h4></div>
       <div class="col text-end">
-        <%= link_to "Agregar coleccion",
+        <%= link_to t(".create_collection"),
                     new_museum_piece_collection_path(@museum),
                     class: "btn btn-primary cta",
                     data: { turbo_frame: dom_id(PieceCollection.new) } %>
@@ -96,9 +96,9 @@
     <!-- Empty tag that will be replaced with the New Form for the piece collection -->
     <%= turbo_frame_tag PieceCollection.new %>
 
-    <div class="table-responsive mt-3">
+    <div class="table-responsive">
       <table class="table">
-        <thead class="table-light align-miple">
+        <thead class="table align-miple">
         <tr>
           <th scope="col"> <%= PieceCollection.human_attribute_name("name") %> </th>
           <th scope="col"> <%= PieceCollection.human_attribute_name("status") %> </th>

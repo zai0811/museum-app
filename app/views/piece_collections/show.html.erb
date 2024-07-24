@@ -3,10 +3,9 @@
 <div class="container page-container">
   <div class="d-flex bd-highlight align-items-center">
     <div class="p-2 bd-highlight">
-      <%= link_to "", museum_path(@piece_collection.museum_id), class: "bi bi-arrow-left icon_back" %>
+      <%= link_to "", museum_path(@piece_collection.museum_id), class: "bi bi-arrow-left icon_back link-body-emphasis link-opacity-50" %>
     </div>
-
-    <div class="p-2 flex-grow-1 bd-highlight text-muted fs-6">
+    <div class="flex-grow-1 bd-highlight text-muted fs-6">
       <%= @piece_collection.museum.name %>
     </div>
     <% if owner_or_admin %>
@@ -16,7 +15,7 @@
                         update_status_piece_collection_path(@piece_collection, status: PieceCollection::NOT_PUBLISHED),
                         method: :patch,
                         form: { data: { turbo_confirm: "Estas seguro?" } },
-                        class: "btn btn-warning" %>
+                        class: "btn btn-outline-dark btn-sm" %>
         </div>
       <% else %>
         <div class="p-2 bd-highlight">
@@ -24,32 +23,39 @@
                         update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
                         method: :patch,
                         form: { data: { turbo_confirm: "Estas seguro?" } },
-                        class: "btn btn-success" %>
+                        class: "btn btn-outline-dark btn-sm" %>
         </div>
       <% end %>
       <div class="p-2 bd-highlight">
         <%= link_to "",
                     edit_piece_collection_path(@piece_collection),
-                    class: "bi bi-pencil-fill icon_edit" %>
+                    class: "bi bi-pencil-fill icon_back" %>
       </div>
     <% end %>
   </div>
 
 
   <div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
+    <div class="bd-highlight">
+      <% if @piece_collection.is_temporary %>
+          <span class="text-light-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_temporary") %>">
+            <%= t(".temporary") %>
+          </span>
+      <% else %>
+          <span class="text-light-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_permanent") %>">
+            <%= t(".permanent") %>
+          </span>
+      <% end %>
+    </div>
+    <div class="bd-highlight" id="<%= dom_id @piece_collection %>">
+      <span class="main_heading"><%= @piece_collection.name %></span>
+    </div>
     <% if owner_or_admin %>
       <div class="pb-2 bd-highlight">
-        <span class="status status_<%= @piece_collection.status %>">
-          <%= t("activerecord.attributes.piece_collection.statuses.#{@piece_collection.status}") %>
-        </span>
+        <i class="icon icon_<%= @piece_collection.status %>"></i>
+        <span> <%= t("activerecord.attributes.piece_collection.statuses.#{@piece_collection.status}") %> </span>
       </div>
     <% end %>
-    <div class="bd-highlight" id="<%= dom_id @piece_collection %>">
-      <h2><%= @piece_collection.name %></h2>
-    </div>
-    <div class="pb-2 bd-highlight">
-      <span class="text-secondary"> <%= @piece_collection.is_temporary ? "Disponible por tiempo limitado." : "Permanentemente exhibida en el museo." %> </span>
-    </div>
     <div class="pb-2 bd-highlight">
       <%= @piece_collection.description %>
     </div>
@@ -61,13 +67,13 @@
       <div class="col text-end">
         <%= link_to "Agregar Pieza",
                     new_piece_collection_piece_path(@piece_collection),
-                    class: "btn btn-outline-secondary" %>
+                    class: "btn btn-primary cta" %>
       </div>
     </div>
 
-    <div class="table-responsive mt-3">
+    <div class="table-responsive">
       <table class="table">
-        <thead class="table-light align-middle">
+        <thead class="table align-middle">
         <tr>
           <th scope="col"> <%= Piece.human_attribute_name("number") %> </th>
           <th scope="col"> <%= Piece.human_attribute_name("name") %> </th>
@@ -79,10 +85,15 @@
         <tbody class="align-middle" id="collections_table">
         <% @pieces.each do |piece| %>
           <tr id="<%= dom_id piece %>">
-            <td> <%= piece.number %></td>
-            <td> <%= piece.name %></td>
             <td>
-              <span class="status status_<%= piece.status %>">
+              <%= link_to piece.name,
+                          piece_path(piece),
+                          class: "link-primary" %>
+            </td>
+            <td> <%= piece.number %></td>
+            <td>
+              <i class="icon icon_<%= piece.status %>"> </i>
+              <span>
                 <%= t("activerecord.attributes.piece.statuses.#{piece.status}") %>
               </span>
             </td>
@@ -92,12 +103,18 @@
               <% end %>
             </td>
             <td>
-              <%= turbo_frame_tag piece do %>
-                <%= link_to "",
-                            piece_path(piece),
-                            class: "bi bi-eye-fill text-secondary",
-                            data: { turbo_frame: "_top" } %>
-
+              <% if piece.published? %>
+                <%= button_to t("pieces.show.make_private"),
+                              update_status_piece_path(piece, status: Piece::NOT_PUBLISHED),
+                              method: :patch,
+                              form: { data: { turbo_confirm: "Estas seguro?" } },
+                              class: "btn btn-outline-dark btn-sm" %>
+              <% else %>
+                <%= button_to t("pieces.show.make_public"),
+                              update_status_piece_path(piece, status: Piece::PUBLISHED),
+                              method: :patch,
+                              form: { data: { turbo_confirm: "Estas seguro?" } },
+                              class: "btn btn-outline-dark btn-sm" %>
               <% end %>
             </td>
           </tr>

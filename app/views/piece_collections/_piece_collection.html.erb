@@ -1,7 +1,14 @@
+<% owner_or_admin = current_user && current_user.admin_or_museum_owner?(piece_collection.museum) %>
+
 <tr id="<%= dom_id piece_collection %>">
-  <td> <%= piece_collection.name %></td>
   <td>
-    <span class="status status_<%= piece_collection.status %>">
+    <%= link_to piece_collection.name,
+                piece_collection_path(piece_collection),
+                class: "link-primary" %>
+  </td>
+  <td>
+    <i class="icon icon_<%= piece_collection.status %>"></i>
+    <span>
       <%= t("activerecord.attributes.piece_collection.statuses.#{piece_collection.status}") %>
     </span>
   </td>
@@ -11,15 +18,23 @@
       <%= l(piece_collection.updated_at) %>
     <% end %>
   </td>
-
-  <!-- This partial will be rendered in the museum list, don't delete -->
   <td>
-    <%= turbo_frame_tag piece_collection do %>
-      <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
-      <%= link_to "",
-                  piece_collection_path(piece_collection),
-                  class: "bi bi-eye-fill text-secondary",
-                  data: { turbo_frame: "_top" } %>
-    <% end %>
+    <div class="btn-group">
+      <% if owner_or_admin %>
+        <% if piece_collection.published? %>
+          <%= button_to t("piece_collections.show.make_private"),
+                        update_status_piece_collection_path(piece_collection, status: PieceCollection::NOT_PUBLISHED),
+                        method: :patch,
+                        form: { data: { turbo_confirm: "Estas seguro?" } },
+                        class: "btn btn-outline-dark btn-sm" %>
+        <% else %>
+          <%= button_to t("piece_collections.show.make_public"),
+                        update_status_piece_collection_path(piece_collection, status: PieceCollection::PUBLISHED),
+                        method: :patch,
+                        form: { data: { turbo_confirm: "Estas seguro?" } },
+                        class: "btn btn-outline-dark btn-sm" %>
+        <% end %>
+      <% end %>
+    </div>
   </td>
 </tr>
