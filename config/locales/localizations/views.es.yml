@@ -38,6 +38,7 @@ es:
       actions: "Acciones"
       make_private: "Ocultar"
       make_public: "Hacer Visible"
+      archive: "Archivar"
     show:
       back: "Volver a explorar museos"
       edit: "Editar museo"
@@ -49,6 +50,7 @@ es:
       admin_title: "Museos"
       owner_title: "Mis Museos"
       gallery_title: "Explorar Museos"
+      tooltip_status_change: "Actualiza el estado del museo: los museos visibles son accesibles por los visitantes de la página. Los museos ocultos no se muestran a los visitantes. No podrá acceder a museos archivados sin autorización del administrador del sistema."
       record: "Ficha del Museo"
       edit_record: "Editar"
       section_admin: "Información Administrativa"

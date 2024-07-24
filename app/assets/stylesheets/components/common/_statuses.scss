@@ -35,5 +35,9 @@
     @extend .bi;
     @extend .bi-lock;
   }
+  &_archived {
+    @extend .bi;
+    @extend .bi-archive;
+  }
 }
 
