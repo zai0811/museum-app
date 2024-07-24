@@ -1,0 +1,43 @@
+<% admin = current_user&.admin? ? true : false %>
+
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">
+    <h6 class="mb-3 mt-1"><%= t("museums.show.section_admin") %></h6>
+    <dl class="row">
+      <% if admin %>
+        <dt class="record-title"><%= t("museums.show.created_by_request") %></dt>
+        <dd><%= link_to t("activerecord.attributes.museum.museum/museum_registration_request.id"), @museum.museum_registration_request %></dd>
+        <dt class="record-title"><%= t("activerecord.attributes.museum.user") %></dt>
+        <dd><%= link_to @museum.user.email, @museum.user %></dd>
+      <% end %>
+      <dt class="record-title"><%= t("activerecord.attributes.museum.code") %></dt>
+      <dd><%= @museum.code %></dd>
+    </dl>
+  <li class="list-group-item">
+    <h6 class="my-3"><%= t("museums.show.section_general") %></h6>
+    <dl>
+      <dt class="record-title"><%= t("activerecord.attributes.museum.about") %></dt>
+      <dd><%= @museum.about %></dd>
+      <dt class="record-title"><%= t("activerecord.attributes.museum.address") %></dt>
+      <dd><%= @museum.address %></dd>
+      <dt class="record-title"><%= t("activerecord.attributes.museum.city") %></dt>
+      <dd><%= @museum.city.name %></dd>
+    </dl>
+  </li>
+  <li class="list-group-item border-0">
+    <h6 class="my-3"><%= t("museums.show.section_contact") %></h6>
+    <dl>
+      <dt class="record-title"><%= t("activerecord.attributes.museum.phone") %></dt>
+      <dd><%= @museum.phone %></dd>
+      <dt class="record-title"><%= t("activerecord.attributes.museum.email") %></dt>
+      <dd><%= @museum.email %></dd>
+      <dt class="record-title"><%= t("activerecord.attributes.museum.page") %></dt>
+      <dd><%= @museum.page %></dd>
+    </dl>
+  </li>
+  <li class="list-group-item">
+    <%= link_to t("museums.show.edit_record"),
+                edit_museum_path(@museum),
+                class: "btn btn-dark" %>
+  </li>
+</ul>

@@ -36,6 +36,8 @@ es:
       city: "Ciudad"
       admin: "Encargado"
       actions: "Acciones"
+      make_private: "Ocultar"
+      make_public: "Hacer Visible"
     show:
       back: "Volver a explorar museos"
       edit: "Editar museo"
@@ -47,9 +49,14 @@ es:
       admin_title: "Museos"
       owner_title: "Mis Museos"
       gallery_title: "Explorar Museos"
+      record: "Ficha del Museo"
+      edit_record: "Editar"
       section_admin: "Información Administrativa"
       section_general: "Información del Museo"
       section_contact: "Información de Contacto"
+      created_by_request: "Creado por"
+      collections: "Colecciones"
+      cancel: "Cancelar"
     new:
       title: "Nuevo Museo"
       back: "Volver a explorar museos"
@@ -61,8 +68,6 @@ es:
       back: "Volver a explorar museos"
       department: "Departamento"
       city: "Ciudad"
-    other:
-      created_by_request: "Creado por solicidud de registro"
   piece_collections:
     new:
       is_temporary: "Colección temporal?"

@@ -1,7 +1,7 @@
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@museum) %>
 
 <style>
-    .image-header{
+    .image-header {
         background-image: url(<%= asset_path "museum_top_placeholder.png" %>);
     }
 </style>
@@ -11,10 +11,76 @@
 
 <div class="container page-container">
   <% if owner_or_admin %>
-    <%= render 'museum_admin_page', museum: @museum %>
+    <div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
+      <div class="bd-highlight" id="<%= dom_id @museum %>">
+        <span class="main_heading"> <%= @museum.name %></span>
+      </div>
+      <div class="bd-highlight">
+        <i class="icon icon_<%= @museum.status %>"></i>
+        <span> <%= t("activerecord.attributes.museum.statuses.#{@museum.status}") %> </span>
+      </div>
+    </div>
+
+    <!-- Information section -->
+    <div class="accordion shadow-sm my-4" id="record-accordion">
+      <div class="accordion-item">
+        <div class="accordion-header" id="accordion-heading">
+          <button class="accordion-button collapsed record-header" type="button" data-bs-toggle="collapse" data-bs-target="#panel-collapseOne" aria-expanded="false" aria-controls="panel-collapseOne">
+            Ficha del Museo
+          </button>
+        </div>
+
+        <div id="panel-collapseOne" class="accordion-collapse collapse" aria-labelledby="accordion-heading">
+          <div class="accordion-body">
+            <!-- TODO: Hanlde invalid form submission -->
+            <%= turbo_frame_tag "information-body" do %>
+              <%= render 'museum_record', museum: @museum %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Collection section -->
+    <!-- Render the piece_collections/_piece_collection partial -->
+
+    <div class="row py-3">
+      <div class="col "><h4><%= t("museums.show.collections") %></h4></div>
+      <div class="col text-end">
+        <%= link_to "Agregar coleccion",
+                    new_museum_piece_collection_path(@museum),
+                    class: "btn btn-primary cta",
+                    data: { turbo_frame: dom_id(PieceCollection.new) } %>
+      </div>
+    </div>
+
+    <!-- Empty tag that will be replaced with the New Form for the piece collection -->
+    <%= turbo_frame_tag PieceCollection.new %>
+
+    <div class="table-responsive mt-3">
+      <table class="table">
+        <thead class="table-light align-miple">
+        <tr>
+          <th scope="col"> <%= PieceCollection.human_attribute_name("name") %> </th>
+          <th scope="col"> <%= PieceCollection.human_attribute_name("status") %> </th>
+          <th scope="col"> <%= t(".pieces") %> </th>
+          <th scope="col"> <%= PieceCollection.human_attribute_name("updated_at") %> </th>
+          <th scope="col"> <%= t(".actions") %> </th>
+        </tr>
+        </thead>
+        <tbody class="align-miple" id="collections_table">
+        <% @museum.piece_collections.each do |piece_collection| %>
+          <%= render "piece_collections/piece_collection", piece_collection: piece_collection %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
   <% else %>
     <%= render 'museum_visitor_page', museum: @museum %>
   <% end %>
+
 </div>
 
 

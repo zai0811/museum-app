@@ -57,8 +57,8 @@ es:
           email: "Correo del/la administrador/a"
         status: "Estado"
         statuses:
-          hidden: "Privado"
-          published: "Público"
+          hidden: "Oculto"
+          published: "Visible"
           archived: "Archivado"
         museum/museum_registration_request:
           id: "Solicitud de registro"

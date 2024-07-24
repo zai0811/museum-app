@@ -1,6 +1,6 @@
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@museum) %>
 
-<div class="row">
+<div class="row ps-2">
   <%= form_with(model: museum) do |form| %>
     <% if museum.errors.any? %>
       <div style="color: red">
@@ -15,17 +15,17 @@
     <% end %>
 
     <% if owner_or_admin %>
-      <div class="col-sm-6 pb-3 my-3 border-bottom">
-        <h6><%= t("museums.show.section_admin") %></h6>
+      <div class="col pb-3 border-bottom">
+        <h6 class="my-3"><%= t("museums.show.section_admin") %></h6>
         <%= form.label :code, class: "form-label" %>
         <%= form.text_field :code, class: "form-control mb-2" %>
       </div>
     <% end %>
 
-    <div class="col-sm-6 pb-3 mb-3  border-bottom">
-      <h6><%= t("museums.show.section_general") %></h6>
+    <div class="col pb-3 border-bottom">
+      <h6 class="my-3"><%= t("museums.show.section_general") %></h6>
       <%= form.label :name, class: "form-label" %>
-      <%= form.text_field :name, class: "form-control mb-1" %>
+      <%= form.text_field :name, class: "form-control mb-2" %>
 
       <%= form.label :about, class: "form-label" %>
       <%= form.text_area :about, class: "form-control mb-2" %>
@@ -34,22 +34,22 @@
       <%= form.text_field :address, class: "form-control mb-2" %>
     </div>
 
-    <div class="col-sm-6 pb-3 mb-3 ">
-      <h6><%= t("museums.show.section_contact") %></h6>
+    <div class="col pb-3">
+      <h6 class="my-3"><%= t("museums.show.section_contact") %></h6>
       <%= form.label :phone, class: "form-label" %>
-      <%= form.text_field :phone, class: "form-control mb-1", placeholder: "+595 985 111 111" %>
+      <%= form.text_field :phone, class: "form-control mb-2", placeholder: "+595 985 111 111" %>
 
       <%= form.label :email, class: "form-label" %>
-      <%= form.email_field :email, class: "form-control mb-1", placeholder: "correo@museo.com.py" %>
+      <%= form.email_field :email, class: "form-control mb-2", placeholder: "correo@museo.com.py" %>
 
       <%= form.label :page, class: "form-label" %>
-      <%= form.text_field :page, class: "form-control mb-1", placeholder: "https://museo.com.py" %>
+      <%= form.text_field :page, class: "form-control mb-2", placeholder: "https://museo.com.py" %>
     </div>
 
 
-    <div class="col-sm-6 mb-2">
-      <%= form.submit class: "btn btn-dark" %>
-      <%= link_to "Volver al museo", @museum, class: "link-dark px-3"  %>
+    <div class="col-sm-6">
+      <%= form.submit class: "btn btn-dark btn-sm" %>
+      <%= link_to t("museums.show.cancel"), @museum, class: "link-dark px-3"  %>
       <% button_to "Eliminar Museo", @user, method: :delete, class: "btn btn-outline-danger px-3" %>
     </div>
   <% end %>
