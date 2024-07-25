@@ -1,5 +1,71 @@
-<% if current_user %>
-  <%= render 'museums_table', museums: @museums %>
-<% else %>
-  <%= render 'museums_gallery', museums: @museums %>
-<% end %>
+<% admin = current_user&.admin? %>
+
+<div class="container page-container">
+  <% if current_user %>
+    <div class="d-flex bd-highlight flex-column justify-content-center align-items-left">
+      <div class="bd-highlight mb-3">
+        <% if admin %>
+          <h2> <%= t("museums.show.admin_title") %> </h2>
+        <% else %>
+          <h2> <%= t("museums.show.owner_title") %> </h2>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="table align-middle">
+        <tr>
+          <th scope="col"> <%= Museum.human_attribute_name("name") %> </th>
+          <th scope="col"> <%= Museum.human_attribute_name("code") %> </th>
+          <th scope="col"> <%= Museum.human_attribute_name("status") %> </th>
+          <th scope="col"> <%= t("museums.index.admin") %> </th>
+          <th scope="col"> <%= t("museums.index.city") %> </th>
+          <th scope="col"> <%= t("museums.index.actions") %> </th>
+        </tr>
+        </thead>
+        <tbody class="align-middle">
+        <% if current_user && !admin %>
+          <% @museums = current_user.museums %>
+        <% end %>
+        <% @museums.each do |museum| %>
+          <tr id="">
+            <td>
+              <%= link_to museum.name, museum %>
+            </td>
+            <td> <%= museum.code %>  </td>
+            <td>
+              <i class="icon icon_<%= museum.status %>"></i>
+              <span>
+              <%= t("activerecord.attributes.museum.statuses.#{museum.status}") %>
+          </span>
+            </td>
+            <td> <%= museum.user.email %>  </td>
+            <td> <%= museum.city.name %>  </td>
+            <td>
+              <div class="btn-group">
+                <% if current_user && current_user.admin_or_museum_owner?(museum) && museum.published? %>
+                  <%= button_to t("museums.index.make_private"),
+                                update_museum_status_museum_path(museum, status: Museum::NOT_PUBLISHED),
+                                method: :patch,
+                                form: { data: { turbo_confirm: "Estas seguro?" } },
+                                class: "btn btn-outline-dark btn-sm" %>
+                <% else %>
+                  <%= button_to t("museums.index.make_public"),
+                                update_museum_status_museum_path(museum, status: Museum::PUBLISHED),
+                                method: :patch,
+                                form: { data: { turbo_confirm: "Estas seguro?" } },
+                                class: "btn btn-outline-dark btn-sm" %>
+
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <%= render 'museums_gallery', museums: @museums %>
+  <% end %>
+</div>

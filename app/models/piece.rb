@@ -6,19 +6,19 @@ class Piece < ApplicationRecord
   belongs_to :piece_collection
   belongs_to :material, optional: true
   belongs_to :author, optional: true
+  has_one_attached :image
+
   validates_presence_of :name
 
-  enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED}, default: :hidden
+  enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED }, default: :hidden
 
   def self.ransackable_attributes(auth_object = nil)
-    [ "description", "name" ]
+    ["description", "name"]
   end
 
   def update_status!(status)
-    return false unless status.in?([ NOT_PUBLISHED, PUBLISHED, ARCHIVED ])
+    return false unless status.in?([NOT_PUBLISHED, PUBLISHED, ARCHIVED])
     update!(status: status)
     true
   end
-
-
 end

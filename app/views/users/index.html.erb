@@ -6,32 +6,33 @@
         padding: 15px;
     }
 </style>
-<h1>Users</h1>
-<%= link_to "New user", new_user_path %>
-<%= link_to t('devise.invitations.new.header'), new_user_invitation_path %>
-<div id="users">
-  <table>
-    <tr>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>Cédula de Ideantidad</th>
-      <th>Email</th>
-      <th>Creado por invitación?</th>
-      <th>Invitación aceptada?</th>
-      <th>Acciones</th>
-    </tr>
-  <% @users.each do |user| %>
-    <tr id="<%= dom_id user %>">
-      <td> <%= user.first_name %></td>
-      <td> <%= user.last_name %></td>
-      <td> <%= user.ci %></td>
-      <td> <%= user.email %></td>
-      <td> <%= user.created_by_invite?%></td>
-      <td> <%= user.invitation_accepted? %></td>
-      <td> <%= link_to "Show this user", user %></td>
-    </tr>
-  <% end %>
-  </table>
+
+<div class="container page-container">
+  <h1>Users</h1>
+  <%= link_to "New user", new_user_path %>
+  <%= link_to t('devise.invitations.new.header'), new_user_invitation_path %>
+  <div id="users">
+    <table>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Cédula de Ideantidad</th>
+        <th>Email</th>
+        <th>Creado por invitación?</th>
+        <th>Invitación aceptada?</th>
+        <th>Acciones</th>
+      </tr>
+      <% @users.each do |user| %>
+        <tr id="<%= dom_id user %>">
+          <td> <%= user.first_name %></td>
+          <td> <%= user.last_name %></td>
+          <td> <%= user.ci %></td>
+          <td> <%= user.email %></td>
+          <td> <%= user.created_by_invite? %></td>
+          <td> <%= user.invitation_accepted? %></td>
+          <td> <%= link_to "Show this user", user %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </div>
-
-

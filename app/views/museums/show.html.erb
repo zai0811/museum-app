@@ -1,150 +1,141 @@
-<% admin = current_user&.admin? ? true : false %>
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@museum) %>
+<% admin = current_user&.admin? %>
 
-<div class="d-flex bd-highlight align-items-center">
-  <div class="p-2 flex-grow-1 bd-highlight">
-    <%= link_to "", museums_path, class: "bi bi-arrow-left icon_back" %>
-  </div>
+<style>
+    .image-header {
+        background-image: url(<%= asset_path "museum_top_placeholder.png" %>);
+    }
+</style>
+
+<div class="container page-container">
+  <nav aria-label="breadcrumb primary">
+    <ol class="breadcrumb breadcrumb-chevron">
+      <li class="breadcrumb-item">
+        <%= link_to root_path, class: "link-body-emphasis" do %>
+          <i class="bi bi bi-house-door" width="16" height="16"></i>
+          <span class="visually-hidden">Home</span>
+        <% end %>
+      </li>
+      <li class="breadcrumb-item">
+        <%= link_to "Museos", museums_path, class: "link-body-emphasis text-decoration-none" %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= @museum.name %>
+      </li>
+    </ol>
+  </nav>
+</div>
+
+<div class="image-header">
+</div>
+
+<div class="container page-container">
   <% if owner_or_admin %>
-    <% if @museum.published? %>
-      <div class="p-2 bd-highlight">
-        <%= button_to "Hacer Privado",
-                      update_museum_status_museum_path(@museum, status: Museum::NOT_PUBLISHED),
-                      method: :patch,
-                      form: { data: { turbo_confirm: "Estas seguro?" } },
-                      class: "btn btn-warning" %>
+    <div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
+      <div class="bd-highlight" id="<%= dom_id @museum %>">
+        <span class="main_heading"> <%= @museum.name %></span>
       </div>
-    <% else %>
-      <div class="p-2 bd-highlight">
-        <%= button_to "Publicar",
-                      update_museum_status_museum_path(@museum, status: Museum::PUBLISHED),
-                      method: :patch,
-                      form: { data: { turbo_confirm: "Estas seguro?" } },
-                      class: "btn btn-success" %>
+      <div class="bd-highlight align-items-center">
+        <div class="btn-group ps-1">
+          <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="icon icon_<%= @museum.status %>"></i>
+            <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_status_change") %>"> <%= t("activerecord.attributes.museum.statuses.#{@museum.status}") %> </span>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <% if @museum.published? %>
+                <%= button_to " #{t("museums.index.make_private")}",
+                              update_museum_status_museum_path(@museum, status: Museum::NOT_PUBLISHED),
+                              method: :patch,
+                              form: { data: { turbo_confirm: "Estas seguro?" } },
+                              class: "btn border-0 bi bi-lock link-body-emphasis" %>
+              <% else %>
+                <%= button_to " #{t("museums.index.make_public")}",
+                              update_museum_status_museum_path(@museum, status: Museum::PUBLISHED),
+                              method: :patch,
+                              form: { data: { turbo_confirm: "Estas seguro?" } },
+                              class: "btn border-0 bi bi-unlock link-body-emphasis" %>
 
-      </div>
-    <% end %>
-    <div class="p-2 bd-highlight">
-      <%= link_to "", edit_museum_path(@museum), class: "bi bi-pencil-fill icon_edit" %>
-    </div>
-  <% end %>
-</div>
-
-<div class="container-fluid">
-  <%= image_tag("museum_top_placeholder.png", class: "img-fluid my-3") %>
-</div>
-
-<div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
-  <% if owner_or_admin %>
-    <div class="pb-2 bd-highlight">
-    <span class="status status_<%= @museum.status %>">
-      <%= t("activerecord.attributes.museum.statuses.#{@museum.status}") %>
-    </span>
-    </div>
-  <% end %>
-  <div class="bd-highlight" id="<%= dom_id @museum %>">
-    <h2> <%= @museum.name %></h2>
-  </div>
-</div>
-
-<% if owner_or_admin %>
-  <div class="card mb-3">
-    <h5 class="card-header">Información Administrativa</h5>
-
-    <div class="card-body">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <strong><%= Museum.human_attribute_name("code") %>:</strong> <%= @museum.code %>
-        </li>
-        <% if admin %>
-          <% if @museum.museum_registration_request %>
-            <li class="list-group-item">
-              <strong>Solicitud de
-                Registro:</strong> <%= link_to t("activerecord.attributes.museum.museum/museum_registration_request.id"), @museum.museum_registration_request %>
+              <% end %>
             </li>
-          <% end %>
-          <li class="list-group-item">
-            <strong><%= t("museums.index.admin") %>:</strong> <%= link_to @museum.user.email, @museum.user %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-<% end %>
-
-<div class="row">
-  <div class="col-md-12 py-3">
-    <p> <%= @museum.about %> </p>
-  </div>
-</div>
-
-<!-- Render the piece_collections/_piece_collection partial -->
-<% if owner_or_admin %>
-  <div class="row py-3">
-    <div class="col "><h4>Colecciones</h4></div>
-    <div class="col text-end">
-      <%= link_to "Agregar coleccion",
-                  new_museum_piece_collection_path(@museum),
-                  class: "btn btn-outline-secondary",
-                  data: { turbo_frame: dom_id(PieceCollection.new) } %>
-    </div>
-  </div>
-
-  <!-- Empty tag that will be replaced with the New Form for the piece collection -->
-  <%= turbo_frame_tag PieceCollection.new %>
-
-  <div class="table-responsive mt-3">
-    <table class="table">
-      <thead class="table-light align-middle">
-      <tr>
-        <th scope="col"> <%= PieceCollection.human_attribute_name("name") %> </th>
-        <th scope="col"> <%= PieceCollection.human_attribute_name("status") %> </th>
-        <th scope="col"> <%= t(".pieces") %> </th>
-        <th scope="col"> <%= PieceCollection.human_attribute_name("updated_at") %> </th>
-        <th scope="col"> <%= t(".actions") %> </th>
-      </tr>
-      </thead>
-      <tbody class="align-middle" id="collections_table">
-      <% @piece_collections.each do |piece_collection| %>
-        <%= render "piece_collections/piece_collection", piece_collection: piece_collection %>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-<% else %>
-  <h4 class="text-center">Explora Colecciones</h4>
-  <div class="album py-5">
-    <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <% @piece_collections.each do |piece_collection| %>
-          <% if piece_collection.published? %>
-            <%= render "piece_collections/piece_collection_gallery", piece_collection: piece_collection %>
-          <% end %>
-        <% end %>
+            <% unless @museum.archived? && admin %>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <%= button_to " #{t("museums.index.archive")}",
+                              update_museum_status_museum_path(@museum, status: Museum::ARCHIVED),
+                              method: :patch,
+                              form: { data: { turbo_confirm: "Estas seguro?" } },
+                              class: "btn border-0 bi bi-archive link-danger" %>
+            <% end %>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
 
-<div class="row mt-4">
-  <div class="col">
-    <strong> Visita el museo </strong>
-    <ul class="list-unstyled">
-      <li><%= @museum.phone %> </li>
-      <li><%= @museum.email %> </li>
-      <li> <%= @museum.page %> </li>
-      <li><%= @museum.address %> </li>
-      <li> <%= @museum.city.name %> </li>
-    </ul>
-  </div>
-  <div class="col">
-    <strong>Horarios de atencion</strong>
-    <p> todo - agregar horarios</p>
-  </div>
-  <div class="col">
-    <strong>Accesibilidad</strong>
-    <p> todo - agregar temas de accesibilidad, si tiene visitas guiadas, etc</p>
-  </div>
+    <!-- Information section -->
+    <div class="accordion shadow-sm my-4" id="record-accordion">
+      <div class="accordion-item">
+        <div class="accordion-header" id="accordion-heading">
+          <button class="accordion-button collapsed record-header" type="button" data-bs-toggle="collapse" data-bs-target="#panel-collapseOne" aria-expanded="false" aria-controls="panel-collapseOne">
+            Ficha del Museo
+          </button>
+        </div>
+
+        <div id="panel-collapseOne" class="accordion-collapse collapse" aria-labelledby="accordion-heading">
+          <div class="accordion-body">
+            <!-- TODO: Hanlde invalid form submission -->
+            <%= turbo_frame_tag "information-body" do %>
+              <%= render 'museum_record', museum: @museum %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Collection section -->
+    <!-- Render the piece_collections/_piece_collection partial -->
+
+    <div class="row pt-3">
+      <div class="col "><h4><%= t("museums.show.collections") %></h4></div>
+      <div class="col text-end">
+        <%= link_to t(".create_collection"),
+                    new_museum_piece_collection_path(@museum),
+                    class: "btn btn-primary cta",
+                    data: { turbo_frame: dom_id(PieceCollection.new) } %>
+      </div>
+    </div>
+
+    <!-- Empty tag that will be replaced with the New Form for the piece collection -->
+    <%= turbo_frame_tag PieceCollection.new %>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="table align-miple">
+        <tr>
+          <th scope="col"> <%= PieceCollection.human_attribute_name("name") %> </th>
+          <th scope="col"> <%= PieceCollection.human_attribute_name("status") %> </th>
+          <th scope="col"> <%= t(".pieces") %> </th>
+          <th scope="col"> <%= PieceCollection.human_attribute_name("updated_at") %> </th>
+          <th scope="col"> <%= t(".actions") %> </th>
+        </tr>
+        </thead>
+        <tbody class="align-miple" id="collections_table">
+        <% @museum.piece_collections.each do |piece_collection| %>
+          <%= render "piece_collections/piece_collection", piece_collection: piece_collection %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  <% else %>
+    <%= render 'museum_visitor_page', museum: @museum %>
+  <% end %>
 </div>
+
+
 
 

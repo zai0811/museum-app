@@ -1,4 +1,7 @@
-<%= link_to "", @museum, class: "bi bi-arrow-left icon_back"  %>
-<h2><%= t(".title") %> </h2>
+<div class="container-fluid page-container">
+  <h4><%= t(".title") %> </h4>
 
-<%= render "form", museum: @museum %>
+  <%= turbo_frame_tag "information-body" do %>
+    <%= render "form", museum: @museum %>
+  <% end %>
+</div>

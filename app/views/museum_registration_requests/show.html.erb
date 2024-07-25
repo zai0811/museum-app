@@ -1,102 +1,112 @@
 <% admin = current_user.admin? ? true : false %>
 
-<div class="d-flex bd-highlight align-items-center">
-  <div class="p-2 flex-grow-1 bd-highlight">
-    <%= link_to "", museum_registration_requests_path, class: "bi bi-arrow-left icon_back" %>
+<div class="container page-container">
+  <div class="d-flex bd-highlight align-items-center">
+    <div class="p-2 flex-grow-1 bd-highlight">
+      <%= link_to "", museum_registration_requests_path, class: "bi bi-arrow-left icon_back" %>
+    </div>
   </div>
-</div>
-<div class="d-flex bd-highlight flex-column justify-content-center align-items-left">
-  <div class="pb-2 bd-highlight">
+  <div class="d-flex bd-highlight flex-column justify-content-center align-items-left">
+    <div class="pb-2 bd-highlight">
     <span class="status status_<%= @museum_registration_request.registration_status %>">
       <%= t("activerecord.attributes.museum_registration_request.registration_statuses.#{@museum_registration_request.registration_status}") %>
     </span>
+    </div>
+    <div class="bd-highlight mb-3" id="<%= dom_id @museum_registration_request %>">
+      <h2> <%= MuseumRegistrationRequest.model_name.human %> </h2>
+    </div>
   </div>
-  <div class="bd-highlight mb-3" id="<%= dom_id @museum_registration_request %>">
-    <h2> <%= MuseumRegistrationRequest.model_name.human %> </h2>
-  </div>
-</div>
 
-<p>
-  <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_name") %>:</strong>
-  <% if @museum_registration_request.museum %>
-    <%= link_to @museum_registration_request.museum_name, @museum_registration_request.museum %>
-  <% else %>
-    <%= @museum_registration_request.museum_name %>
-  <% end %>
-</p>
-
-<p>
-  <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_code") %>:</strong>
-  <%= @museum_registration_request.museum_code %>
-</p>
-
-<p>
-  <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_address") %>:</strong>
-  <%= @museum_registration_request.museum_address %>
-</p>
-
-<p>
-  <strong><%= MuseumRegistrationRequest.human_attribute_name("manager_email") %>:</strong>
-  <%= @museum_registration_request.manager_email %>
-</p>
-
-<p>
-  <strong><%= MuseumRegistrationRequest.human_attribute_name("created_at") %>:</strong>
-  <%= l(@museum_registration_request.created_at) %>
-</p>
-
-<% if admin %>
   <p>
-    <strong><%= t("activerecord.attributes.museum_registration_request.created_by") %>:</strong>
-    <% if @museum_registration_request.created_by %>
-      <%= link_to @museum_registration_request.created_by.email, @museum_registration_request.created_by %>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_name") %>:</strong>
+    <% if @museum_registration_request.museum %>
+      <%= link_to @museum_registration_request.museum_name, @museum_registration_request.museum %>
     <% else %>
-      <%= t("activerecord.attributes.museum_registration_request.anonymous") %>
+      <%= @museum_registration_request.museum_name %>
     <% end %>
   </p>
 
   <p>
-    <strong><%= MuseumRegistrationRequest.human_attribute_name("updated_at") %>:</strong>
-    <% if @museum_registration_request.updated_by %>
-      <%= l(@museum_registration_request.updated_at) %>
-    <% end %>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_code") %>:</strong>
+    <%= @museum_registration_request.museum_code %>
   </p>
 
   <p>
-    <strong><%= t("activerecord.attributes.museum_registration_request.updated_by") %>:</strong>
-    <% if @museum_registration_request.updated_by %>
-      <%= link_to @museum_registration_request.updated_by.email, @museum_registration_request.updated_by %>
-    <% end %>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("museum_address") %>:</strong>
+    <%= @museum_registration_request.museum_address %>
   </p>
-<% end %>
 
-<div class="row">
-  <% if @museum_registration_request.not_reviewed? %>
-    <div class="col-auto">
-      <%= button_to t(".approve_button"),
-                    update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::APPROVED),
-                    method: :patch,
-                    form: { data: { turbo_confirm: "Are you sure?" } },
-                    class: "btn btn-success btn-sm" %>
-    </div>
-    <div class="col-auto">
-      <%= button_to t(".reject_button"),
-                    update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::REJECTED),
-                    method: :patch,
-                    form: { data: { turbo_confirm: "Are you sure?" } },
-                    class: "btn btn-danger btn-sm" %>
-    </div>
-  <% elsif !@museum_registration_request.archived? %>
-    <div class="col-auto">
-      <%= button_to t(".archive_button"),
-                    update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::ARCHIVED),
-                    method: :patch,
-                    form: { data: { turbo_confirm: "Are you sure?" } },
-                    class: "btn btn-secondary btn-sm" %>
-    </div>
+  <p>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("manager_email") %>:</strong>
+    <%= @museum_registration_request.manager_email %>
+  </p>
+
+  <p>
+    <strong><%= MuseumRegistrationRequest.human_attribute_name("created_at") %>:</strong>
+    <%= l(@museum_registration_request.created_at) %>
+  </p>
+
+  <% if admin %>
+    <p>
+      <strong><%= t("activerecord.attributes.museum_registration_request.created_by") %>:</strong>
+      <% if @museum_registration_request.created_by %>
+        <%= link_to @museum_registration_request.created_by.email, @museum_registration_request.created_by %>
+      <% else %>
+        <%= t("activerecord.attributes.museum_registration_request.anonymous") %>
+      <% end %>
+    </p>
+
+    <p>
+      <strong><%= MuseumRegistrationRequest.human_attribute_name("updated_at") %>:</strong>
+      <% if @museum_registration_request.updated_by %>
+        <%= l(@museum_registration_request.updated_at) %>
+      <% end %>
+    </p>
+
+    <p>
+      <strong><%= t("activerecord.attributes.museum_registration_request.updated_by") %>:</strong>
+      <% if @museum_registration_request.updated_by %>
+        <%= link_to @museum_registration_request.updated_by.email, @museum_registration_request.updated_by %>
+      <% end %>
+    </p>
   <% end %>
+
+
+  <dl>
+    <dt>Documento de Resolucion:</dt>
+    <dd>
+      <% if @museum_registration_request.registration_doc.attached? %>
+        <%= link_to @museum_registration_request.registration_doc.filename, rails_blob_path(@museum_registration_request.registration_doc, disposition: "attachment") %>
+      <% else %>
+        No hay documentos
+      <% end %>
+    </dd>
+  </dl>
+  <div class="row">
+    <% if @museum_registration_request.not_reviewed? %>
+      <div class="col-auto">
+        <%= button_to t(".approve_button"),
+                      update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::APPROVED),
+                      method: :patch,
+                      form: { data: { turbo_confirm: "Are you sure?" } },
+                      class: "btn btn-success btn-sm" %>
+      </div>
+      <div class="col-auto">
+        <%= button_to t(".reject_button"),
+                      update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::REJECTED),
+                      method: :patch,
+                      form: { data: { turbo_confirm: "Are you sure?" } },
+                      class: "btn btn-danger btn-sm" %>
+      </div>
+    <% end %>
+    <% unless @museum_registration_request.archived? %>
+      <div class="col-auto">
+        <%= button_to t(".archive_button"),
+                      update_registration_status_museum_registration_request_path(@museum_registration_request, registration_status: MuseumRegistrationRequest::ARCHIVED),
+                      method: :patch,
+                      form: { data: { turbo_confirm: "Are you sure?" } },
+                      class: "btn btn-secondary btn-sm" %>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-
-
-

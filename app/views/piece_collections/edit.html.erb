@@ -1,3 +1,5 @@
-<%= link_to "", @piece_collection, class: "bi bi-arrow-left icon_back"  %>
-<h2><%= t(".title") %> </h2>
-<%= render "form", piece_collection: @piece_collection%>
+<div class="container page-container">
+  <%= link_to "", @piece_collection, class: "bi bi-arrow-left icon_back" %>
+  <h2><%= t(".title") %> </h2>
+  <%= render "form", piece_collection: @piece_collection %>
+</div>

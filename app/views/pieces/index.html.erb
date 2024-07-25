@@ -1,14 +1,14 @@
-<p style="color: green"><%= notice %></p>
+<div class="container page-container">
+  <h1>Pieces</h1>
 
-<h1>Pieces</h1>
+  <div id="pieces">
+    <% @pieces.each do |piece| %>
+      <%= render piece %>
+      <p>
+        <%= link_to "Show this piece", piece %>
+      </p>
+    <% end %>
+  </div>
 
-<div id="pieces">
-  <% @pieces.each do |piece| %>
-    <%= render piece %>
-    <p>
-      <%= link_to "Show this piece", piece %>
-    </p>
-  <% end %>
+  <%= link_to "New piece", new_piece_path %>
 </div>
-
-<%= link_to "New piece", new_piece_path %>

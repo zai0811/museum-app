@@ -3,3 +3,21 @@
   gap: 2rem;
   grid-template-columns: repeat( auto-fit, minmax(250px, 1fr));
 }
+
+// To-do: how to make padding responsive?
+.image-header {
+  background-color: #0c201c;
+  color: black;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom: 350px;
+}
+.record-header{
+  font-weight: 500;
+  font-size: $h5-font-size;
+}
+
+.record-title{
+  font-weight: 500;
+  color: dimgray;
+}

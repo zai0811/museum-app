@@ -77,7 +77,7 @@ class MuseumRegistrationRequestsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def museum_registration_request_params
-    params.require(:museum_registration_request).permit(:museum_name, :museum_code, :museum_address, :manager_email, :department_id, :city_id)
+    params.require(:museum_registration_request).permit(:museum_name, :museum_code, :museum_address, :manager_email, :department_id, :city_id, :registration_doc)
   end
 
   def get_archived

@@ -7,14 +7,6 @@
   text-transform: uppercase;
   font-weight: bold;
 
-  &_hidden {
-    color: #FF6347;
-  }
-
-  &_published {
-    color: $success;
-  }
-
   &_not_reviewed {
     color: $primary;
   }
@@ -31,3 +23,21 @@
     color: $secondary
   }
 }
+
+.icon {
+  padding-right: 0.25rem;
+  &_published {
+    @extend .bi;
+    @extend .bi-unlock;
+  }
+
+  &_hidden {
+    @extend .bi;
+    @extend .bi-lock;
+  }
+  &_archived {
+    @extend .bi;
+    @extend .bi-archive;
+  }
+}
+
