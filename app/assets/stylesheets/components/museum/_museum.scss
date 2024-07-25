@@ -4,13 +4,13 @@
   grid-template-columns: repeat( auto-fit, minmax(250px, 1fr));
 }
 
+// To-do: how to make padding responsive?
 .image-header {
   background-color: #0c201c;
-  color: white;
+  color: black;
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 200px;
-  padding-bottom: 200px;
+  padding-bottom: 350px;
 }
 .record-header{
   font-weight: 500;

@@ -50,7 +50,7 @@ es:
       admin_title: "Museos"
       owner_title: "Mis Museos"
       gallery_title: "Explorar Museos"
-      tooltip_status_change: "Actualiza el estado del museo: los museos visibles son accesibles por los visitantes de la página. Los museos ocultos no se muestran a los visitantes. No podrá acceder a museos archivados sin autorización del administrador del sistema."
+      tooltip_status_change: "Los museos visibles son accesibles por los visitantes de la página. Los museos ocultos no se muestran a los visitantes. No podrá acceder a museos archivados sin autorización del administrador del sistema."
       record: "Ficha del Museo"
       edit_record: "Editar"
       section_admin: "Información Administrativa"
@@ -79,10 +79,13 @@ es:
       explore_pieces: "Conoce las piezas de esta colección"
       make_private: "Ocultar"
       make_public: "Hacer Visible"
+      archive: "Archivar"
       temporary: "Colección temporal"
       permanent: "Colección permanente"
+      tooltip_status_change: "Las colecciones visibles son accesibles por los visitantes de la página. Las colecciones ocultas no se muestran a los visitantes. No podrá acceder a colecciones archivadas sin autorización del administrador del sistema."
       tooltip_temporary: "La colección está disponible por tiempo limitado."
       tooltip_permanent: "Colección exhibida en el museo permanentemente."
+      edit_collection: "Editar"
     edit:
       title: "Editar colección"
   pieces:

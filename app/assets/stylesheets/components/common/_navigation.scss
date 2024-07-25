@@ -33,3 +33,19 @@ h1, h2, h3, h4 {
 .page-container {
   margin-top: 1rem;
 }
+
+//Breadcrumb
+
+.breadcrumb-item{
+  font-family: $font-family-heading;
+}
+
+// Tables
+.data-table-section-start{
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+.table-responsive{
+
+}

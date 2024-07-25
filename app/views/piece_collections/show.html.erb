@@ -1,139 +1,172 @@
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@piece_collection.museum) %>
 
 <div class="container page-container">
-  <div class="d-flex bd-highlight align-items-center">
-    <div class="p-2 bd-highlight">
-      <%= link_to "", museum_path(@piece_collection.museum_id), class: "bi bi-arrow-left icon_back link-body-emphasis link-opacity-50" %>
-    </div>
-    <div class="flex-grow-1 bd-highlight text-muted fs-6">
-      <%= @piece_collection.museum.name %>
-    </div>
-    <% if owner_or_admin %>
-      <% if @piece_collection.published? %>
-        <div class="p-2 bd-highlight">
-          <%= button_to "Hacer Privado",
-                        update_status_piece_collection_path(@piece_collection, status: PieceCollection::NOT_PUBLISHED),
-                        method: :patch,
-                        form: { data: { turbo_confirm: "Estas seguro?" } },
-                        class: "btn btn-outline-dark btn-sm" %>
-        </div>
-      <% else %>
-        <div class="p-2 bd-highlight">
-          <%= button_to "Publicar",
-                        update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
-                        method: :patch,
-                        form: { data: { turbo_confirm: "Estas seguro?" } },
-                        class: "btn btn-outline-dark btn-sm" %>
-        </div>
-      <% end %>
-      <div class="p-2 bd-highlight">
-        <%= link_to "",
-                    edit_piece_collection_path(@piece_collection),
-                    class: "bi bi-pencil-fill icon_back" %>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-chevron pb-3">
+      <li class="breadcrumb-item">
+        <%= link_to root_path, class: "link-body-emphasis" do %>
+          <i class="bi bi bi-house-door" width="16" height="16"></i>
+          <span class="visually-hidden">Home</span>
+        <% end %>
+      </li>
+      <li class="breadcrumb-item">
+        <%= link_to "Museos", museums_path, class: "link-body-emphasis text-decoration-none" %>
+      </li>
+      <li class="breadcrumb-item">
+        <%= link_to @piece_collection.museum.name, museum_path(@piece_collection.museum_id), class: "link-body-emphasis text-decoration-none" %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= @piece_collection.name %>
+      </li>
+    </ol>
+  </nav>
+
+  <section id="header">
+    <div class="d-flex flex-column align-items-center">
+      <div class="main_heading" id="<%= dom_id @piece_collection %>">
+        <%= @piece_collection.name %>
       </div>
-    <% end %>
-  </div>
+      <div class="p-2">
+        <% if owner_or_admin %>
+          <div class="btn-group" role="group" aria-label="Actions">
+            <div class="btn-group ">
+              <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="icon icon_<%= @piece_collection.status %>"></i>
+                <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_status_change") %>"> <%= t("activerecord.attributes.piece_collection.statuses.#{@piece_collection.status}") %></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <% if @piece_collection.published? %>
+                    <%= button_to " #{t(".make_private")}",
+                                  update_status_piece_collection_path(@piece_collection, status: PieceCollection::NOT_PUBLISHED),
+                                  method: :patch,
+                                  form: { data: { turbo_confirm: "Estas seguro?" } },
+                                  class: "btn border-0 bi bi-lock link-body-emphasis" %>
+                  <% else %>
+                    <%= button_to " #{t(".make_public")}",
+                                  update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
+                                  method: :patch,
+                                  form: { data: { turbo_confirm: "Estas seguro?" } },
+                                  class: "btn border-0 bi bi-unlock link-body-emphasis" %>
 
+                  <% end %>
+                </li>
+                <% unless @piece_collection.archived? && admin %>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <%= button_to " #{t(".archive")}",
+                                  update_status_piece_collection_path(@piece_collection, status: PieceCollection::ARCHIVED),
+                                  method: :patch,
+                                  form: { data: { turbo_confirm: "Estas seguro?" } },
+                                  class: "btn border-0 bi bi-archive link-danger" %>
+                <% end %>
+                </li>
+              </ul>
+            </div>
 
-  <div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
-    <div class="bd-highlight" id="<%= dom_id @piece_collection %>">
-      <span class="main_heading pb-0"><%= @piece_collection.name %></span>
-    </div>
-    <div class="bd-highlight">
-      <% if @piece_collection.is_temporary %>
-          <span class="text-light-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_temporary") %>">
+            <%= link_to edit_piece_collection_path(@piece_collection), class: "btn btn-outline-dark" do %>
+              <i class="bi bi-pencil icon"></i>
+              <span><%= t(".edit_collection") %></span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="pt-3 text-light-emphasis">
+        <% if @piece_collection.is_temporary %>
+          <i class="bi bi-clock icon"></i>
+          <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_temporary") %>">
             <%= t(".temporary") %>
-          </span>
-      <% else %>
-          <span class="text-light-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_permanent") %>">
+            </span>
+        <% else %>
+          <i class="bi bi-infinity icon"></i>
+          <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_permanent") %>">
             <%= t(".permanent") %>
-          </span>
-      <% end %>
+            </span>
+        <% end %>
+      </div>
+      <div class="p-2 flex-wrap">
+        <%= @piece_collection.description %>
+      </div>
     </div>
+  </section>
+
+  <section id="pieces">
     <% if owner_or_admin %>
-      <div class="pb-2 bd-highlight">
-        <i class="icon icon_<%= @piece_collection.status %>"></i>
-        <span> <%= t("activerecord.attributes.piece_collection.statuses.#{@piece_collection.status}") %> </span>
+      <div class="row data-table-section-start">
+        <div class="col"><h4><%= Piece.model_name.human(count: 2) %></h4></div>
+        <div class="col text-end">
+          <%= link_to "Agregar Pieza",
+                      new_piece_collection_piece_path(@piece_collection),
+                      class: "btn btn-primary cta" %>
+        </div>
       </div>
-    <% end %>
-    <div class="pb-2 bd-highlight">
-      <%= @piece_collection.description %>
-    </div>
-  </div>
 
-  <% if owner_or_admin %>
-    <div class="row py-3">
-      <div class="col"><h4><%= Piece.model_name.human(count: 2) %></h4></div>
-      <div class="col text-end">
-        <%= link_to "Agregar Pieza",
-                    new_piece_collection_piece_path(@piece_collection),
-                    class: "btn btn-primary cta" %>
-      </div>
-    </div>
-
-    <div class="table-responsive">
-      <table class="table">
-        <thead class="table align-middle">
-        <tr>
-          <th scope="col"> <%= Piece.human_attribute_name("number") %> </th>
-          <th scope="col"> <%= Piece.human_attribute_name("name") %> </th>
-          <th scope="col"> <%= Piece.human_attribute_name("status") %> </th>
-          <th scope="col"> <%= Piece.human_attribute_name("updated_at") %> </th>
-          <th scope="col"> <%= t(".actions") %> </th>
-        </tr>
-        </thead>
-        <tbody class="align-middle" id="collections_table">
-        <% @pieces.each do |piece| %>
-          <tr id="<%= dom_id piece %>">
-            <td>
-              <%= link_to piece.name,
-                          piece_path(piece),
-                          class: "link-primary" %>
-            </td>
-            <td> <%= piece.number %></td>
-            <td>
-              <i class="icon icon_<%= piece.status %>"> </i>
-              <span>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="table align-middle">
+          <tr>
+            <th scope="col"> <%= Piece.human_attribute_name("name") %> </th>
+            <th scope="col"> <%= Piece.human_attribute_name("number") %> </th>
+            <th scope="col"> <%= Piece.human_attribute_name("status") %> </th>
+            <th scope="col"> <%= Piece.human_attribute_name("updated_at") %> </th>
+            <th scope="col"> <%= t(".actions") %> </th>
+          </tr>
+          </thead>
+          <tbody class="align-middle" id="collections_table">
+          <% @pieces.each do |piece| %>
+            <tr id="<%= dom_id piece %>">
+              <td>
+                <%= link_to piece.name,
+                            piece_path(piece),
+                            class: "link-primary" %>
+              </td>
+              <td> <%= piece.number %></td>
+              <td>
+                <i class="icon icon_<%= piece.status %>"> </i>
+                <span>
                 <%= t("activerecord.attributes.piece.statuses.#{piece.status}") %>
               </span>
-            </td>
-            <td>
-              <% if piece.updated_at %>
-                <%= l(piece.updated_at) %>
-              <% end %>
-            </td>
-            <td>
-              <% if piece.published? %>
-                <%= button_to t("pieces.show.make_private"),
-                              update_status_piece_path(piece, status: Piece::NOT_PUBLISHED),
-                              method: :patch,
-                              form: { data: { turbo_confirm: "Estas seguro?" } },
-                              class: "btn btn-outline-dark btn-sm" %>
-              <% else %>
-                <%= button_to t("pieces.show.make_public"),
-                              update_status_piece_path(piece, status: Piece::PUBLISHED),
-                              method: :patch,
-                              form: { data: { turbo_confirm: "Estas seguro?" } },
-                              class: "btn btn-outline-dark btn-sm" %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% else %>
-    <h4 class="text-center"><%= t(".explore_pieces") %></h4>
-    <div class="album py-5">
-      <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <% @pieces.each do |piece| %>
-            <% if piece.published? %>
-              <%= render "pieces/piece_gallery", piece: piece %>
-            <% end %>
+              </td>
+              <td>
+                <% if piece.updated_at %>
+                  <%= l(piece.updated_at) %>
+                <% end %>
+              </td>
+              <td>
+                <% if piece.published? %>
+                  <%= button_to t("pieces.show.make_private"),
+                                update_status_piece_path(piece, status: Piece::NOT_PUBLISHED),
+                                method: :patch,
+                                form: { data: { turbo_confirm: "Estas seguro?" } },
+                                class: "btn btn-outline-dark btn-sm" %>
+                <% else %>
+                  <%= button_to t("pieces.show.make_public"),
+                                update_status_piece_path(piece, status: Piece::PUBLISHED),
+                                method: :patch,
+                                form: { data: { turbo_confirm: "Estas seguro?" } },
+                                class: "btn btn-outline-dark btn-sm" %>
+                <% end %>
+              </td>
+            </tr>
           <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <h4 class="text-center"><%= t(".explore_pieces") %></h4>
+      <div class="album py-5">
+        <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <% @pieces.each do |piece| %>
+              <% if piece.published? %>
+                <%= render "pieces/piece_gallery", piece: piece %>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </section>
 </div>
