@@ -30,7 +30,6 @@
     @extend .bi;
     @extend .bi-unlock;
   }
-
   &_hidden {
     @extend .bi;
     @extend .bi-lock;
@@ -38,6 +37,21 @@
   &_archived {
     @extend .bi;
     @extend .bi-archive;
+  }
+
+  &_approved{
+    @extend .bi;
+    @extend .bi-check2;
+  }
+
+  &_rejected{
+    @extend .bi;
+    @extend .bi-x;
+  }
+
+  &_not_reviewed{
+    @extend .bi;
+    @extend .bi-hourglass;
   }
 }
 

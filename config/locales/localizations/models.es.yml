@@ -24,11 +24,15 @@ es:
         other: "Materiales"
     attributes:
       museum_registration_request:
-        museum_name: "Nombre del museo"
-        museum_code: "Código de resolución"
+        museum_name: "Nombre"
+        museum_code: "Resolución"
+        registration_doc: "Documento de resolución"
         museum_address: "Dirección"
-        manager_email: "Correo electrónico del encargado"
-        manager_name: "Nombre del encargado"
+        manager_email: "Correo"
+        first_name: "Nombre"
+        last_name: "Apellido"
+        ci: "Cédula de identidad"
+        phone_number: "Celular"
         created_at: "Creado el"
         updated_at: "Actualizado el"
         created_by: "Creado por"
@@ -36,7 +40,7 @@ es:
         anonymous: "Anónimo"
         registration_status: "Estado"
         registration_statuses:
-          not_reviewed: "No Procesado"
+          not_reviewed: "Esperando Aprobación"
           approved: "Aprobado"
           rejected: "Rechazado"
           archived: "Archivado"

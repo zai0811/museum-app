@@ -31,6 +31,10 @@ class MuseumRegistrationRequestsController < ApplicationController
     if current_user
       @museum_registration_request.created_by = current_user
       @museum_registration_request.manager_email = current_user.email
+      @museum_registration_request.first_name = current_user.first_name
+      @museum_registration_request.last_name = current_user.last_name
+      @museum_registration_request.ci = current_user.ci
+      @museum_registration_request.phone_number = current_user.phone_number
     end
 
     respond_to do |format|
@@ -77,7 +81,7 @@ class MuseumRegistrationRequestsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def museum_registration_request_params
-    params.require(:museum_registration_request).permit(:museum_name, :museum_code, :museum_address, :manager_email, :department_id, :city_id, :registration_doc)
+    params.require(:museum_registration_request).permit(:museum_name, :museum_code, :museum_address, :manager_email, :department_id, :city_id, :registration_doc, :first_name, :last_name, :ci, :phone_number)
   end
 
   def get_archived
