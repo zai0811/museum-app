@@ -84,8 +84,8 @@ es:
         created_at: "Creado el"
         updated_at: "Actualizado el"
         statuses:
-          hidden: "Privado"
-          published: "Público"
+          hidden: "Oculto"
+          published: "Visible"
           archived: "Archivado"
       department:
         name: "Nombre"

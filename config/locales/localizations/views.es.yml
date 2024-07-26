@@ -50,6 +50,7 @@ es:
       admin_title: "Museos"
       owner_title: "Mis Museos"
       gallery_title: "Explorar Museos"
+      gallery_collections_title: "Explora las colecciones"
       tooltip_status_change: "Los museos visibles son accesibles por los visitantes de la página. Los museos ocultos no se muestran a los visitantes. No podrá acceder a museos archivados sin autorización del administrador del sistema."
       record: "Ficha del Museo"
       edit_record: "Editar"
@@ -95,6 +96,8 @@ es:
       author: "Autor"
       make_private: "Ocultar"
       make_public: "Hacer Visible"
+      tooltip_status_change: "Las piezas visibles son accesibles por los visitantes de la página. Las piezas ocultas no se muestran a los visitantes. No podrá acceder a piezas archivadas sin autorización del administrador del sistema."
+      edit_piece: "Editar"
     edit:
       title: "Editar pieza"
     new:
