@@ -1,51 +1,58 @@
 <% admin = current_user.admin? ? true : false %>
 
 <div class="container page-container">
-  <div class="d-flex bd-highlight align-items-center">
-    <div class="p-2 flex-grow-1 bd-highlight">
-      <%= link_to "", root_path, class: "bi bi-arrow-left icon_back" %>
-    </div>
-  </div>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-chevron">
+      <li class="breadcrumb-item">
+        <%= link_to root_path, class: "link-body-emphasis" do %>
+          <i class="bi bi bi-house-door" width="16" height="16"></i>
+          <span class="visually-hidden">Home</span>
+        <% end %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Solicitudes de registro
+      </li>
+    </ol>
+  </nav>
 
   <div class="d-flex bd-highlight align-items-center">
     <div class="p-2 flex-grow-1 bd-highlight">
-      <h2> <%= MuseumRegistrationRequest.model_name.human(count: 2) %> </h2>
+      <span class="main_heading"> <%= MuseumRegistrationRequest.model_name.human(count: 2) %> </span>
     </div>
     <div class="p-2 bd-highlight">
-      <%= button_to t(".create"), new_museum_registration_request_path, method: :get, class: "btn btn-outline-secondary" %>
+      <%= button_to t(".create"), new_museum_registration_request_path, method: :get, class: "btn btn-primary cta" %>
     </div>
   </div>
 
 
-  <div class="table-responsive mt-3">
+  <div class="table-responsive data-table-section-start">
     <table class="table">
-      <thead class="table-light align-middle">
+      <thead class="table align-middle">
       <tr>
-        <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("museum_name") %></th>
-        <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("registration_status") %></th>
+        <th scope="col"><%= t(".museum_name") %></th>
+        <th scope="col"><%= t(".request_status") %></th>
         <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("museum_code") %></th>
-        <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("museum_address") %></th>
         <th scope="col"><%= t(".city") %></th>
-        <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("manager_email") %></th>
+        <th scope="col"><%= t(".manager_email") %></th>
         <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("created_at") %></th>
         <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("updated_at") %></th>
-        <% if admin %>
-          <th scope="col">Acciones</th>
-        <% end %>
       </tr>
       </thead>
       <tbody class="align-middle">
       <% if @museum_registration_requests %>
         <% @museum_registration_requests.each do |museum_registration_request| %>
           <tr id="<%= dom_id museum_registration_request %>">
-            <td> <%= museum_registration_request.museum_name %></td>
             <td>
-            <span class="status status_<%= museum_registration_request.registration_status %>">
-              <%= t("activerecord.attributes.museum_registration_request.registration_statuses.#{ museum_registration_request.registration_status }") %>
-            </span>
+              <%= link_to museum_registration_request.museum_name, museum_registration_request %>
+            </td>
+            <td>
+              <i class="icon icon_<%= museum_registration_request.registration_status %>"></i>
+              <span>
+                <%= t("activerecord.attributes.museum_registration_request.registration_statuses.#{ museum_registration_request.registration_status }") %>
+              </span>
             </td>
             <td> <%= museum_registration_request.museum_code %></td>
-            <td> <%= museum_registration_request.museum_address %></td>
             <td> <%= museum_registration_request.city.name %> </td>
             <td> <%= museum_registration_request.manager_email %></td>
             <td> <%= l(museum_registration_request.created_at) %></td>
@@ -54,10 +61,6 @@
                 <%= l(museum_registration_request.updated_at) %>
               <% end %>
             </td>
-
-            <% if admin %>
-              <td> <%= link_to "", museum_registration_request, class: "btn btn-outline-secondary btn-sm bi bi-eye-fill" %> </td>
-            <% end %>
           </tr>
         <% end %>
         </tbody>

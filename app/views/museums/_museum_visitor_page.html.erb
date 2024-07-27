@@ -1,6 +1,6 @@
-<div class="d-flex bd-highlight flex-column justify-content-center align-items-center">
-  <div class="bd-highlight" id="<%= dom_id museum %>">
-    <h2 class=""> <%= museum.name %></h2>
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <div class="main_heading" id="<%= dom_id @museum %>">
+    <%= @museum.name %>
   </div>
 </div>
 
@@ -9,19 +9,18 @@
     <p> <%= museum.about %> </p>
   </div>
 </div>
-
-  <h4 class="text-center">Explora Colecciones</h4>
-  <div class="album py-5">
-    <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <% museum.piece_collections.each do |piece_collection| %>
-          <% if piece_collection.published? %>
-            <%= render "piece_collections/piece_collection_gallery", piece_collection: piece_collection %>
-          <% end %>
+<div class="album">
+  <h4 class="text-center gallery_heading pb-2"><%= t("museums.show.gallery_collections_title") %></h4>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% museum.piece_collections.each do |piece_collection| %>
+        <% if piece_collection.published? %>
+          <%= render "piece_collections/piece_collection_gallery", piece_collection: piece_collection %>
         <% end %>
-      </div>
+      <% end %>
     </div>
   </div>
+</div>
 
 <div class="row mt-4">
   <div class="col">

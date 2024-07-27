@@ -2,7 +2,7 @@
 
 <div class="container page-container">
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb breadcrumb-chevron pb-3">
+    <ol class="breadcrumb breadcrumb-chevron">
       <li class="breadcrumb-item">
         <%= link_to root_path, class: "link-body-emphasis" do %>
           <i class="bi bi bi-house-door" width="16" height="16"></i>
@@ -21,59 +21,56 @@
     </ol>
   </nav>
 
-  <section id="header">
+  <section class="page-info-section">
     <div class="d-flex flex-column align-items-center">
       <div class="main_heading" id="<%= dom_id @piece_collection %>">
         <%= @piece_collection.name %>
       </div>
-      <div class="p-2">
-        <% if owner_or_admin %>
-          <div class="btn-group" role="group" aria-label="Actions">
-            <div class="btn-group ">
-              <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="icon icon_<%= @piece_collection.status %>"></i>
-                <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_status_change") %>"> <%= t("activerecord.attributes.piece_collection.statuses.#{@piece_collection.status}") %></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <% if @piece_collection.published? %>
-                    <%= button_to " #{t(".make_private")}",
-                                  update_status_piece_collection_path(@piece_collection, status: PieceCollection::NOT_PUBLISHED),
-                                  method: :patch,
-                                  form: { data: { turbo_confirm: "Estas seguro?" } },
-                                  class: "btn border-0 bi bi-lock link-body-emphasis" %>
-                  <% else %>
-                    <%= button_to " #{t(".make_public")}",
-                                  update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
-                                  method: :patch,
-                                  form: { data: { turbo_confirm: "Estas seguro?" } },
-                                  class: "btn border-0 bi bi-unlock link-body-emphasis" %>
+      <% if owner_or_admin %>
+        <div class="btn-group pb-4" role="group" aria-label="Actions">
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="icon icon_<%= @piece_collection.status %>"></i>
+              <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_status_change") %>"> <%= t("activerecord.attributes.piece_collection.statuses.#{@piece_collection.status}") %></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <% if @piece_collection.published? %>
+                  <%= button_to t(".make_private"),
+                                update_status_piece_collection_path(@piece_collection, status: PieceCollection::NOT_PUBLISHED),
+                                method: :patch,
+                                form: { data: { turbo_confirm: "Estas seguro?" } },
+                                class: "btn border-0 bi bi-lock link-body-emphasis" %>
+                <% else %>
+                  <%= button_to t(".make_public"),
+                                update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
+                                method: :patch,
+                                form: { data: { turbo_confirm: "Estas seguro?" } },
+                                class: "btn border-0 bi bi-unlock link-body-emphasis" %>
 
-                  <% end %>
-                </li>
-                <% unless @piece_collection.archived? && admin %>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <%= button_to " #{t(".archive")}",
-                                  update_status_piece_collection_path(@piece_collection, status: PieceCollection::ARCHIVED),
-                                  method: :patch,
-                                  form: { data: { turbo_confirm: "Estas seguro?" } },
-                                  class: "btn border-0 bi bi-archive link-danger" %>
                 <% end %>
+              </li>
+              <% unless @piece_collection.archived? && admin %>
+                <li>
+                  <hr class="dropdown-divider">
                 </li>
-              </ul>
-            </div>
-
-            <%= link_to edit_piece_collection_path(@piece_collection), class: "btn btn-outline-dark" do %>
-              <i class="bi bi-pencil icon"></i>
-              <span><%= t(".edit_collection") %></span>
-            <% end %>
+                <li>
+                  <%= button_to t(".archive"),
+                                update_status_piece_collection_path(@piece_collection, status: PieceCollection::ARCHIVED),
+                                method: :patch,
+                                form: { data: { turbo_confirm: "Estas seguro?" } },
+                                class: "btn border-0 bi bi-archive link-danger" %>
+              <% end %>
+              </li>
+            </ul>
           </div>
-        <% end %>
-      </div>
-      <div class="pt-3 text-light-emphasis">
+          <%= link_to edit_piece_collection_path(@piece_collection), class: "btn btn-outline-dark" do %>
+            <i class="bi bi-pencil icon"></i>
+            <span><%= t(".edit_collection") %></span>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="text-light-emphasis">
         <% if @piece_collection.is_temporary %>
           <i class="bi bi-clock icon"></i>
           <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_temporary") %>">
@@ -86,13 +83,15 @@
             </span>
         <% end %>
       </div>
-      <div class="p-2 flex-wrap">
-        <%= @piece_collection.description %>
+      <div class="description-box">
+        <p>
+          <%= @piece_collection.description %>
+        </p>
       </div>
     </div>
   </section>
 
-  <section id="pieces">
+  <section class="page-table-section">
     <% if owner_or_admin %>
       <div class="row data-table-section-start">
         <div class="col"><h4><%= Piece.model_name.human(count: 2) %></h4></div>
@@ -140,13 +139,13 @@
                                 update_status_piece_path(piece, status: Piece::NOT_PUBLISHED),
                                 method: :patch,
                                 form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn btn-outline-dark btn-sm" %>
+                                class: "btn btn-outline-dark btn-sm bi bi-lock" %>
                 <% else %>
                   <%= button_to t("pieces.show.make_public"),
                                 update_status_piece_path(piece, status: Piece::PUBLISHED),
                                 method: :patch,
                                 form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn btn-outline-dark btn-sm" %>
+                                class: "btn btn-outline-dark btn-sm bi bi-unlock" %>
                 <% end %>
               </td>
             </tr>
@@ -155,8 +154,7 @@
         </table>
       </div>
     <% else %>
-      <h4 class="text-center"><%= t(".explore_pieces") %></h4>
-      <div class="album py-5">
+      <div class="album">
         <div class="container">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <% @pieces.each do |piece| %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_24_204104) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_26_185519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_204104) do
     t.bigint "updated_by_id"
     t.bigint "department_id", null: false
     t.bigint "city_id", null: false
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.string "ci", default: "", null: false
+    t.string "phone_number"
     t.index ["city_id"], name: "index_museum_registration_requests_on_city_id"
     t.index ["created_by_id"], name: "index_museum_registration_requests_on_created_by_id"
     t.index ["department_id"], name: "index_museum_registration_requests_on_department_id"
@@ -158,6 +162,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_204104) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.string "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"

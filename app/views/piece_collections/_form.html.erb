@@ -1,33 +1,39 @@
-<%= form_with(model: [@museum, piece_collection], class: "row gx-3 gy-2 align-items-center") do |form| %>
-  <% if piece_collection.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(piece_collection.errors.count, "error") %> prohibited this piece_collection from being
-        saved:</h2>
+<div class="row">
+  <%= form_with(model: [@museum, piece_collection]) do |form| %>
+    <% if piece_collection.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(piece_collection.errors.count, "error") %> prohibited this piece_collection from being
+          saved:</h2>
 
-      <ul>
-        <% piece_collection.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% piece_collection.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="col-sm-6 mb-3">
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-control", placeholder: "Nombre" %>
+    </div>
+
+    <div class=" col-sm-6 mb-3">
+      <div class="form-check form-switch">
+        <%= form.check_box :is_temporary, class: "form-check-input", role: "switch" %>
+        <%= form.label :is_temporary, class: "form-check-label" %>
+      </div>
+    </div>
+
+    <div class="col-sm-6 mb-3">
+      <%= form.label :description, class: "form-label" %>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="col-sm-6 mb-3">
+      <%= form.submit class: "btn btn-sm btn-dark" %>
+      <% back_path = back_to_collection ? piece_collection : @museum %>
+      <%= link_to t("piece_collections.show.cancel"), back_path, class: "link-body-emphasis px-3" %>
     </div>
   <% end %>
-
-  <div class="col-sm-8 mb-3">
-    <%= form.label :name, class: "form-label" %>
-    <%= form.text_field :name, class: "form-control", placeholder: "Nombre" %>
-  </div>
-
-  <div class="form-check form-switch">
-    <%= form.check_box :is_temporary,  class: "form-check-input", role: "switch" %>
-    <%= form.label :is_temporary, class: "form-check-label" %>
-  </div>
-
-  <div class="col-sm-8 mb-3">
-    <%= form.label :description, class: "form-label" %>
-    <%= form.text_area :description, class: "form-control" %>
-  </div>
-
-  <div class="col-sm-8">
-    <%= form.submit class: "btn btn-sm btn-dark" %>
-  </div>
-<% end %>
+</div>

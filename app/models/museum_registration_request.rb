@@ -12,7 +12,7 @@ class MuseumRegistrationRequest < ApplicationRecord
   has_one_attached :registration_doc
 
   enum :registration_status, { not_reviewed: NOT_REVIEWED, approved: APPROVED, rejected: REJECTED, archived: ARCHIVED }, default: :not_reviewed
-  validates_presence_of :manager_email, :museum_name, :museum_code, :museum_address
+  validates_presence_of :manager_email, :museum_name, :museum_code, :museum_address, :first_name, :last_name, :ci
   scope :active_status, -> { where(registration_status: [ NOT_REVIEWED, APPROVED, REJECTED ]) }
 
   def update_registration_status!(status, updated_by)
@@ -53,8 +53,7 @@ class MuseumRegistrationRequest < ApplicationRecord
   def find_or_invite_user!
     user = User.find_by(email: manager_email)
     unless user
-      # TODO should do User.getAdminID or ignore the invited_by?
-      user = User.invite!(email: manager_email)
+      user = User.invite!(email: manager_email, first_name: first_name, last_name: last_name, ci: ci, phone_number: phone_number)
     end
     update!(created_by: user) unless created_by
     user

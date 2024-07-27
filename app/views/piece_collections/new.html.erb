@@ -1,13 +1,18 @@
 <div class="container page-container">
   <%= turbo_frame_tag @piece_collection do %>
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <div class="d-flex flex-row-reverse bd-highlight">
-          <div class="bd-highlight">
-            <%= link_to "", museum_path(@museum), type: "btn", class: "btn-close" %>
+    <div class="col-auto py-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex flex-row-reverse bd-highlight">
+            <div class="bd-highlight">
+              <%= link_to "", museum_path(@museum), type: "btn", class: "link-body-emphasis bi bi-x-lg" %>
+            </div>
+          </div>
+          <div class="px-3">
+            <%= render partial: "form",
+                       locals: { piece_collection: @piece_collection, back_to_collection: false } %>
           </div>
         </div>
-        <%= render "form", piece_collection: @piece_collection %>
       </div>
     </div>
   <% end %>

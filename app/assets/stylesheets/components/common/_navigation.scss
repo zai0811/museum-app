@@ -3,12 +3,6 @@ $font-family-heading: Candara, 'Noto Sans', source-sans-pro, sans-serif, system-
 // Icons
 .icon_back {
   color: $gray-600;
-  font-size: 1.5rem;
-}
-
-.icon_edit {
-  color: $secondary;
-  font-size: 1.5rem;
 }
 
 // Buttons
@@ -23,15 +17,27 @@ $font-family-heading: Candara, 'Noto Sans', source-sans-pro, sans-serif, system-
 h1, h2, h3, h4 {
   font-family: $font-family-heading;
 }
+
 .main_heading{
   font-family: $font-family-heading;
   font-size: $h1-font-size;
   font-weight: 600;
 }
-
+.gallery_heading {
+  font-family: $font-family-heading;
+  font-size: $h5-font-size;
+  font-weight: 600;
+}
 // Spacing
 .page-container {
   margin-top: 1rem;
+}
+
+.page-info-section{
+
+}
+.description-box {
+  padding-top: 1rem;
 }
 
 //Breadcrumb

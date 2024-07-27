@@ -1,5 +1,7 @@
 <div class="container page-container">
-  <%= link_to "", @piece_collection, class: "bi bi-arrow-left icon_back" %>
-  <h2><%= t(".title") %> </h2>
-  <%= render "form", piece_collection: @piece_collection %>
+  <%= render partial: "layouts/back_and_header",
+             locals: { back_path: @piece_collection, header: t(".title") } %>
+
+  <%= render partial: "form",
+             locals: { piece_collection: @piece_collection, back_to_collection: true } %>
 </div>
