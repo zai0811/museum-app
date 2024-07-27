@@ -1,0 +1,15 @@
+.photo-gallery{
+  display: flex;
+  gap: 2rem;
+
+}
+
+.gallery-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gallery-column.card{
+  border-color: red;
+}

@@ -114,6 +114,8 @@ es:
       tooltip_permanent: "Colección exhibida en el museo permanentemente."
       edit_collection: "Editar"
       cancel: "Cancelar"
+      see_table: "Ver como tabla"
+      see_gallery: "Ver como galeria"
     edit:
       title: "Editar colección"
   pieces:

@@ -1,21 +1,25 @@
-<div class="col">
-  <div class="card shadow-sm" id="<%= dom_id piece%>">
-    <% if piece.image.attached? %>
-      <%= image_tag( piece.image, class: "card-img-top" ) %>
-    <% else %>
-      <%= image_tag("piece_placeholder_image.png", class: "card-img-top") %>
-    <% end %>
+<div class="album pt-3">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% pieces.each do |piece| %>
+        <% if piece.published? %>
+          <div class="col">
+            <div class="card shadow-sm" id="<%= dom_id piece %>">
+              <% if piece.image.attached? %>
+                <%= image_tag(piece.image, class: "card-img-top") %>
+              <% else %>
+                <%= image_tag("piece_placeholder_image.png", class: "card-img-top") %>
+              <% end %>
 
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= turbo_frame_tag piece do %>
-          <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
-          <h5> <%= link_to  piece.name,
-                            piece_path(piece),
-                            data: { turbo_frame: "_top" } %>
-          </h5>
+              <div class="card-body">
+                <h5 class="card-title">
+                   <%= link_to piece.name, piece_path(piece) %>
+                </h5>
+              </div>
+            </div>
+          </div>
         <% end %>
-      </h5>
+      <% end %>
     </div>
   </div>
 </div>
