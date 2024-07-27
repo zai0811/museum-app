@@ -41,7 +41,6 @@ class PiecesController < ApplicationController
     respond_to do |format|
       if @piece.update(piece_params)
         format.html { redirect_to piece_url(@piece), notice: t(".success") }
-        format.json { render :show, status: :ok, location: @piece }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @piece.errors, status: :unprocessable_entity }

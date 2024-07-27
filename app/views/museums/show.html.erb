@@ -44,13 +44,13 @@
           <ul class="dropdown-menu">
             <li>
               <% if @museum.published? %>
-                <%= button_to " #{t("museums.index.make_private")}",
+                <%= button_to t("museums.index.make_private"),
                               update_museum_status_museum_path(@museum, status: Museum::NOT_PUBLISHED),
                               method: :patch,
                               form: { data: { turbo_confirm: "Estas seguro?" } },
                               class: "btn border-0 bi bi-lock link-body-emphasis" %>
               <% else %>
-                <%= button_to " #{t("museums.index.make_public")}",
+                <%= button_to t("museums.index.make_public"),
                               update_museum_status_museum_path(@museum, status: Museum::PUBLISHED),
                               method: :patch,
                               form: { data: { turbo_confirm: "Estas seguro?" } },

@@ -1,11 +1,7 @@
 <div class="container page-container">
-  <div class="d-flex bd-highlight align-items-center">
-    <div class="p-2 bd-highlight">
-      <%= link_to "", piece_collection_path(@piece_collection), class: "bi bi-arrow-left icon_back" %>
-    </div>
-  </div>
+  <%= render partial: "layouts/back_and_header",
+             locals: { back_path: piece_collection_path(@piece_collection), header: t(".title") } %>
 
-  <h2 class="mb-3"><%= t(".title") %></h2>
-
-  <%= render "form", piece: @piece %>
+  <%= render partial: "form",
+             locals: { piece: @piece, back_to_piece: false } %>
 </div>

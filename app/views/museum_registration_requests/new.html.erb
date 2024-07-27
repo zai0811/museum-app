@@ -1,16 +1,16 @@
 <div class="container page-container">
   <div class="row">
-    <div class="col-sm-6" id="<%= dom_id @museum_registration_request %>">
+    <div class="col-sm-6 pb-2" id="<%= dom_id @museum_registration_request %>">
       <span class="main_heading"> <%= t(".title") %></span>
-      <p> <%= t(".info") %></p>
+      <p class="py-1"> <%= t(".info") %>
+        <% if current_user %>
+          <%= t(".info_logged_user") %>
+        <% end %>
+      </p>
     </div>
   </div>
 
-  <% if current_user %>
-    <p> Serás asignado como el administrador de este museo automáticamente.</p>
-  <% end %>
-
-  <%= form_with(model: @museum_registration_request, class: "mt-2") do |form| %>
+  <%= form_with(model: @museum_registration_request) do |form| %>
     <% if @museum_registration_request.errors.any? %>
       <div style="color: red">
         <h2><%= pluralize(@museum_registration_request.errors.count, "error") %> prohibited this
@@ -86,7 +86,7 @@
       </div>
     <% end %>
     <div>
-      <%= form.submit class: "btn btn-primary", placeholder: "correo@museo.com.py" %>
+      <%= form.submit class: "btn btn-primary cta", placeholder: "correo@museo.com.py" %>
     </div>
   <% end %>
 </div>

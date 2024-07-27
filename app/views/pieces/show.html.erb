@@ -24,89 +24,92 @@
     </ol>
   </nav>
 
-
-  <div class="row">
-    <div class="col-md">
-      <% if @piece.image.attached? %>
-        <%= image_tag(@piece.image, class: "img-fluid my-3") %>
-      <% else %>
-        <%= image_tag("piece_placeholder_image.png", class: "img-fluid my-3") %>
-      <% end %>
-    </div>
-
-    <div class="col-md" id="<%= dom_id @piece %>">
-      <div class="d-flex flex-column">
-        <div class="main_heading">
-          <%= @piece.name %>
-        </div>
-        <% if owner_or_admin %>
-          <div class="btn-group pb-4" role="group" aria-label="Actions">
-            <div class="btn-group">
-              <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="icon icon_<%= @piece.status %>"></i>
-                <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_status_change") %>"> <%= t("activerecord.attributes.piece.statuses.#{@piece.status}") %> </span>
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <% if @piece.published? %>
-                    <%= button_to " #{t(".make_private")}",
-                                  update_status_piece_path(@piece, status: Piece::NOT_PUBLISHED),
-                                  method: :patch,
-                                  form: { data: { turbo_confirm: "Estas seguro?" } },
-                                  class: "btn border-0 bi bi-lock link-body-emphasis" %>
-                  <% else %>
-                    <%= button_to " #{t(".make_public")}",
-                                  update_status_piece_path(@piece, status: Piece::PUBLISHED),
-                                  method: :patch,
-                                  form: { data: { turbo_confirm: "Estas seguro?" } },
-                                  class: "btn border-0 bi bi-unlock link-body-emphasis" %>
-                  <% end %>
-                </li>
-                <% unless @piece.archived? && admin %>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <%= button_to " #{t("museums.index.archive")}",
-                                  update_status_piece_path(@piece, status: Piece::ARCHIVED),
-                                  method: :patch,
-                                  form: { data: { turbo_confirm: "Estas seguro?" } },
-                                  class: "btn border-0 bi bi-archive link-danger" %>
-                <% end %>
-                </li>
-              </ul>
-            </div>
-            <%= link_to edit_piece_path(@piece), class: "btn btn-outline-dark flex-grow-0" do %>
-              <i class="bi bi-pencil icon"></i>
-              <span><%= t(".edit_piece") %></span>
-            <% end %>
-          </div>
+  <section class="page-info-section">
+    <div class="row">
+      <div class="col-lg-7 col-md-6">
+        <% if @piece.image.attached? %>
+          <%= image_tag(@piece.image, class: "img-fluid rounded-3") %>
+        <% else %>
+          <%= image_tag("piece_placeholder_image.png", class: "img-fluid rounded-3") %>
         <% end %>
-        <div class="pt-3">
-          <p> <%= @piece.description %> </p>
-        </div>
-        <div class="pt-1">
-          <dl class="row">
-            <% if @piece.author %>
-              <dt class="col-sm-2"><%= t(".author") %>:</dt>
-              <dd class="col-sm-10"><%= @piece.author.full_name %>  </dd>
-            <% end %>
+      </div>
 
-            <% if owner_or_admin %>
-              <dt class="col-sm-2"><%= Piece.human_attribute_name("number") %>:</dt>
-              <dd class="col-sm-10"><%= @piece.number %> </dd>
-            <% end %>
+      <div class="col-lg-5 col-md-6" id="<%= dom_id @piece %>">
+        <div class="d-flex flex-column ps-5">
+          <div class="main_heading">
+            <%= @piece.name %>
+          </div>
+          <% if owner_or_admin %>
+            <div class="btn-group pb-4" role="group" aria-label="Actions">
+              <div class="btn-group">
+                <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="icon icon_<%= @piece.status %>"></i>
+                  <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_status_change") %>">
+                    <%= t("activerecord.attributes.piece.statuses.#{@piece.status}") %>
+                  </span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <% if @piece.published? %>
+                      <%= button_to t(".make_private"),
+                                    update_status_piece_path(@piece, status: Piece::NOT_PUBLISHED),
+                                    method: :patch,
+                                    form: { data: { turbo_confirm: "Estas seguro?" } },
+                                    class: "btn border-0 bi bi-lock link-body-emphasis" %>
+                    <% else %>
+                      <%= button_to t(".make_public"),
+                                    update_status_piece_path(@piece, status: Piece::PUBLISHED),
+                                    method: :patch,
+                                    form: { data: { turbo_confirm: "Estas seguro?" } },
+                                    class: "btn border-0 bi bi-unlock link-body-emphasis" %>
+                    <% end %>
+                  </li>
+                  <% unless @piece.archived? && admin %>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                      <%= button_to t(".archive"),
+                                    update_status_piece_path(@piece, status: Piece::ARCHIVED),
+                                    method: :patch,
+                                    form: { data: { turbo_confirm: "Estas seguro?" } },
+                                    class: "btn border-0 bi bi-archive link-danger" %>
+                  <% end %>
+                  </li>
+                </ul>
+              </div>
+              <%= link_to edit_piece_path(@piece), class: "btn btn-outline-dark flex-grow-0" do %>
+                <i class="bi bi-pencil icon"></i>
+                <span><%= t(".edit_piece") %></span>
+              <% end %>
+            </div>
+          <% end %>
+          <div class="pt-3">
+            <p> <%= @piece.description %> </p>
+          </div>
+          <div class="pt-1">
+            <dl class="row">
+              <% if @piece.author %>
+                <dt class="col-sm-2"><%= t(".author") %>:</dt>
+                <dd class="col-sm-10"><%= @piece.author.full_name %>  </dd>
+              <% end %>
 
-            <% if @piece.material %>
-              <dt class="col-sm-2"><%= t(".material") %>:</dt>
-              <dd class="col-sm-10"> <%= @piece.material.name %> </dd>
-            <% end %>
-            <dt class="col-sm-2"><%= Piece.human_attribute_name("measurement") %>:</dt>
-            <dd class="col-sm-10"> <%= @piece.measurement %>  </dd>
-          </dl>
+              <% if owner_or_admin %>
+                <dt class="col-sm-2"><%= Piece.human_attribute_name("number") %>:</dt>
+                <dd class="col-sm-10"><%= @piece.number %> </dd>
+              <% end %>
+
+              <% if @piece.material %>
+                <dt class="col-sm-2"><%= t(".material") %>:</dt>
+                <dd class="col-sm-10"> <%= @piece.material.name %> </dd>
+              <% end %>
+              <dt class="col-sm-2"><%= Piece.human_attribute_name("measurement") %>:</dt>
+              <dd class="col-sm-10"> <%= @piece.measurement %>  </dd>
+            </dl>
+          </div>
         </div>
       </div>
-    </div>
 
-  </div>
+    </div>
+  </section>
 </div>

@@ -4,7 +4,6 @@ import "./controllers";
 import * as bootstrap from "bootstrap"
 
 document.addEventListener("turbo:load", function(event) {
-    console.log('Initializing tooltips...');
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 });

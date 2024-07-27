@@ -12,43 +12,45 @@
       </div>
     <% end %>
 
-    <div class="col-sm-8 mb-3">
+    <div class="col-sm-6 mb-3">
       <%= form.label :name, class: "form-label" %>
       <%= form.text_field :name, class: "form-control" %>
     </div>
 
-    <div class="col-sm-8 mb-3">
+    <div class="col-sm-6 mb-3">
       <%= form.label :author, class: "form-label" %>
-      <%= form.collection_select :author_id, Author.order(:last_name), :id, :full_name_reversed, { include_blank: 'Seleccione' },  class: "form-select"  %>
+      <%= form.collection_select :author_id, Author.order(:last_name), :id, :full_name_reversed, { include_blank: 'Seleccione' }, class: "form-select" %>
     </div>
 
-    <div class="col-sm-8 mb-3">
+    <div class="col-sm-6 mb-3">
       <%= form.label :number, class: "form-label" %>
       <%= form.number_field :number, class: "form-control" %>
     </div>
 
-    <div class="col-sm-8 mb-3">
+    <div class="col-sm-6 mb-3">
       <%= form.label :description, class: "form-label" %>
       <%= form.text_area :description, class: "form-control" %>
     </div>
 
-    <div class="col-sm-8 mb-3">
+    <div class="col-sm-6 mb-3">
       <%= form.label :material, class: "form-label" %>
-      <%= form.collection_select :material_id, Material.order(:name), :id, :name, { include_blank: 'Seleccione' },  class: "form-select" %>
+      <%= form.collection_select :material_id, Material.order(:name), :id, :name, { include_blank: 'Seleccione' }, class: "form-select" %>
     </div>
 
-    <div class="col-sm-8 mb-3">
+    <div class="col-sm-6 mb-3">
       <%= form.label :measurement, class: "form-label" %>
       <%= form.text_field :measurement, class: "form-control" %>
     </div>
 
-    <div class="col-sm-8 mb-3">
+    <div class="col-sm-6 mb-3">
       <%= form.label :image, class: "form-label" %>
       <%= form.file_field :image, class: "form-control" %>
     </div>
 
-    <div class="col-sm-8 mb-3">
+    <div class="col-sm-6 mb-3">
       <%= form.submit class: "btn btn-sm btn-dark" %>
+      <% back_path = back_to_piece ? piece : @piece_collection %>
+      <%= link_to t("pieces.show.cancel"), back_path, class: "link-body-emphasis px-3" %>
     </div>
   <% end %>
 </div>

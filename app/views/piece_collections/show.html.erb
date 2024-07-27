@@ -36,13 +36,13 @@
             <ul class="dropdown-menu">
               <li>
                 <% if @piece_collection.published? %>
-                  <%= button_to " #{t(".make_private")}",
+                  <%= button_to t(".make_private"),
                                 update_status_piece_collection_path(@piece_collection, status: PieceCollection::NOT_PUBLISHED),
                                 method: :patch,
                                 form: { data: { turbo_confirm: "Estas seguro?" } },
                                 class: "btn border-0 bi bi-lock link-body-emphasis" %>
                 <% else %>
-                  <%= button_to " #{t(".make_public")}",
+                  <%= button_to t(".make_public"),
                                 update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
                                 method: :patch,
                                 form: { data: { turbo_confirm: "Estas seguro?" } },
@@ -55,7 +55,7 @@
                   <hr class="dropdown-divider">
                 </li>
                 <li>
-                  <%= button_to " #{t(".archive")}",
+                  <%= button_to t(".archive"),
                                 update_status_piece_collection_path(@piece_collection, status: PieceCollection::ARCHIVED),
                                 method: :patch,
                                 form: { data: { turbo_confirm: "Estas seguro?" } },
@@ -139,13 +139,13 @@
                                 update_status_piece_path(piece, status: Piece::NOT_PUBLISHED),
                                 method: :patch,
                                 form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn btn-outline-dark btn-sm" %>
+                                class: "btn btn-outline-dark btn-sm bi bi-lock" %>
                 <% else %>
                   <%= button_to t("pieces.show.make_public"),
                                 update_status_piece_path(piece, status: Piece::PUBLISHED),
                                 method: :patch,
                                 form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn btn-outline-dark btn-sm" %>
+                                class: "btn btn-outline-dark btn-sm bi bi-unlock" %>
                 <% end %>
               </td>
             </tr>
@@ -154,7 +154,7 @@
         </table>
       </div>
     <% else %>
-      <div class="album pt-5">
+      <div class="album">
         <div class="container">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <% @pieces.each do |piece| %>

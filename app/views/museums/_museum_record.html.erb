@@ -6,9 +6,9 @@
     <dl class="row">
       <% if admin %>
         <dt class="record-title"><%= t("museums.show.created_by_request") %></dt>
-        <dd><%= link_to t("activerecord.attributes.museum.museum/museum_registration_request.id"), @museum.museum_registration_request %></dd>
+        <dd><%= link_to t("activerecord.attributes.museum.museum/museum_registration_request.id"), @museum.museum_registration_request, data: { turbo_frame: "_top" } %></dd>
         <dt class="record-title"><%= t("activerecord.attributes.museum.user") %></dt>
-        <dd><%= link_to @museum.user.email, @museum.user %></dd>
+        <dd><%= link_to @museum.user.email, @museum.user, data: { turbo_frame: "_top" } %></dd>
       <% end %>
       <dt class="record-title"><%= t("activerecord.attributes.museum.code") %></dt>
       <dd><%= @museum.code %></dd>

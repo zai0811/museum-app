@@ -26,13 +26,13 @@
                         update_status_piece_collection_path(piece_collection, status: PieceCollection::NOT_PUBLISHED),
                         method: :patch,
                         form: { data: { turbo_confirm: "Estas seguro?" } },
-                        class: "btn btn-outline-dark btn-sm" %>
+                        class: "btn btn-outline-dark btn-sm bi bi-lock" %>
         <% else %>
           <%= button_to t("piece_collections.show.make_public"),
                         update_status_piece_collection_path(piece_collection, status: PieceCollection::PUBLISHED),
                         method: :patch,
                         form: { data: { turbo_confirm: "Estas seguro?" } },
-                        class: "btn btn-outline-dark btn-sm" %>
+                        class: "btn btn-outline-dark btn-sm bi bi-unlock" %>
         <% end %>
       <% end %>
     </div>

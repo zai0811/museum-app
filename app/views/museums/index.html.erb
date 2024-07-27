@@ -49,13 +49,13 @@
                                 update_museum_status_museum_path(museum, status: Museum::NOT_PUBLISHED),
                                 method: :patch,
                                 form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn btn-outline-dark btn-sm" %>
+                                class: "btn btn-outline-dark btn-sm bi bi-lock" %>
                 <% else %>
                   <%= button_to t("museums.index.make_public"),
                                 update_museum_status_museum_path(museum, status: Museum::PUBLISHED),
                                 method: :patch,
                                 form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn btn-outline-dark btn-sm" %>
+                                class: "btn btn-outline-dark btn-sm bi bi-unlock" %>
 
                 <% end %>
               </div>

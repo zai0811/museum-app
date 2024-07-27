@@ -46,7 +46,7 @@ es:
           archived: "Archivado"
       museum:
         name: "Nombre"
-        code: "Código de resolución"
+        code: "Resolución"
         about: "Descripción"
         email: "Correo electrónico del museo"
         phone: "Teléfono del museo"
