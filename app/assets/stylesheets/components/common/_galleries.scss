@@ -1,15 +1,20 @@
-.photo-gallery{
-  display: flex;
-  gap: 2rem;
-
+.photo-gallery {
+  --gap: clamp(1rem, 5vmin, 2rem);
+  columns: 350px;
+  gap: var(--gap);
+  width: 96%;
+  margin: 3rem auto;
 }
 
-.gallery-column {
+.photo-card {
+  max-width: 100%;
+  margin-bottom: 2rem;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  break-inside: avoid-column;
+  transition: all 0.3s;
 }
 
-.gallery-column.card{
-  border-color: red;
+.photo-card:hover{
+  transform: scale(1.025);
+  z-index: 11;
 }

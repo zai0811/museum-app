@@ -1,25 +1,23 @@
-<div class="album pt-3">
-  <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <% pieces.each do |piece| %>
-        <% if piece.published? %>
-          <div class="col">
-            <div class="card shadow-sm" id="<%= dom_id piece %>">
-              <% if piece.image.attached? %>
-                <%= image_tag(piece.image, class: "card-img-top") %>
-              <% else %>
-                <%= image_tag("piece_placeholder_image.png", class: "card-img-top") %>
-              <% end %>
-
-              <div class="card-body">
-                <h5 class="card-title">
-                   <%= link_to piece.name, piece_path(piece) %>
-                </h5>
-              </div>
-            </div>
-          </div>
+<div class="photo-gallery">
+  <% pieces.each do |piece| %>
+    <% if piece.published? || owner_or_admin %>
+      <div class="card shadow-sm photo-card" id="<%= dom_id piece %>">
+        <% if piece.image.attached? %>
+          <%= image_tag(piece.image, class: "card-img-top") %>
+        <% else %>
+          <%= image_tag("piece_placeholder_image.png", class: "card-img-top") %>
         <% end %>
-      <% end %>
-    </div>
-  </div>
+        <div class="card-body">
+          <h4 class="card-title fw-semibold">
+            <%= link_to piece.name, piece_path(piece), class: "card-link link-body-emphasis link-underline-opacity-0 " %>
+          </h4>
+          <% if piece.author %>
+            <p class="card-text text-body-tertiary"> <%= piece.author.full_name %></p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 </div>
+
+

@@ -40,7 +40,7 @@
         <%= @piece_collection.name %>
       </div>
       <% if owner_or_admin %>
-        <div class="btn-group py-3" role="group" aria-label="Actions">
+        <div class="btn-group mt-3" role="group" aria-label="Actions">
           <div class="btn-group">
             <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="icon icon_<%= @piece_collection.status %>"></i>
@@ -84,11 +84,11 @@
         </div>
       <% end %>
 
-      <div class="description-box">
-        <p>
-          <%= @piece_collection.description %>
-        </p>
-      </div>
+      <% if @piece_collection.description %>
+        <div class="col-sm-8 my-3">
+          <p> <%= @piece_collection.description %> </p>
+        </div>
+      <% end %>
     </div>
   </section>
 
@@ -127,17 +127,17 @@
       <div class="tab-content" id="myTabContent">
         <!-- table -->
         <div class="tab-pane fade show active" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
-          <%= render partial: "pieces/piece_table", locals: { pieces: @pieces } %>
+          <%= render "pieces/piece_table", pieces: @pieces %>
         </div>
         <!-- gallery -->
         <div class="tab-pane fade" id="gallery-tab-pane" role="tabpanel" aria-labelledby="gallery-tab" tabindex="0">
-          <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces } %>
+          <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces, owner_or_admin: owner_or_admin } %>
         </div>
       </div>
 
       <!-- only gallery -->
     <% else %>
-      <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces } %>
-    <% end %>
+      <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces, owner_or_admin: owner_or_admin } %>
+  <% end %>
   </section>
 </div>

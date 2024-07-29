@@ -1,46 +1,36 @@
-<div class="d-flex flex-column justify-content-center align-items-center">
-  <div class="main_heading" id="<%= dom_id @museum %>">
+<div class="d-flex flex-column align-items-center">
+  <div class="main_heading mb-2" id="<%= dom_id @museum %>">
     <%= @museum.name %>
   </div>
+  <% if museum.about %>
+    <div class="col-sm-8 mb-2">
+      <p> <%= museum.about %> </p>
+    </div>
+  <% end %>
+  <div class="text-center gallery_heading"><%= t("museums.show.gallery_collections_title") %></div>
 </div>
 
-<div class="row">
-  <div class="col-md-12 py-3">
-    <p> <%= museum.about %> </p>
-  </div>
-</div>
-<div class="album">
-  <h4 class="text-center gallery_heading pb-2"><%= t("museums.show.gallery_collections_title") %></h4>
-  <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <% museum.piece_collections.each do |piece_collection| %>
-        <% if piece_collection.published? %>
-          <%= render "piece_collections/piece_collection_gallery", piece_collection: piece_collection %>
-        <% end %>
-      <% end %>
+<%= render "piece_collections/piece_collection_gallery", piece_collections: @museum.piece_collections %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <strong> Visita el museo </strong>
+      <ul class="list-unstyled">
+        <li><%= museum.phone %> </li>
+        <li><%= museum.email %> </li>
+        <li> <%= museum.page %> </li>
+        <li><%= museum.address %> </li>
+        <li> <%= museum.city.name %> </li>
+      </ul>
+    </div>
+    <div class="col">
+      <strong>Horarios de atencion</strong>
+      <p> todo - agregar horarios</p>
+    </div>
+    <div class="col">
+      <strong>Accesibilidad</strong>
+      <p> todo - agregar temas de accesibilidad, si tiene visitas guiadas, etc</p>
     </div>
   </div>
 </div>
-
-<div class="row mt-4">
-  <div class="col">
-    <strong> Visita el museo </strong>
-    <ul class="list-unstyled">
-      <li><%= museum.phone %> </li>
-      <li><%= museum.email %> </li>
-      <li> <%= museum.page %> </li>
-      <li><%= museum.address %> </li>
-      <li> <%= museum.city.name %> </li>
-    </ul>
-  </div>
-  <div class="col">
-    <strong>Horarios de atencion</strong>
-    <p> todo - agregar horarios</p>
-  </div>
-  <div class="col">
-    <strong>Accesibilidad</strong>
-    <p> todo - agregar temas de accesibilidad, si tiene visitas guiadas, etc</p>
-  </div>
-</div>
-
-

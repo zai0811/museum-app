@@ -24,14 +24,9 @@
       </li>
     </ol>
   </nav>
-</div>
 
-<div class="image-header">
-</div>
-
-<div class="container page-container">
-  <section class="page-info-section">
-    <% if owner_or_admin %>
+  <% if owner_or_admin %>
+    <section class="page-info-section">
       <div class="d-flex flex-column align-items-center">
         <div class="main_heading" id="<%= dom_id @museum %>">
           <%= @museum.name %>
@@ -93,49 +88,50 @@
           </div>
         </div>
       </div>
-      </section>
-      <!-- Collection section -->
-      <!-- Render the piece_collections/_piece_collection partial -->
-
-      <section class="page-table-section">
-        <div class="row pt-3">
-          <div class="col "><h4><%= t("museums.show.collections") %></h4></div>
-          <div class="col text-end">
-            <%= link_to t(".create_collection"),
-                        new_museum_piece_collection_path(@museum),
-                        class: "btn btn-primary cta",
-                        data: { turbo_frame: dom_id(PieceCollection.new) } %>
-          </div>
-        </div>
-
-        <!-- Empty tag that will be replaced with the New Form for the piece collection -->
-        <%= turbo_frame_tag PieceCollection.new %>
-
-        <div class="table-responsive">
-          <table class="table">
-            <thead class="table align-miple">
-            <tr>
-              <th scope="col"> <%= PieceCollection.human_attribute_name("name") %> </th>
-              <th scope="col"> <%= PieceCollection.human_attribute_name("status") %> </th>
-              <th scope="col"> <%= t(".pieces") %> </th>
-              <th scope="col"> <%= PieceCollection.human_attribute_name("updated_at") %> </th>
-              <th scope="col"> <%= t(".actions") %> </th>
-            </tr>
-            </thead>
-            <tbody class="align-miple" id="collections_table">
-            <% @museum.piece_collections.each do |piece_collection| %>
-              <%= render "piece_collections/piece_collection", piece_collection: piece_collection %>
-            <% end %>
-            </tbody>
-          </table>
-        </div>
-
-    <% else %>
-      <%= render 'museum_visitor_page', museum: @museum %>
-    <% end %>
     </section>
-    </div>
+    <!-- Collection section -->
+    <!-- Render the piece_collections/_piece_collection partial -->
+    <section class="page-table-section">
+      <div class="row pt-3">
+        <div class="col "><h4><%= t("museums.show.collections") %></h4></div>
+        <div class="col text-end">
+          <%= link_to t(".create_collection"),
+                      new_museum_piece_collection_path(@museum),
+                      class: "btn btn-primary cta",
+                      data: { turbo_frame: dom_id(PieceCollection.new) } %>
+        </div>
+      </div>
 
+      <!-- Empty tag that will be replaced with the New Form for the piece collection -->
+      <%= turbo_frame_tag PieceCollection.new %>
 
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="table align-miple">
+          <tr>
+            <th scope="col"> <%= PieceCollection.human_attribute_name("name") %> </th>
+            <th scope="col"> <%= PieceCollection.human_attribute_name("status") %> </th>
+            <th scope="col" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="<%= t(".tooltip_published_pieces") %>">
+              <%= t(".published_pieces") %>
+            </th>
+            <th>
+              <%= t(".pieces") %>
+            </th>
+            <th scope="col"> <%= PieceCollection.human_attribute_name("updated_at") %> </th>
+            <th scope="col"> <%= t(".actions") %> </th>
+          </tr>
+          </thead>
+          <tbody class="align-miple" id="collections_table">
+          <% @museum.piece_collections.each do |piece_collection| %>
+            <%= render "piece_collections/piece_collection", piece_collection: piece_collection %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
+  <% else %>
+    <%= render 'museum_visitor_page', museum: @museum %>
+  <% end %>
 
+</div>

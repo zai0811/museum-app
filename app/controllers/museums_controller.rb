@@ -68,7 +68,7 @@ class MuseumsController < ApplicationController
     begin
       message = @museum.update_status!(status) ?
                   t(".success") : t(".error")
-      redirect_to @museum, notice: message
+      redirect_back_or_to @museum, notice: message
 
       # TODO handle exceptions with custom class
     rescue StandardError => e

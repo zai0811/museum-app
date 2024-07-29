@@ -25,7 +25,7 @@ h1, h2, h3, h4 {
 }
 .gallery_heading {
   font-family: $font-family-heading;
-  font-size: $h5-font-size;
+  font-size: $h3-font-size;
   font-weight: 600;
 }
 // Spacing
@@ -33,12 +33,6 @@ h1, h2, h3, h4 {
   margin-top: 1rem;
 }
 
-.page-info-section{
-
-}
-.description-box {
-  padding-top: 1rem;
-}
 
 //Breadcrumb
 
@@ -49,8 +43,4 @@ h1, h2, h3, h4 {
 // Tables
 .data-table-section-start{
   padding: 2rem 2rem;
-}
-
-.table-responsive{
-
 }

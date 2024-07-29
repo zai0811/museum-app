@@ -66,7 +66,7 @@ class PieceCollectionsController < ApplicationController
     begin
       message = @piece_collection.update_status!(status) ?
                   t(".success") : t(".error")
-      redirect_to @piece_collection, notice: message
+      redirect_back_or_to @piece_collection, notice: message
 
       # TODO handle exceptions with custom class
     rescue StandardError => e
