@@ -1,6 +1,6 @@
 <div class="d-flex flex-column align-items-center">
-  <div class="main_heading mb-2" id="<%= dom_id @museum %>">
-    <%= @museum.name %>
+  <div class="main_heading mb-2" id="<%= dom_id museum %>">
+    <%= museum.name %>
   </div>
   <% if museum.about %>
     <div class="col-sm-8 mb-2">
@@ -10,7 +10,7 @@
   <div class="text-center gallery_heading"><%= t("museums.show.gallery_collections_title") %></div>
 </div>
 
-<%= render "piece_collections/piece_collection_gallery", piece_collections: @museum.piece_collections %>
+<%= render "piece_collections/piece_collection_gallery", piece_collections: @piece_collections %>
 
 <div class="container-fluid">
   <div class="row">

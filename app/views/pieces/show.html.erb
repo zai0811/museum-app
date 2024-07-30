@@ -1,4 +1,5 @@
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@piece.piece_collection.museum) %>
+<% admin = current_user&.admin? %>
 
 <div class="container page-container">
   <nav aria-label="breadcrumb">

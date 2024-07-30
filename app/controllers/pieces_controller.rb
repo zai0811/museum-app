@@ -99,4 +99,5 @@ class PiecesController < ApplicationController
 
     not_authorized unless authorized
   end
+
 end

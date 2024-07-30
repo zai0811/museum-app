@@ -122,7 +122,7 @@
           </tr>
           </thead>
           <tbody class="align-miple" id="collections_table">
-          <% @museum.piece_collections.each do |piece_collection| %>
+          <% @piece_collections.each do |piece_collection| %>
             <%= render "piece_collections/piece_collection", piece_collection: piece_collection %>
           <% end %>
           </tbody>
@@ -131,7 +131,7 @@
     </section>
 
   <% else %>
-    <%= render 'museum_visitor_page', museum: @museum %>
+    <%= render partial: 'museum_visitor_page', locals: { museum: @museum, piece_collection: @piece_collections } %>
   <% end %>
 
 </div>

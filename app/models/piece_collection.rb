@@ -9,13 +9,6 @@ class PieceCollection < ApplicationRecord
 
   enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED }, default: :hidden
 
-  def published_pieces_count
-    pieces.where(status: PUBLISHED).count
-  end
-
-  def pieces_count
-    pieces.count
-  end
   def update_status!(status)
     return false unless status.in?([NOT_PUBLISHED, PUBLISHED, ARCHIVED])
     update!(status: status)
@@ -31,5 +24,17 @@ class PieceCollection < ApplicationRecord
       end
     end
     nil
+  end
+
+  def published_pieces_count
+    pieces.where(status: PUBLISHED).count
+  end
+
+  def pieces_count
+    pieces.count
+  end
+
+  def unarchived_collections
+    where.not(status: ARCHIVED)
   end
 end
