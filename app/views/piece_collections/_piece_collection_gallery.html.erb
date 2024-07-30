@@ -1,6 +1,6 @@
 <div class="photo-gallery">
   <% piece_collections.each do |piece_collection| %>
-    <% if piece_collection.published? || owner_or_admin %>
+    <% if piece_collection.published? %>
       <div class="card shadow-sm photo-card" id="<%= dom_id piece_collection %>">
         <% piece = piece_collection.get_background_image  %>
         <% if piece %>

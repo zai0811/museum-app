@@ -1,17 +1,17 @@
 <div class="px-4 py-5 my-5 text-center">
   <h1 class="display-5 fw-bold text-body-emphasis"><%= t("global.hero.title") %> </h1>
-  <div class="col-lg-4 mx-auto">
-    <p class="lead mb-2"><%= t("global.hero.sub_title") %></p>
-      <div role="search">
-        <%= search_form_for @q, class: "d-sm-flex justify-content-sm-center align-content-center" do |f| %>
-          <div class="p-2 flex-sm-grow-1">
-            <%= f.search_field :name_or_about_or_address_or_city_name_cont,
-                               class: "form-control", placeholder: "Buscar..." %>
-          </div>
-          <div class="p-2">
-            <%= f.submit class: "btn btn-primary cta" %>
-          </div>
-        <% end %>
-      </div>
+  <div class="col-lg-4 col-md-6 mx-auto">
+    <p class="lead mt-5"><%= t("global.hero.sub_title") %></p>
+    <div role="search">
+      <%= search_form_for @q, class: "d-sm-flex flex-lg-column g-3 justify-content-sm-center align-content-center" do |f| %>
+        <div class="flex-mb-grow-1 mb-2">
+          <%= f.search_field :name_or_about_or_address_or_city_name_cont,
+                             class: "form-control form-control-lg", placeholder: "Museo..." %>
+        </div>
+        <div class="flex-mb-grow-1">
+          <%= f.submit class: "btn btn-primary btn-lg cta m-2" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
