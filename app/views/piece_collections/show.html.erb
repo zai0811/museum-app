@@ -1,4 +1,5 @@
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@piece_collection.museum) %>
+<% admin = current_user&.admin? %>
 
 <div class="container page-container">
   <nav aria-label="breadcrumb">
@@ -23,11 +24,24 @@
 
   <section class="page-info-section">
     <div class="d-flex flex-column align-items-center">
-      <div class="main_heading" id="<%= dom_id @piece_collection %>">
+      <div class="text-light-emphasis">
+        <% if @piece_collection.is_temporary %>
+          <i class="bi bi-clock icon"></i>
+          <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_temporary") %>">
+            <%= t(".temporary") %>
+            </span>
+        <% else %>
+          <i class="bi bi-infinity icon"></i>
+          <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_permanent") %>">
+            <%= t(".permanent") %>
+            </span>
+        <% end %>
+      </div>
+      <div class="main_heading lh-1" id="<%= dom_id @piece_collection %>">
         <%= @piece_collection.name %>
       </div>
       <% if owner_or_admin %>
-        <div class="btn-group pb-4" role="group" aria-label="Actions">
+        <div class="btn-group mt-3" role="group" aria-label="Actions">
           <div class="btn-group">
             <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="icon icon_<%= @piece_collection.status %>"></i>
@@ -70,30 +84,18 @@
           <% end %>
         </div>
       <% end %>
-      <div class="text-light-emphasis">
-        <% if @piece_collection.is_temporary %>
-          <i class="bi bi-clock icon"></i>
-          <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_temporary") %>">
-            <%= t(".temporary") %>
-            </span>
-        <% else %>
-          <i class="bi bi-infinity icon"></i>
-          <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_permanent") %>">
-            <%= t(".permanent") %>
-            </span>
-        <% end %>
-      </div>
-      <div class="description-box">
-        <p>
-          <%= @piece_collection.description %>
-        </p>
-      </div>
+
+      <% if @piece_collection.description %>
+        <div class="col-sm-8 my-3">
+          <p> <%= @piece_collection.description %> </p>
+        </div>
+      <% end %>
     </div>
   </section>
 
   <section class="page-table-section">
     <% if owner_or_admin %>
-      <div class="row data-table-section-start">
+      <div class="row py-2">
         <div class="col"><h4><%= Piece.model_name.human(count: 2) %></h4></div>
         <div class="col text-end">
           <%= link_to "Agregar Pieza",
@@ -102,69 +104,41 @@
         </div>
       </div>
 
-      <div class="table-responsive">
-        <table class="table">
-          <thead class="table align-middle">
-          <tr>
-            <th scope="col"> <%= Piece.human_attribute_name("name") %> </th>
-            <th scope="col"> <%= Piece.human_attribute_name("number") %> </th>
-            <th scope="col"> <%= Piece.human_attribute_name("status") %> </th>
-            <th scope="col"> <%= Piece.human_attribute_name("updated_at") %> </th>
-            <th scope="col"> <%= t(".actions") %> </th>
-          </tr>
-          </thead>
-          <tbody class="align-middle" id="collections_table">
-          <% @pieces.each do |piece| %>
-            <tr id="<%= dom_id piece %>">
-              <td>
-                <%= link_to piece.name,
-                            piece_path(piece),
-                            class: "link-primary" %>
-              </td>
-              <td> <%= piece.number %></td>
-              <td>
-                <i class="icon icon_<%= piece.status %>"> </i>
-                <span>
-                <%= t("activerecord.attributes.piece.statuses.#{piece.status}") %>
+      <!-- table/gallery selectors -->
+      <div class="d-flex flex-lg-row-reverse">
+        <ul class="nav nav-underline" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active link-body-emphasis" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-tab-pane" type="button" role="tab" aria-controls="table-tab-pane" aria-selected="true">
+             <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="<%= t(".see_table") %>">
+               <i class="bi bi-table"></i>
+             </span>
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link link-body-emphasis" id="gallery-tab" data-bs-toggle="tab" data-bs-target="#gallery-tab-pane" type="button" role="tab" aria-controls="gallery-tab-pane" aria-selected="false">
+              <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="<%= t(".see_gallery") %>">
+              <i class="bi bi-grid"></i>
               </span>
-              </td>
-              <td>
-                <% if piece.updated_at %>
-                  <%= l(piece.updated_at) %>
-                <% end %>
-              </td>
-              <td>
-                <% if piece.published? %>
-                  <%= button_to t("pieces.show.make_private"),
-                                update_status_piece_path(piece, status: Piece::NOT_PUBLISHED),
-                                method: :patch,
-                                form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn btn-outline-dark btn-sm bi bi-lock" %>
-                <% else %>
-                  <%= button_to t("pieces.show.make_public"),
-                                update_status_piece_path(piece, status: Piece::PUBLISHED),
-                                method: :patch,
-                                form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn btn-outline-dark btn-sm bi bi-unlock" %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+            </a>
+          </li>
+        </ul>
       </div>
-    <% else %>
-      <div class="album">
-        <div class="container">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <% @pieces.each do |piece| %>
-              <% if piece.published? %>
-                <%= render "pieces/piece_gallery", piece: piece %>
-              <% end %>
-            <% end %>
-          </div>
+
+      <!--table/gallery results -->
+      <div class="tab-content" id="myTabContent">
+        <!-- table -->
+        <div class="tab-pane fade show active" id="table-tab-pane" role="tabpanel" aria-labelledby="table-tab" tabindex="0">
+          <%= render "pieces/piece_table", pieces: @pieces %>
+        </div>
+        <!-- gallery -->
+        <div class="tab-pane fade" id="gallery-tab-pane" role="tabpanel" aria-labelledby="gallery-tab" tabindex="0">
+          <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces, owner_or_admin: owner_or_admin } %>
         </div>
       </div>
-    <% end %>
+
+      <!-- only gallery -->
+    <% else %>
+      <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces, owner_or_admin: owner_or_admin } %>
+  <% end %>
   </section>
 </div>

@@ -1,0 +1,28 @@
+<div class="container page-container">
+
+  <div class="main_heading mb-2">Iniciar sesión</div>
+  <div class="row ">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field col-sm-3 pb-3">
+        <%= f.label :email, class: "form-label"  %><br/>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      </div>
+
+      <div class="field col-sm-3 pb-3">
+        <%= f.label :password, class: "form-label"  %><br/>
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field col-sm-3 pb-3">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, class: "form-label"  %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "Iniciar sesión", class: "btn btn-dark" %>
+      </div>
+    <% end %>
+  </div>
+</div>

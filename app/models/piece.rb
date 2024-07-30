@@ -21,4 +21,8 @@ class Piece < ApplicationRecord
     update!(status: status)
     true
   end
+
+  def unarchived_pieces
+    where.not(status: ARCHIVED)
+  end
 end

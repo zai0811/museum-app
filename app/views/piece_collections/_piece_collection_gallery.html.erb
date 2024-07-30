@@ -1,17 +1,27 @@
-<div class="col">
-  <div class="card shadow-sm" id="<%= dom_id piece_collection %>">
-
-    <%= image_tag("placeholder.png", class: "card-img-top") %>
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= turbo_frame_tag piece_collection do %>
-          <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
-          <h5> <%= link_to  piece_collection.name,
-                      piece_collection_path(piece_collection),
-                      data: { turbo_frame: "_top" } %>
-          </h5>
+<div class="photo-gallery">
+  <% piece_collections.each do |piece_collection| %>
+    <% if piece_collection.published? || owner_or_admin %>
+      <div class="card shadow-sm photo-card" id="<%= dom_id piece_collection %>">
+        <% piece = piece_collection.get_background_image  %>
+        <% if piece %>
+          <%= image_tag(piece.image, class: "card-img-top") %>
+        <% else %>
+          <%= image_tag("placeholder.png", class: "card-img-top") %>
         <% end %>
-      </h5>
-    </div>
-  </div>
+        <div class="card-body">
+          <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
+          <h4 class="card-title fw-semibold"> <%= link_to piece_collection.name,
+                                                          piece_collection_path(piece_collection),
+                                                          class: "card-link link-body-emphasis link-underline-opacity-0 ",
+                                                          data: { turbo_frame: "_top" } %>
+          </h4>
+          <% if piece_collection.pieces %>
+            <p class="card-text text-body-tertiary">
+              (<%= piece_collection.published_pieces_count%>) <%= Piece.model_name.human(count: 2) %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 </div>

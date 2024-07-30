@@ -87,6 +87,7 @@ es:
         status: "Estado"
         created_at: "Creado el"
         updated_at: "Actualizado el"
+        image: "Imagen"
         statuses:
           hidden: "Oculto"
           published: "Visible"

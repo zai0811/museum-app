@@ -1,0 +1,20 @@
+.photo-gallery {
+  --gap: clamp(1rem, 5vmin, 2rem);
+  columns: 350px;
+  gap: var(--gap);
+  width: 96%;
+  margin: 3rem auto;
+}
+
+.photo-card {
+  max-width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  break-inside: avoid-column;
+  transition: all 0.3s;
+}
+
+.photo-card:hover{
+  transform: scale(1.025);
+  z-index: 11;
+}

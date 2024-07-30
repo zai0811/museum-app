@@ -1,26 +1,22 @@
-<style>
-    .grid {
-        display: grid;
-        gap: 2rem;
-        grid-template-columns: repeat( auto-fit, minmax(250px, 1fr));
-    }
-</style>
-
-<div class="d-flex bd-highlight flex-column justify-content-center align-items-left">
-  <div class="bd-highlight mb-3">
-    <h2> <%= t("museums.show.gallery_title") %> </h2>
+<div class="d-flex flex-column align-items-center">
+  <div class="main_heading mb-2">
+    <%= t("museums.show.gallery_title") %>
   </div>
 </div>
 
-<div class="grid" id="museums">
-  <% @museums.each do |museum| %>
+<div class="photo-gallery" id="museums">
+  <% museums.each do |museum| %>
     <% if museum.published? %>
-      <div class="card" id="<%= dom_id museum %>">
-        <%= image_tag("placeholder.png", class: "card-img-top") %>
+      <div class="card shadow-sm photo-card" id="<%= dom_id museum %>">
+        <% piece = museum.get_collection_background_image %>
+        <% if piece %>
+          <%= image_tag(piece.image, class: "card-img-top") %>
+        <% else %>
+          <%= image_tag("placeholder.png", class: "card-img-top") %>
+        <% end %>
         <div class="card-body">
-          <h5 class="card-title"> <%= museum.name %> </h5>
-          <p class="card-text"><%= museum.about %></p>
-          <%= link_to t(".view"), museum, class: "card-link" %>
+          <h4 class="card-title fw-semibold"> <%= link_to museum.name, museum, class: "card-link link-body-emphasis link-underline-opacity-0 " %>  </h4>
+          <p class="card-text text-body-tertiary"><%= museum.city.name %>, <%= museum.department.name %></p>
         </div>
       </div>
     <% end %>

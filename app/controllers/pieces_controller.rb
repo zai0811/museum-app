@@ -65,7 +65,7 @@ class PiecesController < ApplicationController
     begin
       message = @piece.update_status!(status) ?
                   t(".success") : t(".error")
-      redirect_to @piece, notice: message
+      redirect_back_or_to @piece, notice: message
 
       # TODO handle exceptions with custom class
     rescue StandardError => e
@@ -99,4 +99,5 @@ class PiecesController < ApplicationController
 
     not_authorized unless authorized
   end
+
 end

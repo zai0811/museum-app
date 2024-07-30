@@ -11,7 +11,8 @@ class PieceCollectionsController < ApplicationController
 
   # GET /piece_collections/1 or /piece_collections/1.json
   def show
-    @pieces = @piece_collection.pieces
+    archived_pieces = Piece.where(status: Piece::ARCHIVED)
+    @pieces = @piece_collection.pieces.excluding(archived_pieces)
   end
 
   # GET /piece_collections/new
@@ -66,7 +67,7 @@ class PieceCollectionsController < ApplicationController
     begin
       message = @piece_collection.update_status!(status) ?
                   t(".success") : t(".error")
-      redirect_to @piece_collection, notice: message
+      redirect_back_or_to @piece_collection, notice: message
 
       # TODO handle exceptions with custom class
     rescue StandardError => e
