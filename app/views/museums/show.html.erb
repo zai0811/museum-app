@@ -31,41 +31,24 @@
         <div class="main_heading" id="<%= dom_id @museum %>">
           <%= @museum.name %>
         </div>
-        <div class="btn-group ps-1">
-          <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="icon icon_<%= @museum.status %>"></i>
-            <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_status_change") %>"> <%= t("activerecord.attributes.museum.statuses.#{@museum.status}") %> </span>
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <% if @museum.published? %>
-                <%= button_to t("museums.index.make_private"),
-                              update_museum_status_museum_path(@museum, status: Museum::NOT_PUBLISHED),
-                              method: :patch,
-                              form: { data: { turbo_confirm: "Estas seguro?" } },
-                              class: "btn border-0 bi bi-lock link-body-emphasis" %>
-              <% else %>
-                <%= button_to t("museums.index.make_public"),
-                              update_museum_status_museum_path(@museum, status: Museum::PUBLISHED),
-                              method: :patch,
-                              form: { data: { turbo_confirm: "Estas seguro?" } },
-                              class: "btn border-0 bi bi-unlock link-body-emphasis" %>
+        <div>
+          <% if @museum.published? %>
+            <%= button_to t("museums.index.make_private"),
+                          update_museum_status_museum_path(@museum, status: Museum::NOT_PUBLISHED),
+                          method: :patch,
+                          form: { data: { turbo_confirm: "Estas seguro?" } },
+                          class: "btn btn-outline-dark bi bi-lock" %>
+          <% else %>
+            <%= button_to t("museums.index.make_public"),
+                          update_museum_status_museum_path(@museum, status: Museum::PUBLISHED),
+                          method: :patch,
+                          form: { data: { turbo_confirm: "Estas seguro?" } },
+                          class: "btn btn-outline-dark bi bi-unlock" %>
 
-              <% end %>
-            </li>
-            <% unless @museum.archived? && admin %>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li>
-                <%= button_to " #{t("museums.index.archive")}",
-                              update_museum_status_museum_path(@museum, status: Museum::ARCHIVED),
-                              method: :patch,
-                              form: { data: { turbo_confirm: "Estas seguro?" } },
-                              class: "btn border-0 bi bi-archive link-danger" %>
-            <% end %>
-            </li>
-          </ul>
+          <% end %>
+
+
+
         </div>
       </div>
 

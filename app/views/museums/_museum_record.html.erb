@@ -12,6 +12,11 @@
       <% end %>
       <dt class="record-title"><%= t("activerecord.attributes.museum.code") %></dt>
       <dd><%= @museum.code %></dd>
+      <dt class="record-title">Estado:</dt>
+      <dd>
+        <i class="icon icon_<%= @museum.status %>"></i>
+        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t("museums.show.tooltip_status_change") %>"> <%= t("activerecord.attributes.museum.statuses.#{@museum.status}") %> </span>
+      </dd>
     </dl>
   <li class="list-group-item">
     <h6 class="my-3"><%= t("museums.show.section_general") %></h6>

@@ -19,7 +19,17 @@
         <h6 class="my-3"><%= t("museums.show.section_admin") %></h6>
         <%= form.label :code, class: "form-label" %>
         <%= form.text_field :code, class: "form-control mb-2" %>
+
+        <div class="form-check">
+          <%= form.check_box :status, { checked: museum.hidden? }, Museum::NOT_PUBLISHED, nil %>
+          <%= form.label "Oculto", class: "form-check-label" %>
+
+          <%= form.check_box :status, {  checked: museum.published? }, Museum::PUBLISHED, nil %>
+          <%= form.label "Visible", class: "form-check-label" %>
+        </div>
       </div>
+
+
     <% end %>
 
     <div class="col pb-3 border-bottom">
@@ -49,7 +59,7 @@
 
     <div class="col-sm-6 mb-3">
       <%= form.submit class: "btn btn-dark btn-sm" %>
-      <%= link_to t("museums.show.cancel"), @museum, class: "link-dark px-3"  %>
+      <%= link_to t("museums.show.cancel"), @museum, class: "link-dark px-3" %>
       <% button_to "Eliminar Museo", @user, method: :delete, class: "btn btn-outline-danger px-3" %>
     </div>
   <% end %>
