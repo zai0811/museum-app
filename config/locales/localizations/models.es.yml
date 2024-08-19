@@ -71,7 +71,7 @@ es:
         status: "Estado"
         created_at: "Creado el"
         updated_at: "Actualizado el"
-        is_temporary: "Colección temporal?"
+        is_temporary: "Marcar colección como temporal"
         statuses:
           hidden: "Oculto"
           published: "Visible"

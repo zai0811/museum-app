@@ -45,10 +45,12 @@
       </div>
 
       <div class="d-flex align-items-center" id="<%= dom_id @piece_collection %>">
+        <% if owner_or_admin %>
         <span class="icon icon_<%= @piece_collection.status %> icon_header me-1"
               data-bs-toggle="tooltip"
               data-bs-placement="top"
               data-bs-title='<%= t("global.tooltips.header_icon_#{@piece_collection.status}") %>'> </span>
+        <% end %>
         <span class="main_heading"> <%= @piece_collection.name %> </span>
       </div>
 

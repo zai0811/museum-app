@@ -47,6 +47,19 @@
       <%= form.file_field :image, class: "form-control" %>
     </div>
 
+    <div class="col-sm-6 my-3">
+      <%= form.label :status, class: "form-label" %>
+      <div class="form-check">
+        <%= form.radio_button :status, Piece::NOT_PUBLISHED, { checked: piece.hidden?, class: "form-check-input" } %>
+        <%= form.label t("activerecord.attributes.piece.statuses.hidden"), class: "form-check-label" %>
+      </div>
+
+      <div class="form-check">
+        <%= form.radio_button :status, Piece::PUBLISHED, { checked: piece.published?, class: "form-check-input" } %>
+        <%= form.label t("activerecord.attributes.piece.statuses.published"), class: "form-check-label" %>
+      </div>
+    </div>
+
     <div class="col-sm-6 mb-3">
       <%= form.submit class: "btn btn-sm btn-dark" %>
       <% back_path = back_to_piece ? piece : @piece_collection %>

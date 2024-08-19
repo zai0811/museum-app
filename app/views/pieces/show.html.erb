@@ -48,10 +48,12 @@
             </div>
           <% end %>
           <div class="d-flex align-items-center">
+            <% if owner_or_admin %>
             <span class="icon icon_<%= @piece.status %> icon_header me-1"
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
                   data-bs-title='<%= t("global.tooltips.header_icon_#{@piece.status}") %>'></span>
+            <% end %>
             <span class="main_heading"><%= @piece.name %></span>
           </div>
           <div class="pt-3">

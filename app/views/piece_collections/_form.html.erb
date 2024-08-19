@@ -30,6 +30,19 @@
       <%= form.text_area :description, class: "form-control" %>
     </div>
 
+    <div class="col-sm-6 my-3">
+      <%= form.label :status, class: "form-label" %>
+      <div class="form-check">
+        <%= form.radio_button :status, PieceCollection::NOT_PUBLISHED, { checked: piece_collection.hidden?, class: "form-check-input" } %>
+        <%= form.label t("activerecord.attributes.piece_collection.statuses.hidden"), class: "form-check-label" %>
+      </div>
+
+      <div class="form-check">
+        <%= form.radio_button :status, PieceCollection::PUBLISHED, { checked: piece_collection.published?, class: "form-check-input" } %>
+        <%= form.label t("activerecord.attributes.piece_collection.statuses.published"), class: "form-check-label" %>
+      </div>
+    </div>
+
     <div class="col-sm-6 mb-3">
       <%= form.submit class: "btn btn-sm btn-dark" %>
       <% back_path = back_to_collection ? piece_collection : @museum %>
