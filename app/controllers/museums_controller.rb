@@ -23,6 +23,8 @@ class MuseumsController < ApplicationController
 
   # GET /museums/1/edit
   def edit
+    @departments = Department.order(:name).map { |department| [department.name, department.id] }
+    @cities = @museum.city ? @museum.department.cities.order(:name).map { |city| [city.name, city.id] } : []
   end
 
   # POST /museums or /museums.json
@@ -99,6 +101,8 @@ class MuseumsController < ApplicationController
                              :user_id,
                              :department,
                              :city,
+                             :department_id,
+                             :city_id,
                              :status
                            ])
     attributes[:status] = attributes[:status].to_i
