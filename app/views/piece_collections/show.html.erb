@@ -1,4 +1,4 @@
-<% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@piece_collection.museum) %>
+<% owner_or_admin = current_user&.admin_or_museum_owner?(@piece_collection.museum) %>
 <% admin = current_user&.admin? %>
 
 <div class="container page-container">
@@ -23,67 +23,36 @@
   </nav>
 
   <section class="page-info-section">
-    <div class="d-flex flex-column align-items-center">
-      <div class="text-light-emphasis">
-        <% if @piece_collection.is_temporary %>
-          <i class="bi bi-clock icon"></i>
-          <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_temporary") %>">
-            <%= t(".temporary") %>
-            </span>
-        <% else %>
-          <i class="bi bi-infinity icon"></i>
-          <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_permanent") %>">
-            <%= t(".permanent") %>
-            </span>
+
+    <% if owner_or_admin %>
+      <div class="d-flex justify-content-end">
+        <%= link_to edit_piece_collection_path(@piece_collection), class: "btn btn-outline-dark" do %>
+          <i class="bi bi-pencil icon"></i>
+          <span><%= t(".edit_collection") %></span>
         <% end %>
       </div>
-      <div class="main_heading lh-1" id="<%= dom_id @piece_collection %>">
-        <%= @piece_collection.name %>
-      </div>
-      <% if owner_or_admin %>
-        <div class="btn-group mt-3" role="group" aria-label="Actions">
-          <div class="btn-group">
-            <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="icon icon_<%= @piece_collection.status %>"></i>
-              <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_status_change") %>"> <%= t("activerecord.attributes.piece_collection.statuses.#{@piece_collection.status}") %></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <% if @piece_collection.published? %>
-                  <%= button_to t(".make_private"),
-                                update_status_piece_collection_path(@piece_collection, status: PieceCollection::NOT_PUBLISHED),
-                                method: :patch,
-                                form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn border-0 bi bi-lock link-body-emphasis" %>
-                <% else %>
-                  <%= button_to t(".make_public"),
-                                update_status_piece_collection_path(@piece_collection, status: PieceCollection::PUBLISHED),
-                                method: :patch,
-                                form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn border-0 bi bi-unlock link-body-emphasis" %>
+    <% end %>
 
-                <% end %>
-              </li>
-              <% unless @piece_collection.archived? && admin %>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li>
-                  <%= button_to t(".archive"),
-                                update_status_piece_collection_path(@piece_collection, status: PieceCollection::ARCHIVED),
-                                method: :patch,
-                                form: { data: { turbo_confirm: "Estas seguro?" } },
-                                class: "btn border-0 bi bi-archive link-danger" %>
-              <% end %>
-              </li>
-            </ul>
-          </div>
-          <%= link_to edit_piece_collection_path(@piece_collection), class: "btn btn-outline-dark" do %>
-            <i class="bi bi-pencil icon"></i>
-            <span><%= t(".edit_collection") %></span>
-          <% end %>
-        </div>
-      <% end %>
+    <div class="d-flex flex-column align-items-center">
+      <div class="text-light-emphasis">
+        <% temporary_label = @piece_collection.is_temporary ? "temporary" : "permanent" %>
+        <i class="bi bi-clock icon icon_collection_<%= temporary_label %>"></i>
+        <span data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-title="<%= t(".#{temporary_label}") %>">
+            <%= t(".tooltip_#{temporary_label}") %>
+        </span>
+      </div>
+
+      <div class="d-flex align-items-center" id="<%= dom_id @piece_collection %>">
+        <% if owner_or_admin %>
+        <span class="icon icon_<%= @piece_collection.status %> icon_header me-1"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-title='<%= t("global.tooltips.header_icon_#{@piece_collection.status}") %>'> </span>
+        <% end %>
+        <span class="main_heading"> <%= @piece_collection.name %> </span>
+      </div>
 
       <% if @piece_collection.description %>
         <div class="col-sm-8 my-3">
@@ -139,6 +108,6 @@
       <!-- only gallery -->
     <% else %>
       <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces, owner_or_admin: owner_or_admin } %>
-  <% end %>
+    <% end %>
   </section>
 </div>

@@ -39,54 +39,23 @@
 
       <div class="col-lg-5 col-md-6" id="<%= dom_id @piece %>">
         <div class="d-flex flex-column ps-3">
-          <div class="main_heading">
-            <%= @piece.name %>
-          </div>
           <% if owner_or_admin %>
-            <div class="btn-group pb-4" role="group" aria-label="Actions">
-              <div class="btn-group">
-                <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="icon icon_<%= @piece.status %>"></i>
-                  <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= t(".tooltip_status_change") %>">
-                    <%= t("activerecord.attributes.piece.statuses.#{@piece.status}") %>
-                  </span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li>
-                    <% if @piece.published? %>
-                      <%= button_to t(".make_private"),
-                                    update_status_piece_path(@piece, status: Piece::NOT_PUBLISHED),
-                                    method: :patch,
-                                    form: { data: { turbo_confirm: "Estas seguro?" } },
-                                    class: "btn border-0 bi bi-lock link-body-emphasis" %>
-                    <% else %>
-                      <%= button_to t(".make_public"),
-                                    update_status_piece_path(@piece, status: Piece::PUBLISHED),
-                                    method: :patch,
-                                    form: { data: { turbo_confirm: "Estas seguro?" } },
-                                    class: "btn border-0 bi bi-unlock link-body-emphasis" %>
-                    <% end %>
-                  </li>
-                  <% unless @piece.archived? && admin %>
-                    <li>
-                      <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                      <%= button_to t(".archive"),
-                                    update_status_piece_path(@piece, status: Piece::ARCHIVED),
-                                    method: :patch,
-                                    form: { data: { turbo_confirm: "Estas seguro?" } },
-                                    class: "btn border-0 bi bi-archive link-danger" %>
-                  <% end %>
-                  </li>
-                </ul>
-              </div>
+            <div class="d-flex justify-content-end">
               <%= link_to edit_piece_path(@piece), class: "btn btn-outline-dark flex-grow-0" do %>
                 <i class="bi bi-pencil icon"></i>
                 <span><%= t(".edit_piece") %></span>
               <% end %>
             </div>
           <% end %>
+          <div class="d-flex align-items-center">
+            <% if owner_or_admin %>
+            <span class="icon icon_<%= @piece.status %> icon_header me-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-title='<%= t("global.tooltips.header_icon_#{@piece.status}") %>'></span>
+            <% end %>
+            <span class="main_heading"><%= @piece.name %></span>
+          </div>
           <div class="pt-3">
             <p> <%= @piece.description %> </p>
           </div>

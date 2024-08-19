@@ -5,7 +5,9 @@ es:
     hero:
       title: "Descubrí la Riqueza cultural del país"
       sub_title: "Buscá museos por nombre, dirección, ciudad o descripción:"
-
+    tooltips:
+      header_icon_published: "Visible"
+      header_icon_hidden: "Oculto"
   museum_registration_requests:
     index:
       create: "Crear nueva solicitud"
@@ -79,7 +81,6 @@ es:
       owner_title: "Mis Museos"
       gallery_title: "Explorar Museos"
       gallery_collections_title: "Explora las colecciones"
-      tooltip_status_change: "Los museos visibles son accesibles por los visitantes de la página. Los museos ocultos no se muestran a los visitantes."
       record: "Ficha del Museo"
       edit_record: "Editar"
       section_admin: "Información Administrativa"
@@ -106,12 +107,13 @@ es:
     show:
       actions: "Acciones"
       explore_pieces: "Conoce las piezas de esta colección"
+      tooltip_published: "Visible en la página."
+      tooltip_hidden: "Oculto de los visitantes."
       make_private: " Ocultar"
       make_public: " Hacer Visible"
       archive: " Archivar"
       temporary: "Colección temporal"
       permanent: "Colección permanente"
-      tooltip_status_change: "Las colecciones visibles son accesibles por los visitantes de la página. Las colecciones ocultas no se muestran a los visitantes."
       tooltip_temporary: "La colección está disponible por tiempo limitado."
       tooltip_permanent: "Colección exhibida en el museo permanentemente."
       edit_collection: "Editar"

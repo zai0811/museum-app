@@ -19,7 +19,20 @@
         <h6 class="my-3"><%= t("museums.show.section_admin") %></h6>
         <%= form.label :code, class: "form-label" %>
         <%= form.text_field :code, class: "form-control mb-2" %>
+
+        <%= form.label :status, class: "form-label mt-3" %>
+        <div class="form-check">
+          <%= form.radio_button :status, Museum::NOT_PUBLISHED, { checked: museum.hidden?, class: "form-check-input" } %>
+          <%= form.label t("activerecord.attributes.museum.statuses.hidden"), class: "form-check-label" %>
+        </div>
+
+        <div class="form-check mb-2">
+          <%= form.radio_button :status, Museum::PUBLISHED, { checked: museum.published?, class: "form-check-input" } %>
+          <%= form.label t("activerecord.attributes.museum.statuses.published"), class: "form-check-label" %>
+        </div>
       </div>
+
+
     <% end %>
 
     <div class="col pb-3 border-bottom">
@@ -49,7 +62,7 @@
 
     <div class="col-sm-6 mb-3">
       <%= form.submit class: "btn btn-dark btn-sm" %>
-      <%= link_to t("museums.show.cancel"), @museum, class: "link-dark px-3"  %>
+      <%= link_to t("museums.show.cancel"), @museum, class: "link-dark px-3" %>
       <% button_to "Eliminar Museo", @user, method: :delete, class: "btn btn-outline-danger px-3" %>
     </div>
   <% end %>
