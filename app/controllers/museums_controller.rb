@@ -1,5 +1,5 @@
 class MuseumsController < ApplicationController
-  prepend_before_action :set_museum, only: %i[ show edit update destroy ]
+  prepend_before_action :set_museum, only: %i[ show edit update destroy update_museum_status]
   skip_before_action :authenticate_user!, only: %i[ index show ]
   skip_before_action :authorize_user!, only: %i[ index show ]
 
@@ -64,7 +64,6 @@ class MuseumsController < ApplicationController
   end
 
   def update_museum_status
-    @museum = Museum.find(params[:id])
     status = params[:status].to_i
 
     begin
