@@ -20,12 +20,15 @@
         <%= form.label :code, class: "form-label" %>
         <%= form.text_field :code, class: "form-control mb-2" %>
 
+        <%= form.label :status, class: "form-label mt-3" %>
         <div class="form-check">
-          <%= form.check_box :status, { checked: museum.hidden? }, Museum::NOT_PUBLISHED, nil %>
-          <%= form.label "Oculto", class: "form-check-label" %>
+          <%= form.radio_button :status, Museum::NOT_PUBLISHED, { checked: museum.hidden?, class: "form-check-input" } %>
+          <%= form.label t("activerecord.attributes.museum.statuses.hidden"), class: "form-check-label" %>
+        </div>
 
-          <%= form.check_box :status, {  checked: museum.published? }, Museum::PUBLISHED, nil %>
-          <%= form.label "Visible", class: "form-check-label" %>
+        <div class="form-check mb-2">
+          <%= form.radio_button :status, Museum::PUBLISHED, { checked: museum.published?, class: "form-check-input" } %>
+          <%= form.label t("activerecord.attributes.museum.statuses.published"), class: "form-check-label" %>
         </div>
       </div>
 

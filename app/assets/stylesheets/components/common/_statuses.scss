@@ -53,5 +53,21 @@
     @extend .bi;
     @extend .bi-hourglass;
   }
+
+  &_collection_temporary{
+    @extend .bi;
+    @extend .bi-clock;
+  }
+
+  &_collection_permanent{
+    @extend .bi;
+    @extend .bi-infinity;
+  }
+
+
+  &_header{
+    font-weight: bold;
+    font-size: $h4-font-size;
+  }
 }
 
