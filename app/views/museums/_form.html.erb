@@ -31,8 +31,6 @@
           <%= form.label t("activerecord.attributes.museum.statuses.published"), class: "form-check-label" %>
         </div>
       </div>
-
-
     <% end %>
 
     <div class="col pb-3 border-bottom">
@@ -47,7 +45,7 @@
       <%= form.text_field :address, class: "form-control mb-2" %>
 
       <div data-controller="department-city-picker" class="row">
-        <div class="col-md-2 mb-2">
+        <div class="col-md-3 mb-2">
           <%= form.label t("museum_registration_requests.new.department"), class: "form-label" %>
           <%= form.select :department_id,
                           @departments,
@@ -56,7 +54,7 @@
 
         </div>
 
-        <div class="col-md-2 mb-2">
+        <div class="col-md-3 mb-2">
           <%= form.label t("museum_registration_requests.new.city"), class: "form-label" %>
           <%= form.select :city_id,
                           @cities,
@@ -64,6 +62,9 @@
                           { class: "form-select", data: { department_city_picker_target: "citySelect" } } %>
         </div>
       </div>
+
+      <%= form.label :image, class: "form-label" %>
+      <%= form.file_field :image, class: "form-control mb-2" %>
 
     </div>
 

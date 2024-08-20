@@ -10,6 +10,7 @@ class Museum < ApplicationRecord
   has_many :piece_collections
   has_many :pieces, through: :piece_collections
   validates_presence_of :name, :code, :city, :department
+  has_one_attached :image
 
   enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED }, default: :hidden
 

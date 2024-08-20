@@ -103,7 +103,8 @@ class MuseumsController < ApplicationController
                              :city,
                              :department_id,
                              :city_id,
-                             :status
+                             :status,
+                             :image
                            ])
     attributes[:status] = attributes[:status].to_i
     attributes
