@@ -39,24 +39,23 @@
       </div>
 
       <!-- Information section -->
-      <div class="accordion shadow-sm my-4" id="record-accordion">
-        <div class="accordion-item">
-          <div class="accordion-header" id="accordion-heading">
-            <button class="accordion-button collapsed record-header" type="button" data-bs-toggle="collapse" data-bs-target="#panel-collapseOne" aria-expanded="false" aria-controls="panel-collapseOne">
-              Ficha del Museo
-            </button>
-          </div>
-          <div id="panel-collapseOne" class="accordion-collapse collapse" aria-labelledby="accordion-heading">
-            <div class="accordion-body">
-              <!-- TODO: Hanlde invalid form submission -->
-              <%= turbo_frame_tag "information-body" do %>
+      <%= turbo_frame_tag "information-body" do %>
+        <div class="accordion shadow-sm my-4" id="record-accordion">
+          <div class="accordion-item">
+            <div class="accordion-header" id="accordion-heading">
+              <button class="accordion-button collapsed record-header" type="button" data-bs-toggle="collapse" data-bs-target="#panel-collapseOne" aria-expanded="false" aria-controls="panel-collapseOne">
+                Ficha del Museo
+              </button>
+            </div>
+            <div id="panel-collapseOne" class="accordion-collapse collapse" aria-labelledby="accordion-heading">
+              <div class="accordion-body">
+                <!-- TODO: Hanlde invalid form submission -->
                 <%= render 'museum_record', museum: @museum %>
-              <% end %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
+      <% end %>
     </section>
 
     <!-- Collection section -->

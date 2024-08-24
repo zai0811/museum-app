@@ -48,7 +48,6 @@ class MuseumsController < ApplicationController
     respond_to do |format|
       if @museum.update(museum_params)
         format.html { redirect_to museum_url(@museum), notice: t(".success") }
-        format.turbo_stream { flash.now[:notice] = t(".success") }
       else
         format.html { render :show, status: :unprocessable_entity }
         format.json { render json: @museum.errors, status: :unprocessable_entity }
