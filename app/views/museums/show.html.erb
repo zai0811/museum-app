@@ -1,25 +1,24 @@
 <% owner_or_admin = current_user&.admin_or_museum_owner?(@museum) %>
-<% admin = current_user&.admin? %>
 
-<div class="container page-container">
-  <nav aria-label="breadcrumb primary">
-    <ol class="breadcrumb breadcrumb-chevron">
-      <li class="breadcrumb-item">
-        <%= link_to root_path, class: "link-body-emphasis" do %>
-          <i class="bi bi bi-house-door" width="16" height="16"></i>
-          <span class="visually-hidden">Home</span>
-        <% end %>
-      </li>
-      <li class="breadcrumb-item">
-        <%= link_to "Museos", museums_path, class: "link-body-emphasis text-decoration-none" %>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">
-        <%= @museum.name %>
-      </li>
-    </ol>
-  </nav>
+<% if owner_or_admin %>
+  <div class="container page-container">
+    <nav aria-label="breadcrumb primary">
+      <ol class="breadcrumb breadcrumb-chevron">
+        <li class="breadcrumb-item">
+          <%= link_to root_path, class: "link-body-emphasis" do %>
+            <i class="bi bi bi-house-door" width="16" height="16"></i>
+            <span class="visually-hidden">Home</span>
+          <% end %>
+        </li>
+        <li class="breadcrumb-item">
+          <%= link_to "Museos", museums_path, class: "link-body-emphasis text-decoration-none" %>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <%= @museum.name %>
+        </li>
+      </ol>
+    </nav>
 
-  <% if owner_or_admin %>
     <section class="page-info-section">
       <div class="d-flex justify-content-end">
         <%= link_to edit_museum_path(@museum),
@@ -35,7 +34,7 @@
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
                 data-bs-title='<%= t("global.tooltips.header_icon_#{@museum.status}") %>'> </span>
-          <span class="main_heading" > <%= @museum.name %> </span>
+          <span class="main_heading"> <%= @museum.name %> </span>
         </div>
       </div>
 
@@ -100,9 +99,8 @@
         </table>
       </div>
     </section>
+  </div>
+<% else %>
+  <%= render partial: 'museum_visitor_page', locals: { museum: @museum, piece_collection: @piece_collections } %>
+<% end %>
 
-  <% else %>
-    <%= render partial: 'museum_visitor_page', locals: { museum: @museum, piece_collection: @piece_collections } %>
-  <% end %>
-
-</div>

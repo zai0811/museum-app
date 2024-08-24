@@ -1,27 +1,30 @@
-<div class="photo-gallery">
-  <% piece_collections.each do |piece_collection| %>
-    <% if piece_collection.published? %>
-      <div class="card shadow-sm photo-card" id="<%= dom_id piece_collection %>">
-        <% piece = piece_collection.get_background_image  %>
-        <% if piece %>
-          <%= image_tag(piece.image, class: "card-img-top") %>
-        <% else %>
-          <%= image_tag("placeholder.png", class: "card-img-top") %>
-        <% end %>
-        <div class="card-body">
-          <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
-          <h4 class="card-title fw-semibold"> <%= link_to piece_collection.name,
-                                                          piece_collection_path(piece_collection),
-                                                          class: "card-link link-body-emphasis link-underline-opacity-0 ",
-                                                          data: { turbo_frame: "_top" } %>
-          </h4>
-          <% if piece_collection.pieces %>
-            <p class="card-text text-body-tertiary">
-              (<%= piece_collection.published_pieces_count%>) <%= Piece.model_name.human(count: 2) %>
-            </p>
+<div class="container page-container py-3">
+  <div class="gallery_heading py-4"><%= t("museums.show.gallery_collections_title") %></div>
+  <div class="photo-gallery my-3">
+    <% piece_collections.each do |piece_collection| %>
+      <% if piece_collection.published? %>
+        <div class="card shadow-sm photo-card" id="<%= dom_id piece_collection %>">
+          <% piece = piece_collection.get_background_image %>
+          <% if piece %>
+            <%= image_tag(piece.image, class: "card-img-top") %>
+          <% else %>
+            <%= image_tag("placeholder.png", class: "card-img-top") %>
           <% end %>
+          <div class="card-body">
+            <!-- Added the data_turbo_frame="_top" to replace the current page with the piece collection show  -->
+            <h4 class="card-title"> <%= link_to piece_collection.name,
+                                                            piece_collection_path(piece_collection),
+                                                            class: "card-link link-body-emphasis link-underline-opacity-0 ",
+                                                            data: { turbo_frame: "_top" } %>
+            </h4>
+            <% if piece_collection.pieces %>
+              <p class="card-text text-body-tertiary">
+                (<%= piece_collection.published_pieces_count %>) <%= Piece.model_name.human(count: 2) %>
+              </p>
+            <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
