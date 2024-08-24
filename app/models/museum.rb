@@ -3,16 +3,19 @@ class Museum < ApplicationRecord
   PUBLISHED = 1
   ARCHIVED = 2
 
+  enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED }, default: :hidden
+
   belongs_to :user
   belongs_to :museum_registration_request
   belongs_to :department
   belongs_to :city
   has_many :piece_collections
   has_many :pieces, through: :piece_collections
-  validates_presence_of :name, :code, :city, :department
   has_one_attached :image
 
-  enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED }, default: :hidden
+  validates_presence_of :name, :code, :city, :department
+  validates :latitude, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }
+  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
 
   def self.ransackable_attributes(auth_object = nil)
     ["name", "about", "address"]
