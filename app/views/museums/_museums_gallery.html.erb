@@ -8,9 +8,8 @@
   <% museums.each do |museum| %>
     <% if museum.published? %>
       <div class="card shadow-sm photo-card" id="<%= dom_id museum %>">
-        <% piece = museum.get_collection_background_image %>
-        <% if piece %>
-          <%= image_tag(piece.image, class: "card-img-top") %>
+        <% if museum.image.attached? %>
+          <%= image_tag(museum.image, class: "card-img-top") %>
         <% else %>
           <%= image_tag("placeholder.png", class: "card-img-top") %>
         <% end %>

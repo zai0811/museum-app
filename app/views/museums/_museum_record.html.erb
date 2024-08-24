@@ -24,9 +24,18 @@
       <dt class="record-title"><%= t("activerecord.attributes.museum.about") %></dt>
       <dd><%= @museum.about %></dd>
       <dt class="record-title"><%= t("activerecord.attributes.museum.address") %></dt>
-      <dd><%= @museum.address %></dd>
-      <dt class="record-title"><%= t("activerecord.attributes.museum.city") %></dt>
-      <dd><%= @museum.city.name %></dd>
+      <dd>
+       <p> <%= @museum.address %><br><%= @museum.city.name %>, <%= @museum.department.name %>.</p>
+      </dd>
+      <dt class="record-title"><%= t("activerecord.attributes.museum.image") %></dt>
+      <dd>
+        <% if @museum.image.attached? %>
+          <%= image_tag(@museum.image, class: "image-record") %>
+      <% else %>
+          <%= t("museums.show.no_image_message") %>
+        <% end %>
+      </dd>
+      
     </dl>
   </li>
   <li class="list-group-item border-0">

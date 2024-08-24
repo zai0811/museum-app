@@ -55,6 +55,7 @@ es:
         user: "Encargado"
         city: "Ciudad"
         department: "Departamento"
+        image: "Foto de portada"
         created_at: "Creado el"
         updated_at: "Actualizado el"
         museum/user:

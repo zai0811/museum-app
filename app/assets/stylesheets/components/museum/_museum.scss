@@ -6,12 +6,14 @@
 
 // To-do: how to make padding responsive?
 .image-header {
-  background-color: #0c201c;
-  color: black;
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding-top: 200px;
-  padding-bottom: 200px;
+  max-width: 100%;
+  padding: 30px;
+}
+
+.image-record {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  max-width: 250px;
 }
 .record-header{
   font-weight: 500;
