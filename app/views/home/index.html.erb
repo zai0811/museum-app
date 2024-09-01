@@ -1,17 +1,41 @@
-<div class="px-4 py-5 my-5 text-center">
-  <h1 class="display-5 fw-bold text-body-emphasis"><%= t("global.hero.title") %> </h1>
-  <div class="col-lg-4 col-md-6 mx-auto">
-    <p class="lead mt-5"><%= t("global.hero.sub_title") %></p>
-    <div role="search">
-      <%= search_form_for @q, class: "d-sm-flex flex-lg-column g-3 justify-content-sm-center align-content-center" do |f| %>
-        <div class="flex-mb-grow-1 mb-2">
-          <%= f.search_field :name_or_about_or_address_or_city_name_cont,
-                             class: "form-control form-control-lg", placeholder: "Museo..." %>
+<section class="">
+  <div class="container-fluid px-0">
+    <div class="row g-0 align-items-center justify-content-center">
+      <div class="col-xl-5 col-lg-6">
+        <div class="m-5 px-xl-5">
+          <h1 class="display-5 fw-bold text-body-emphasis mb-4"><%= t("global.hero.title") %> </h1>
+
+          <div>
+            <p class="lead"><%= t("global.hero.sub_title") %></p>
+            <div role="search">
+              <%= search_form_for @q, class: "d-sm-flex flex-lg-column" do |f| %>
+                <div class="flex-mb-grow-1 mb-2 me-3 me-xl-5">
+                  <%= f.search_field :name_or_about_or_address_or_city_name_cont,
+                                     class: "form-control form-control-lg", placeholder: "Museo..." %>
+                </div>
+                <div class="flex-mb-grow-1">
+                  <%= f.submit class: "btn btn-primary btn-lg cta" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
         </div>
-        <div class="flex-mb-grow-1">
-          <%= f.submit class: "btn btn-primary btn-lg cta m-2" %>
+      </div>
+      <div class="col-xl-7 col-lg-6">
+        <div data-controller="maps" >
+          <div data-maps-target="container"
+               class="p-xl-5"
+               style="
+                 height: 90vh;
+                 background-color: rgba(0,0,255,0.1);">
+
+          </div>
         </div>
-      <% end %>
+      </div>
+
+
     </div>
   </div>
-</div>
+
+</section>

@@ -1,4 +1,4 @@
-class MuseumRegistrationRequest < ApplicationRecord
+   class MuseumRegistrationRequest < ApplicationRecord
   NOT_REVIEWED = 0
   APPROVED = 1
   REJECTED = 2

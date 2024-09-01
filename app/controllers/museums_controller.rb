@@ -1,7 +1,7 @@
 class MuseumsController < ApplicationController
   prepend_before_action :set_museum, only: %i[ show edit update destroy update_museum_status]
-  skip_before_action :authenticate_user!, only: %i[ index show ]
-  skip_before_action :authorize_user!, only: %i[ index show ]
+  skip_before_action :authenticate_user!, only: %i[ index show coordinates ]
+  skip_before_action :authorize_user!, only: %i[ index show coordinates ]
 
   # GET /museums or /museums.json
   def index
@@ -78,6 +78,11 @@ class MuseumsController < ApplicationController
     end
   end
 
+  def coordinates
+    @museums = Museum.published
+    render formats: :json
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -103,7 +108,9 @@ class MuseumsController < ApplicationController
                              :department_id,
                              :city_id,
                              :status,
-                             :image
+                             :image,
+                             :latitude,
+                             :longitude
                            ])
     attributes[:status] = attributes[:status].to_i
     attributes
@@ -112,7 +119,8 @@ class MuseumsController < ApplicationController
   def authorize_user!
     authorized = case action_name
                  when "new", "create", "destroy" then current_user.admin?
-                 when "update", "edit", "update_museum_status" then current_user.admin_or_museum_owner?(@museum)
+                 when "update", "edit", "update_museum_status"
+                 then current_user.admin_or_museum_owner?(@museum)
                  else
                    false
                  end

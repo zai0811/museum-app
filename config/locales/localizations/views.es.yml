@@ -87,6 +87,8 @@ es:
       section_admin: "Información Administrativa"
       section_general: "Información del Museo"
       section_contact: "Información de Contacto"
+      map_location: "Ubicación"
+      edit_location: "Editar ubicación"
       created_by_request: "Creado por"
       collections: "Colecciones"
       create_collection: "Nueva colleción"
