@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_24_212759) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_25_150929) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -108,8 +108,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_212759) do
     t.bigint "museum_registration_request_id"
     t.bigint "department_id", null: false
     t.bigint "city_id", null: false
-    t.float "latitute"
-    t.float "longitude"
+    t.float "latitude", default: 0.0
+    t.float "longitude", default: 0.0
     t.index ["city_id"], name: "index_museums_on_city_id"
     t.index ["department_id"], name: "index_museums_on_department_id"
     t.index ["museum_registration_request_id"], name: "index_museums_on_museum_registration_request_id"

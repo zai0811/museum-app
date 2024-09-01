@@ -60,7 +60,7 @@
 
     <!-- Collection section -->
     <!-- Render the piece_collections/_piece_collection partial -->
-    <section class="page-table-section">
+    <section class="page-table-section mb-4">
       <div class="row pt-3">
         <div class="col "><h4><%= t("museums.show.collections") %></h4></div>
         <div class="col text-end">
@@ -102,4 +102,41 @@
 <% else %>
   <%= render partial: 'museum_visitor_page', locals: { museum: @museum, piece_collection: @piece_collections } %>
 <% end %>
+
+<div class="container my-3">
+  <div data-controller="museum-map"
+       data-museum-map-lat-value="<%= @museum.latitude %>"
+       data-museum-map-long-value="<%= @museum.longitude %>"
+       data-museum-map-id-value="<%= @museum.id %>">
+
+    <div class="d-flex mb-3">
+      <div class="flex-grow-1">
+        <h4><%= t(".map_location") %> </h4>
+      </div>
+      <% if owner_or_admin %>
+        <button class="align-self-end btn-outline-dark btn"
+                id="edit"
+                data-action="click->museum-map#editCoordinates"
+                data-museum-map-target="editBtn">
+         <%= t(".edit_location") %>
+        </button>
+
+        <%= form_with(model: @museum) do |form| %>
+          <%= form.text_field :latitude, class: "form-control mb-2", hidden: true %>
+          <%= form.text_field :longitude, class: "form-control mb-2", hidden: true %>
+          <div hidden="hidden" id="formActions">
+            <%= form.submit "Guardar", class: "btn btn-dark" %>
+            <%= link_to t("museums.show.cancel"), @museum, class: "link-dark px-3" %>
+          </div>
+        <% end %>
+
+      <% end %>
+    </div>
+
+    <div data-museum-map-target="container"
+         class="p-1"
+         style="height: 350px; width: auto; background-color: rgba(0,0,255,0.1); border: 3px">
+    </div>
+  </div>
+</div>
 

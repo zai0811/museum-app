@@ -1,0 +1,1 @@
+json.array! @museums, :name, :latitude, :longitude

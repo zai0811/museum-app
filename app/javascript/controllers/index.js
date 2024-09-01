@@ -12,3 +12,6 @@ application.register("flash-actions", FlashActionsController)
 
 import MapController from "./map_controller"
 application.register("maps", MapController)
+
+import MuseumMapController from "./museum_map_controller"
+application.register("museum-map", MuseumMapController)

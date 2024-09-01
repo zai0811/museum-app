@@ -30,16 +30,4 @@ class Museum < ApplicationRecord
     update!(status: status)
     true
   end
-
-  def get_collection_background_image
-    unless piece_collections.empty?
-      piece_collections.each do |pc|
-        pc_background = pc.get_background_image
-        if pc_background && pc.published?
-          return pc_background
-        end
-      end
-    end
-    nil
-  end
 end
