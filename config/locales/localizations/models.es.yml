@@ -37,6 +37,7 @@ es:
         updated_at: "Actualizado el"
         created_by: "Creado por"
         updated_by: "Actualizado por"
+        feedback: "Mensaje"
         anonymous: "Anónimo"
         registration_status: "Estado"
         registration_statuses:

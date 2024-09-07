@@ -1,4 +1,4 @@
-   class MuseumRegistrationRequest < ApplicationRecord
+class MuseumRegistrationRequest < ApplicationRecord
   NOT_REVIEWED = 0
   APPROVED = 1
   REJECTED = 2
@@ -12,17 +12,15 @@
   has_one_attached :registration_doc
 
   enum :registration_status, { not_reviewed: NOT_REVIEWED, approved: APPROVED, rejected: REJECTED, archived: ARCHIVED }, default: :not_reviewed
-  validates_presence_of :manager_email, :museum_name, :museum_code, :museum_address, :first_name, :last_name, :ci
-  scope :active_status, -> { where(registration_status: [ NOT_REVIEWED, APPROVED, REJECTED ]) }
+  validates_presence_of :manager_email, :museum_name, :museum_address, :first_name, :last_name, :ci
+  after_save :check_registration_status!
 
-  def update_registration_status!(status, updated_by)
-    return false unless valid_status?(status)
-    if status == APPROVED
-      approve_registration_request!
+  scope :active_status, -> { where(registration_status: [NOT_REVIEWED, APPROVED, REJECTED]) }
+
+  def check_registration_status!
+    if self.approved?
+      process_approval!
     end
-    update!(registration_status: status)
-    update!(updated_by: updated_by)
-    true
   end
 
   def departments
@@ -32,18 +30,12 @@
   def cities
     City.find_by(department: department)
   end
+
   private
 
-  def valid_status?(status)
-    status.in?([APPROVED, REJECTED, ARCHIVED])
-  end
-
-  def approve_registration_request!
-    if Museum.exists?(code: museum_code)
-      # todo add i18n new yml for each object
-      raise StandardError, I18n.t("activerecord.errors.messages.museum_taken")
-    end
-
+  # invite user and create museum
+  # @todo test scenarios where this fails and handle them correctly
+  def process_approval!
     ActiveRecord::Base.transaction do
       user = find_or_invite_user!
       Museum.create!(name: museum_name, code: museum_code, address: museum_address, user_id: user.id, museum_registration_request_id: id, department_id: department_id, city_id: city_id)

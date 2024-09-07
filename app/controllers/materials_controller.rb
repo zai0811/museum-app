@@ -69,7 +69,7 @@ class MaterialsController < ApplicationController
     params.require(:material).permit(:name)
   end
 
-  def materialize_user!
+  def authorize_user!
     not_authorized unless current_user.admin?
   end
 end
