@@ -7,7 +7,6 @@ class User < ApplicationRecord
   has_many :museums
   has_many :museum_registration_requests
   validates_presence_of :email
-
   def museum_owner?(museum)
     museum.in?(museums)
   end

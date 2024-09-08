@@ -7,7 +7,7 @@ class MuseumRegistrationRequestsController < ApplicationController
   def index
     # to-do: should review logic for showing or hiding items, also, should review the option to show or hide registration requests from non-admin creators
     if current_user.admin?
-      @museum_registration_requests = MuseumRegistrationRequest.where.not(registration_status: MuseumRegistrationRequest::ARCHIVED)
+      @museum_registration_requests = MuseumRegistrationRequest.all
     else
       @museum_registration_requests = MuseumRegistrationRequest.where(created_by_id: current_user.id)
     end
@@ -40,6 +40,8 @@ class MuseumRegistrationRequestsController < ApplicationController
 
     respond_to do |format|
       if @museum_registration_request.save
+        UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request.deliver_later
+        UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request_user.deliver_later
         format.html { redirect_to root_path, notice: t(".success") }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,13 +49,18 @@ class MuseumRegistrationRequestsController < ApplicationController
     end
   end
 
+  def edit
+  end
   def update
-    respond_to do |format|
       if @museum_registration_request.update(museum_registration_request_params)
-        format.html { redirect_to museum_registration_request_url(@museum_registration_request), notice: "Actualizado correctamente" }
+        if @museum_registration_request.approved?
+          UserMailer.with(museum_registration_request: @museum_registration_request).approved_museum_registration_request.deliver_later
+        elsif @museum_registration_request.rejected?
+          UserMailer.with(museum_registration_request: @museum_registration_request).rejected_museum_registration_request.deliver_later
+        end
+        redirect_to museum_registration_request_url(@museum_registration_request), notice: "Actualizado correctamente"
       else
-        format.html { render :show, status: :unprocessable_entity }
-      end
+        render :show, status: :unprocessable_entity
     end
   end
 

@@ -1,13 +1,57 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-      /* Email styles need to be inline */
-    </style>
-  </head>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Correo Electrónico</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif, system-ui;
+          background-color: #f4f4f4;
+      }
 
-  <body>
-    <%= yield %>
-  </body>
+      .container {
+          width: 100%;
+          max-width: 600px;
+          margin: 0 auto;
+          background-color: #f4f4f4;
+          padding: 20px;
+          border-radius: 10px;
+      }
+
+      .header {
+          background-color: #9B6206;
+          color: white;
+          text-align: center;
+          padding: 15px 0;
+          border-radius: 8px 8px 0 0;
+          font-size: 24px;
+          font-weight: bold;
+      }
+
+      .content {
+          padding: 20px;
+          background-color: white;
+          border-radius: 0 0 8px 8px;
+      }
+
+      .footer {
+          text-align: center;
+          color: #777;
+          padding: 10px 0;
+          font-size: 12px;
+          margin-top: 10px;
+      }
+
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <%= yield %>
+  <div class="footer">
+    <p>&copy; <%= t("global.menu.home") %>. Todos los derechos reservados.</p>
+  </div>
+</div>
+</body>
 </html>

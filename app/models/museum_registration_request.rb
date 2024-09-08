@@ -17,10 +17,14 @@ class MuseumRegistrationRequest < ApplicationRecord
 
   scope :active_status, -> { where(registration_status: [NOT_REVIEWED, APPROVED, REJECTED]) }
 
+  # Should not perform further updates to approved requests
   def check_registration_status!
     if self.approved?
       process_approval!
     end
+  rescue StandardError
+    errors.add(:base, "Error configurando usuario y museo, los cambios no han sido guardados. Favor contactar a soporte técnico.")
+    raise ActiveRecord::RecordInvalid.new(self)
   end
 
   def departments
@@ -34,7 +38,6 @@ class MuseumRegistrationRequest < ApplicationRecord
   private
 
   # invite user and create museum
-  # @todo test scenarios where this fails and handle them correctly
   def process_approval!
     ActiveRecord::Base.transaction do
       user = find_or_invite_user!
@@ -44,11 +47,8 @@ class MuseumRegistrationRequest < ApplicationRecord
 
   def find_or_invite_user!
     user = User.find_by(email: manager_email)
-    unless user
-      user = User.invite!(email: manager_email, first_name: first_name, last_name: last_name, ci: ci, phone_number: phone_number)
-    end
-    update!(created_by: user) unless created_by
-    user
-  end
+    return user if user
 
+    User.invite!(email: manager_email, first_name: first_name, last_name: last_name, ci: ci, phone_number: phone_number)
+  end
 end

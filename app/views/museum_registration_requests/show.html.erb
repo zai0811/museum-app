@@ -15,6 +15,15 @@
       </li>
     </ol>
   </nav>
+  <% if @museum_registration_request.errors.any? %>
+    <div class="validation-errors">
+      <ul class="list-unstyled">
+        <% @museum_registration_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <section class="page-info-section">
     <div class="main_heading" id="<%= dom_id @museum_registration_request %>">
       <%= MuseumRegistrationRequest.model_name.human %>
@@ -172,19 +181,7 @@
             </div>
 
             <%= form_with(model: @museum_registration_request) do |form| %>
-              <div class="modal-body">
-                <% if @museum_registration_request.errors.any? %>
-                  <div style="color: red">
-                    <h2><%= pluralize(@museum_registration_request.errors.count, "error") %> prohibited this
-                      museum_registration_request from being saved:</h2>
-                    <ul>
-                      <% @museum_registration_request.errors.each do |error| %>
-                        <li><%= error.full_message %></li>
-                      <% end %>
-                    </ul>
-                  </div>
-                <% end %>
-
+              <div class="modal-body mx-3">
                 <div class="mb-3">
                   <%= form.radio_button :registration_status, 0, { checked: true,
                                                                    hidden: true,
@@ -201,7 +198,7 @@
 
                 <div hidden="hidden" class="mb-3" data-registration-request-modal-target="feedbackBox">
                   <%= form.label "Puedes escribir un mensaje explicando tu decisión", class: "form-label text-emphasis" %>
-                  <%= form.text_field :feedback, class: "form-control" %>
+                  <%= form.text_area :feedback, class: "form-control" %>
                 </div>
               </div>
               <div class="modal-footer">

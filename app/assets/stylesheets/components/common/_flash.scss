@@ -24,3 +24,12 @@
     border-radius: 999px;
   }
 }
+
+.validation-errors{
+  background-color: $red-600;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  max-width: 600px;
+}

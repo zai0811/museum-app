@@ -31,7 +31,6 @@ export default class extends Controller {
     setApproved() {
         this.statusCheckboxTarget.setAttribute("value", APPROVED)
         this.approvalConfirmationTarget.removeAttribute("hidden")
-        this.feedbackBoxTarget.removeAttribute("hidden")
     }
 
     setRejected() {
