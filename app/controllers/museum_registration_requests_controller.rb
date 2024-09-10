@@ -2,6 +2,8 @@ class MuseumRegistrationRequestsController < ApplicationController
   prepend_before_action :set_museum_registration_request, only: %i[ show update ]
   skip_before_action :authenticate_user!, only: %i[ new create cities ]
   skip_before_action :authorize_user!, only: %i[ new create cities ]
+  after_action :notify_new_request, only: :create
+  after_action :notify_updated_request, only: :update
 
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
@@ -40,8 +42,6 @@ class MuseumRegistrationRequestsController < ApplicationController
 
     respond_to do |format|
       if @museum_registration_request.save
-        UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request.deliver_later
-        UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request_user.deliver_later
         format.html { redirect_to root_path, notice: t(".success") }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,16 +51,12 @@ class MuseumRegistrationRequestsController < ApplicationController
 
   def edit
   end
+
   def update
-      if @museum_registration_request.update(museum_registration_request_params)
-        if @museum_registration_request.approved?
-          UserMailer.with(museum_registration_request: @museum_registration_request).approved_museum_registration_request.deliver_later
-        elsif @museum_registration_request.rejected?
-          UserMailer.with(museum_registration_request: @museum_registration_request).rejected_museum_registration_request.deliver_later
-        end
-        redirect_to museum_registration_request_url(@museum_registration_request), notice: "Actualizado correctamente"
-      else
-        render :show, status: :unprocessable_entity
+    if @museum_registration_request.update(museum_registration_request_params)
+      redirect_to museum_registration_request_url(@museum_registration_request), notice: "Actualizado correctamente"
+    else
+      render :show, status: :unprocessable_entity
     end
   end
 
@@ -108,6 +104,20 @@ class MuseumRegistrationRequestsController < ApplicationController
 
   def get_archived
     @museum_registration_requests = MuseumRegistrationRequest.where(registration_status: MuseumRegistrationRequest::ARCHIVED)
+  end
+
+  # after_action callbacks are executed if the action was successful
+  def notify_new_request
+    UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request.deliver_later
+    UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request_user.deliver_later
+  end
+
+  def notify_updated_request
+    if @museum_registration_request.approved?
+      UserMailer.with(museum_registration_request: @museum_registration_request).approved_museum_registration_request.deliver_later
+    elsif @museum_registration_request.rejected?
+      UserMailer.with(museum_registration_request: @museum_registration_request).rejected_museum_registration_request.deliver_later
+    end
   end
 
   def authorize_user!
