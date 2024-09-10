@@ -95,4 +95,23 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  config.action_mailer.default_url_options = { host: "museum-app-ueba.onrender.com", protocol: "https"}
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_options = { from: "no-reply@museumapp.com" }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:         'smtp.gmail.com',
+    port:            587,
+    domain:          'museum-app-ueba.onrender.com',
+    user_name:       Rails.application.credentials.dig(:gmail, :address),
+    password:        Rails.application.credentials.dig(:gmail, :password),
+    authentication:  'plain',
+    enable_starttls: true,
+    open_timeout:    5,
+    read_timeout:    5 }
+
 end

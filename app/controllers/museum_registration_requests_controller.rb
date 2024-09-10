@@ -1,13 +1,13 @@
 class MuseumRegistrationRequestsController < ApplicationController
-  before_action :set_museum_registration_request, only: %i[ show ]
+  prepend_before_action :set_museum_registration_request, only: %i[ show update ]
   skip_before_action :authenticate_user!, only: %i[ new create cities ]
-  skip_before_action :authorize_user!, only: %i[ new create index cities ]
+  skip_before_action :authorize_user!, only: %i[ new create cities ]
 
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
     # to-do: should review logic for showing or hiding items, also, should review the option to show or hide registration requests from non-admin creators
     if current_user.admin?
-      @museum_registration_requests = MuseumRegistrationRequest.where.not(registration_status: MuseumRegistrationRequest::ARCHIVED)
+      @museum_registration_requests = MuseumRegistrationRequest.all
     else
       @museum_registration_requests = MuseumRegistrationRequest.where(created_by_id: current_user.id)
     end
@@ -22,7 +22,7 @@ class MuseumRegistrationRequestsController < ApplicationController
   def new
     @museum_registration_request = MuseumRegistrationRequest.new
     @cities = City.all
-    @departments = Department.order(:name).map{ |department| [department.name, department.id]}
+    @departments = Department.order(:name).map { |department| [department.name, department.id] }
   end
 
   # POST /museum_registration_requests or /museum_registration_requests.json
@@ -40,6 +40,8 @@ class MuseumRegistrationRequestsController < ApplicationController
 
     respond_to do |format|
       if @museum_registration_request.save
+        UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request.deliver_later
+        UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request_user.deliver_later
         format.html { redirect_to root_path, notice: t(".success") }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,18 +49,18 @@ class MuseumRegistrationRequestsController < ApplicationController
     end
   end
 
-  def update_registration_status
-    @museum_registration_request = MuseumRegistrationRequest.find(params[:id])
-    status = params[:registration_status].to_i
-
-    begin
-      message = @museum_registration_request.update_registration_status!(status, current_user) ?
-                  t(".success", status: t("activerecord.attributes.museum_registration_request.registration_statuses.#{@museum_registration_request.registration_status}"))
-                  : t(".failure")
-      redirect_to @museum_registration_request, notice: message
-
-    rescue StandardError => e # todo add more classes
-      redirect_to @museum_registration_request, alert: e.message
+  def edit
+  end
+  def update
+      if @museum_registration_request.update(museum_registration_request_params)
+        if @museum_registration_request.approved?
+          UserMailer.with(museum_registration_request: @museum_registration_request).approved_museum_registration_request.deliver_later
+        elsif @museum_registration_request.rejected?
+          UserMailer.with(museum_registration_request: @museum_registration_request).rejected_museum_registration_request.deliver_later
+        end
+        redirect_to museum_registration_request_url(@museum_registration_request), notice: "Actualizado correctamente"
+      else
+        render :show, status: :unprocessable_entity
     end
   end
 
@@ -67,7 +69,7 @@ class MuseumRegistrationRequestsController < ApplicationController
     # this function will be connected with cities.turbo_stream.erb passing the @target and @cities attributes
     @target = params[:target]
     @department = Department.find(params[:department])
-    @cities = @department.cities.order(:name).map{ |city| [city.name, city.id]}
+    @cities = @department.cities.order(:name).map { |city| [city.name, city.id] }
     respond_to do |format|
       format.turbo_stream
     end
@@ -82,7 +84,26 @@ class MuseumRegistrationRequestsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def museum_registration_request_params
-    params.require(:museum_registration_request).permit(:museum_name, :museum_code, :museum_address, :manager_email, :department_id, :city_id, :registration_doc, :first_name, :last_name, :ci, :phone_number)
+    attributes = params
+                   .require(:museum_registration_request)
+                   .permit([
+                             :museum_name,
+                             :museum_code,
+                             :museum_address,
+                             :manager_email,
+                             :registration_status,
+                             :department_id,
+                             :city_id,
+                             :registration_doc,
+                             :first_name,
+                             :last_name,
+                             :ci,
+                             :phone_number,
+                             :feedback
+                           ])
+    attributes[:registration_status] = attributes[:registration_status].to_i
+    attributes[:updated_by] = current_user
+    attributes
   end
 
   def get_archived
@@ -90,12 +111,6 @@ class MuseumRegistrationRequestsController < ApplicationController
   end
 
   def authorize_user!
-    autorized = case action_name
-                when "update_registration_status", "show", "archived" then current_user.admin?
-                else
-                  false
-                end
-
-    not_authorized unless autorized
+    not_authorized unless current_user.admin?
   end
 end

@@ -10,7 +10,7 @@ es:
       header_icon_hidden: "Oculto"
   museum_registration_requests:
     index:
-      create: "Crear nueva solicitud"
+      create: "Registrar Museo"
       view: " Ver"
       view_archived: "Ver solicitudes archivadas"
       department: "Departamento"
@@ -31,6 +31,7 @@ es:
       crated_by_anonymous: "usuario anónimo"
       updated_date: "Actualizado el"
       updated_by: "Actualizado por"
+      feedback: "Mensaje"
       museum_info: "Datos del museo"
       requester_info: "Datos del encargado"
       request_info: "Detalles de la solicitud"
@@ -43,6 +44,14 @@ es:
       last_name: "Apellido"
       ci: "Cédula de Identidad"
       phone_number: "Celular"
+      approval_title: "Aprobar solicitud"
+      rejection_title: "Rechazar solicitud"
+      archival_title: "Archivar solicitud"
+      approval_confirmation: "¿Estás seguro de que deseas aceptar esta solicitud? Al hacerlo, se creará un nuevo museo y, si el usuario no existe, será invitado. Esta acción es irreversible."
+      rejection_confirmation: "¿Estás seguro que deseas rechazar esta solicitud? Esta acción no se puede revertir."
+      archival_confirmation: "¿Estás seguro que deseas archivar esta solicitud? Esta acción no se puede revertir."
+      confirm: "Aceptar"
+      cancel: "Cancelar"
     new:
       title: "Nueva Solicitud de Registro"
       info: "Puedes enviar una solicitud de registro para añadir un museo a nuestro sistema."

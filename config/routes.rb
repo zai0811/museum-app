@@ -15,8 +15,7 @@ Rails.application.routes.draw do
   resources :pieces do
     patch :update_status, on: :member
   end
-  resources :museum_registration_requests, except: [ :edit, :update, :destroy ] do
-    patch :update_registration_status, on: :member
+  resources :museum_registration_requests, except: [ :destroy ] do
     get :cities, on: :collection
   end
 

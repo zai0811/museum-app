@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_25_150929) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_05_203759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_150929) do
     t.string "last_name", default: "", null: false
     t.string "ci", default: "", null: false
     t.string "phone_number"
+    t.text "feedback"
     t.index ["city_id"], name: "index_museum_registration_requests_on_city_id"
     t.index ["created_by_id"], name: "index_museum_registration_requests_on_created_by_id"
     t.index ["department_id"], name: "index_museum_registration_requests_on_department_id"

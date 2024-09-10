@@ -1,0 +1,23 @@
+<div class="header">
+  <p>Solicitud de Registro Aprobada</p>
+</div>
+<div class="content">
+  <p>Hola <%= @full_name %>,</p>
+  <p>
+    Lamentamos informarte que tu solicitud de registro para el museo "<%= @museum_name %>" no ha sido aceptada.
+  </p>
+  <% if @museum_registration_request.feedback %>
+    <p>
+      <strong>Motivo de rechazo:</strong><br>
+      <%= @museum_registration_request.feedback %>
+    </p>
+  <% end %>
+
+  <p>
+    Si consideras que esto ha sido un error o deseas más información, por favor, ponte en contacto con nosotros para que podamos asistirte.
+  </p>
+  <p>
+    Agradecemos tu interés en nuestra plataforma y te animamos a intentarlo nuevamente en el futuro.
+  </p>
+  <p>Saludos cordiales,<br> El equipo de <%= t("global.menu.app_name") %></p>
+</div>

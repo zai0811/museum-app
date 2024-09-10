@@ -1,17 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-</head>
-<body>
-<h1>Nieva <%= @user.name %></h1>
-<p>
-  You have successfully signed up to example.com,
-  your username is: <%= @user.login %>.<br>
-</p>
-<p>
-  To login to the site, just follow this link: <%= @url %>.
-</p>
-<p>Thanks for joining and have a great day!</p>
-</body>
-</html>
+<div class="header">
+  <p>Nueva Solicitud de Registro</p>
+</div>
+
+<div class="content">
+  <p>Hola,</p>
+  <p>Le informamos que ha recibido una nueva solicitud de registro para el museo
+    "<%= @museum_name %>".
+  <ul>
+    <li>Encargado del museo: <%= @full_name %> (<%= @email %>)</li>
+    <li>Solicitud creada por:
+      <% if @created_by %>
+        <%= @created_by.first_name %> <%= @created_by.last_name %> (<%= @created_by.email %>)
+      <% else %>
+        anónimo.
+      <% end %>
+    </li>
+  </ul>
+
+  <p>Ingrese al sistema para ver más detalles.</p>
+  <p>Saludos cordiales,<br> El equipo de <%= t("global.menu.app_name") %></p>
+</div>
