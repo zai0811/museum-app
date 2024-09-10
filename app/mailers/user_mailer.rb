@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: 'notifications@example.com'
+  default from: 'MuseumApp <no-reply@museumapp.com>'
 
   def new_museum_registration_request
     @museum_registration_request = params[:museum_registration_request]

@@ -8,7 +8,7 @@ es:
           has_many: No se puede eliminar el registro porque existen %{record} dependientes
   global:
     menu:
-      home: MuseumAppDev
+      app_name: MuseumAppDev
       users_list: Usuarios
       registrations_request_list: Solicitudes de Registro
       museums_list: Museos
