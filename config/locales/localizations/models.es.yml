@@ -39,6 +39,10 @@ es:
         updated_by: "Actualizado por"
         feedback: "Mensaje"
         anonymous: "Anónimo"
+        city_id: "Ciudad"
+        department_id: "Departamento"
+        city: "Ciudad"
+        department: "Departamento"
         registration_status: "Estado"
         registration_statuses:
           not_reviewed: "Esperando Aprobación"

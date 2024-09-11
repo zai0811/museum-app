@@ -10,12 +10,16 @@
     </div>
   </div>
 
-  <%= form_with(model: @museum_registration_request) do |form| %>
-    <% if @museum_registration_request.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(@museum_registration_request.errors.count, "error") %> prohibited this
-          museum_registration_request from being saved:</h2>
+  <%= form_with( model: @museum_registration_request,
+                 class: "needs-validation",
+                 data: { controller: "form-validator" }) do |form| %>
 
+    <% if @museum_registration_request.errors.any? %>
+      <div class="validation-errors">
+        <p>
+          <%= t("activerecord.errors.messages.record_invalid") %>
+          <%= pluralize(@museum_registration_request.errors.count, "errores") %>:
+        </p>
         <ul>
           <% @museum_registration_request.errors.each do |error| %>
             <li><%= error.full_message %></li>
@@ -31,12 +35,18 @@
     </div>
 
     <div class="col-sm-6 mb-3">
-      <%= form.label :museum_code, class: "form-label" %>
+      <%= form.label :museum_code, class: "form-label" %> <span class="small text-secondary"><%= t(".optional") %></span>
+      <p class="small text-secondary mb-1">
+        <%= t(".museum_code_explanation") %>
+      </p>
       <%= form.text_field :museum_code, class: "form-control" %>
     </div>
 
     <div class="col-sm-6 mb-3">
-      <%= form.label :registration_doc, class: "form-label" %>
+      <%= form.label :registration_doc, class: "form-label" %>  <span class="small text-secondary"><%= t(".optional") %></span>
+      <p class="small text-secondary mb-1">
+        <%= t(".museum_code_document") %>
+      </p>
       <%= form.file_field :registration_doc, class: "form-control" %>
     </div>
 
@@ -46,7 +56,7 @@
     </div>
 
     <div data-controller="department-city-picker" class="row pb-3">
-      <div class="col-md-2 mb-3">
+      <div class="col-md-3 mb-3">
         <%= form.label t("museum_registration_requests.new.department"), class: "form-label" %>
         <%= form.select :department_id,
                         @departments,
@@ -55,7 +65,7 @@
 
       </div>
 
-      <div class="col-md-2 mb-3">
+      <div class="col-md-3 mb-3">
         <%= form.label t("museum_registration_requests.new.city"), class: "form-label" %>
         <%= form.select :city_id,
                         [],
@@ -68,25 +78,30 @@
     <% unless current_user %>
       <div class="col-sm-6 mb-3 border-top pt-2">
         <h6 class="my-3"><%= t(".requester_data") %></h6>
-        <p> <%= t(".requester_info") %></p>
+        <p><i class="bi bi-info-circle pe-2"></i><%= t(".requester_info") %></p>
         <%= form.label :manager_email, class: "form-label" %>
         <%= form.email_field :manager_email, class: "form-control mb-3", placeholder: "correo@museo.com.py" %>
 
-        <%= form.label :first_name, class: "form-label" %>
-        <%= form.text_field :first_name, class: "form-control mb-3" %>
-
-        <%= form.label :last_name, class: "form-label" %>
-        <%= form.text_field :last_name, class: "form-control mb-3" %>
+        <div class="row">
+          <div class="col-auto ">
+            <%= form.label :first_name, class: "form-label" %>
+            <%= form.text_field :first_name, class: "form-control mb-3" %>
+          </div>
+          <div class="col-auto">
+            <%= form.label :last_name, class: "form-label" %>
+            <%= form.text_field :last_name, class: "form-control mb-3" %>
+          </div>
+        </div>
 
         <%= form.label :ci, class: "form-label" %>
         <%= form.text_field :ci, class: "form-control mb-3" %>
 
         <%= form.label :phone_number, class: "form-label" %>
-        <%= form.text_field :phone_number, class: "form-control mb-3", placeholder: "+595 985 111 111" %>
+        <%= form.text_field :phone_number, class: "form-control mb-3", placeholder: "(0985) 111 111" %>
       </div>
     <% end %>
     <div>
-      <%= form.submit class: "btn btn-primary cta", placeholder: "correo@museo.com.py" %>
+      <%= form.submit t(".send_request"), class: "btn btn-primary cta", placeholder: "correo@museo.com.py" %>
     </div>
   <% end %>
 </div>

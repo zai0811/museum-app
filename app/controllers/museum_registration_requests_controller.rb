@@ -2,6 +2,9 @@ class MuseumRegistrationRequestsController < ApplicationController
   prepend_before_action :set_museum_registration_request, only: %i[ show update ]
   skip_before_action :authenticate_user!, only: %i[ new create cities ]
   skip_before_action :authorize_user!, only: %i[ new create cities ]
+  after_action :notify_new_request, only: :create
+  after_action :notify_updated_request, only: :update
+  before_action :set_department_city, only: :new
 
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
@@ -21,8 +24,6 @@ class MuseumRegistrationRequestsController < ApplicationController
   # GET /museum_registration_requests/new
   def new
     @museum_registration_request = MuseumRegistrationRequest.new
-    @cities = City.all
-    @departments = Department.order(:name).map { |department| [department.name, department.id] }
   end
 
   # POST /museum_registration_requests or /museum_registration_requests.json
@@ -40,10 +41,9 @@ class MuseumRegistrationRequestsController < ApplicationController
 
     respond_to do |format|
       if @museum_registration_request.save
-        UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request.deliver_later
-        UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request_user.deliver_later
         format.html { redirect_to root_path, notice: t(".success") }
       else
+        set_department_city
         format.html { render :new, status: :unprocessable_entity }
       end
     end
@@ -51,16 +51,12 @@ class MuseumRegistrationRequestsController < ApplicationController
 
   def edit
   end
+
   def update
-      if @museum_registration_request.update(museum_registration_request_params)
-        if @museum_registration_request.approved?
-          UserMailer.with(museum_registration_request: @museum_registration_request).approved_museum_registration_request.deliver_later
-        elsif @museum_registration_request.rejected?
-          UserMailer.with(museum_registration_request: @museum_registration_request).rejected_museum_registration_request.deliver_later
-        end
-        redirect_to museum_registration_request_url(@museum_registration_request), notice: "Actualizado correctamente"
-      else
-        render :show, status: :unprocessable_entity
+    if @museum_registration_request.update(museum_registration_request_params)
+      redirect_to museum_registration_request_url(@museum_registration_request), notice: t(".success")
+    else
+      render :show, status: :unprocessable_entity
     end
   end
 
@@ -108,6 +104,30 @@ class MuseumRegistrationRequestsController < ApplicationController
 
   def get_archived
     @museum_registration_requests = MuseumRegistrationRequest.where(registration_status: MuseumRegistrationRequest::ARCHIVED)
+  end
+
+  # after_action callbacks are executed if the action was successful
+  def notify_new_request
+    UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request.deliver_later
+    UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request_user.deliver_later
+  rescue StandardError
+    flash.now[:alert] = "Algo salió mal con la notificación de creación!"
+  end
+
+  def notify_updated_request
+    if @museum_registration_request.approved?
+      UserMailer.with(museum_registration_request: @museum_registration_request).approved_museum_registration_request.deliver_later
+    elsif @museum_registration_request.rejected?
+      UserMailer.with(museum_registration_request: @museum_registration_request).rejected_museum_registration_request.deliver_later
+    end
+  rescue StandardError
+    flash.now[:alert] = "Algo salió mal con la notificación de actualización!"
+
+  end
+
+  def set_department_city
+    @cities = City.all
+    @departments = Department.order(:name).map { |department| [department.name, department.id] }
   end
 
   def authorize_user!

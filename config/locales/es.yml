@@ -2,18 +2,19 @@ es:
   activerecord:
     errors:
       messages:
-        record_invalid: 'La validación falló: %{errors}'
+        record_invalid: 'La validación falló con'
         restrict_dependent_destroy:
-          has_one: No se puede eliminar el registro porque existe un %{record} dependiente
-          has_many: No se puede eliminar el registro porque existen %{record} dependientes
+          has_one: "No se puede eliminar el registro porque existe un %{record} dependiente"
+          has_many: "No se puede eliminar el registro porque existen %{record} dependientes"
   global:
     menu:
-      app_name: MuseumAppDev
-      users_list: Usuarios
-      registrations_request_list: Solicitudes de Registro
-      museums_list: Museos
-      profile: Perfil
-      log_out: Cerrar sesión
+      app_name: "MuseumAppDev"
+      users_list: "Usuarios"
+      registrations_request_list: "Solicitudes de Registro"
+      museums_list: "Museos"
+      new_registration_request: "Registrar Museo"
+      profile: "Perfil"
+      log_out: "Cerrar sesión"
     errors:
       messages:
         unauthorized: "No estás autorizado para realizar esta accion."
