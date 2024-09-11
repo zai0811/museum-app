@@ -48,7 +48,7 @@
           <% end %>
         </ul>
 
-        <%= link_to "Registrar Museo", new_museum_registration_request_path, class: "btn cta btn-primary mb-3 mb-lg-0 me-lg-3" %>
+        <%= link_to t("global.menu.new_registration_request"), new_museum_registration_request_path, class: "btn cta btn-primary mb-3 mb-lg-0 me-lg-3" %>
         <% if user_signed_in %>
           <div class="dropdown text-end">
             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">

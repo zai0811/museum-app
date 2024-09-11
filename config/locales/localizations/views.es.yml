@@ -10,7 +10,6 @@ es:
       header_icon_hidden: "Oculto"
   museum_registration_requests:
     index:
-      create: "Registrar Museo"
       view: " Ver"
       view_archived: "Ver solicitudes archivadas"
       department: "Departamento"
@@ -53,15 +52,19 @@ es:
       confirm: "Aceptar"
       cancel: "Cancelar"
     new:
-      title: "Nueva Solicitud de Registro"
-      info: "Puedes enviar una solicitud de registro para añadir un museo a nuestro sistema."
+      title: "Solicitud de Registro"
+      info: "Envía una solicitud para agregar un museo a nuestro sistema. Este sistema es solo para administradores de museos. Asegúrate de tener los permisos necesarios antes de continuar."
       info_logged_user: "Serás asignado como el encargado de este museo automáticamente."
       back: "Volver a la lista de solicitudes"
       department: "Departamento"
       city: "Ciudad"
-      requester_data: "Datos del solicitante"
-      requester_info: "El solicitante será el encargado de administrar el museo en el sistema si la solicitud es aceptada."
+      requester_data: "Datos del encargado"
+      requester_info: "Importante: El correo ingresado en esta sección será utilizado para acceder al sistema y gestionar el museo si se aprueba la solicitud."
       museum_data: "Datos del museo"
+      museum_code_explanation: "Código de resolución otorgado por la Secretaría Nacional de Cultura."
+      museum_code_document: "Documento escaneado de la resolución. Se acepta pdf solamente."
+      send_request: "Enviar solicitud"
+      optional: "(Opcional)"
     archived:
       back: "Volver a la lista de solicitudes"
   museums:
