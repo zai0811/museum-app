@@ -16,7 +16,10 @@ es:
       city: "Ciudad"
       manager_email: "Correo del encargado"
       museum_name: "Museo"
+      museum_code: "Resolución"
       request_status: "Estado de solicitud"
+      created_at: "Creado el"
+      updated_at: "Actualizado el"
     show:
       back: "Volver a la lista de solicitudes"
       approve_button: " Aprobar"

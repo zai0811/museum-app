@@ -17,6 +17,14 @@ class MuseumRegistrationRequest < ApplicationRecord
 
   scope :active_status, -> { where(registration_status: [NOT_REVIEWED, APPROVED, REJECTED]) }
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["museum_name", "registration_status", "manager_email", "created_at", "updated_at"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["city"]
+  end
+
   # Should not perform further updates to approved requests
   def check_registration_status!
     if self.approved?
