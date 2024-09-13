@@ -151,7 +151,7 @@ es:
       piece_number: "Número"
       piece_created_at: "Creado el"
       piece_updated_at: "Actualizado el"
-      search_info: "Nombre, descripción"
+      search_info: "Nombre"
     edit:
       title: "Editar colección"
   pieces:
