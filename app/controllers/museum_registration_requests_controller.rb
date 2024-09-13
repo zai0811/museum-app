@@ -5,7 +5,6 @@ class MuseumRegistrationRequestsController < ApplicationController
   after_action :notify_new_request, only: :create
   after_action :notify_updated_request, only: :update
   before_action :set_department_city, only: :new
-  include Pagy::Backend
 
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
@@ -13,7 +12,7 @@ class MuseumRegistrationRequestsController < ApplicationController
     @q = MuseumRegistrationRequest.ransack(params[:q])
 
     if current_user.admin?
-      @pagy, @museum_registration_requests = pagy(@q.result, limit: 10)
+      @pagy, @museum_registration_requests = pagy(@q.result)
     else
       @museum_registration_requests = MuseumRegistrationRequest.where(created_by_id: current_user.id)
     end

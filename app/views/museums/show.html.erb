@@ -60,9 +60,9 @@
 
     <!-- Collection section -->
     <!-- Render the piece_collections/_piece_collection partial -->
-    <section class="page-table-section mb-4">
+    <section class="page-table-section mb-1">
       <div class="row pt-3">
-        <div class="col "><h4><%= t("museums.show.collections") %></h4></div>
+        <div class="col"><h4><%= t("museums.show.collections") %></h4></div>
         <div class="col text-end">
           <%= link_to t(".create_collection"),
                       new_museum_piece_collection_path(@museum),
@@ -74,12 +74,17 @@
       <!-- Empty tag that will be replaced with the New Form for the piece collection -->
       <%= turbo_frame_tag PieceCollection.new %>
 
-      <div class="table-responsive">
-        <table class="table">
+      <div class="table-responsive-md mt-2">
+        <table class="table data-table">
           <thead class="table align-miple">
           <tr>
-            <th scope="col"> <%= PieceCollection.human_attribute_name("name") %> </th>
-            <th scope="col"> <%= PieceCollection.human_attribute_name("status") %> </th>
+            <th scope="col">
+              <%= sort_link(@q, :name, t(".piece_collection_name"), class: "table-header-links") %>
+            </th>
+            <th scope="col">
+              <%= sort_link(@q, :status, t(".piece_collection_status"), class: "table-header-links") %>
+            </th>
+            <th scope="col"> <%= t(".is_temporary") %> </th>
             <th scope="col" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="<%= t(".tooltip_published_pieces") %>">
               <%= t(".published_pieces") %>
             </th>
@@ -97,13 +102,20 @@
           </tbody>
         </table>
       </div>
+      <div class="d-flex flex-row-reverse justify-content-baseline">
+        <div class="col-auto">
+          <div class="justify-content-endy">
+            <%== pagy_bootstrap_nav(@pagy, classes:"pagination pagination-sm") %>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 <% else %>
   <%= render partial: 'museum_visitor_page', locals: { museum: @museum, piece_collection: @piece_collections } %>
 <% end %>
 
-<div class="container my-3">
+<div class="container mb-3">
   <div data-controller="museum-map"
        data-museum-map-lat-value="<%= @museum.latitude %>"
        data-museum-map-long-value="<%= @museum.longitude %>"
@@ -118,7 +130,7 @@
                 id="edit"
                 data-action="click->museum-map#editCoordinates"
                 data-museum-map-target="editBtn">
-         <%= t(".edit_location") %>
+          <%= t(".edit_location") %>
         </button>
 
         <%= form_with(model: @museum) do |form| %>

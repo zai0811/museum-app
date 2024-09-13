@@ -7,6 +7,15 @@ class User < ApplicationRecord
   has_many :museums
   has_many :museum_registration_requests
   validates_presence_of :email
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "email" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
+
   def museum_owner?(museum)
     museum.in?(museums)
   end

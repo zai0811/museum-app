@@ -18,11 +18,11 @@ class Museum < ApplicationRecord
   validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
 
   def self.ransackable_attributes(auth_object = nil)
-    ["name", "about", "address"]
+    ["name", "about", "address", "code", "status", "created_at"]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["city"]
+    ["city", "user", "piece_collection"]
   end
 
   def update_status!(status)

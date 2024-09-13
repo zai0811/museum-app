@@ -12,6 +12,7 @@
       <%= t("activerecord.attributes.piece_collection.statuses.#{piece_collection.status}") %>
     </span>
   </td>
+  <td> <%= piece_collection.is_temporary ? "Sí" : "No" %></td>
   <td> <%= piece_collection.published_pieces_count%></td>
   <td> <%= piece_collection.pieces_count %></td>
   <td>

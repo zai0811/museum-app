@@ -35,16 +35,19 @@ h1, h2, h3, h4 {
 
 
 //Breadcrumb
-
 .breadcrumb-item{
   font-family: $font-family-heading;
 }
 
 // Tables
-.data-table-section-start{
-  padding: 2rem 2rem;
+.data-table{
+  @extend #{".table-bordered"}
 }
-
 .table-header-links {
   @extend #{".link-body-emphasis", ".link-underline", ".link-underline-opacity-0"}
+}
+
+// Pagination
+.pagination-showing-count {
+  @extend #{".small", ".text-secondary", ".text-center"}
 }
