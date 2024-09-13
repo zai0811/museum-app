@@ -11,7 +11,7 @@
         <% end %>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        Solicitudes de registro
+        <%= MuseumRegistrationRequest.model_name.human(count: 2) %>
       </li>
     </ol>
   </nav>
@@ -21,22 +21,54 @@
       <span class="main_heading"> <%= MuseumRegistrationRequest.model_name.human(count: 2) %> </span>
     </div>
     <div class="p-2 bd-highlight">
-      <%= button_to t("global.menu.new_registration_request"), new_museum_registration_request_path, method: :get, class: "btn btn-primary cta" %>
+      <%= button_to t("global.menu.new_registration_request"), new_museum_registration_request_path, method: :get, class: "btn btn-primary" %>
     </div>
   </div>
 
+  <div class="row justify-content-end align-items-center">
+    <div class="col-auto">
+      <div class="input-group">
+        <%= search_form_for @q, class: "input-group" do |f| %>
+          <%= f.search_field :museum_name_or_manager_email_or_city_name_cont,
+                             class: "form-control form-control",
+                             placeholder: "Museo, correo, ciudad" %>
+          <%= f.submit "Buscar", class: "btn btn-light" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="pagination-showing-count">
+        <%== pagy_info(@pagy, item_name: "") %>
+      </div>
+      <%== pagy_bootstrap_nav(@pagy) %>
+    </div>
+  </div>
 
-  <div class="table-responsive data-table-section-start">
-    <table class="table">
+  <div class="table-responsive-md">
+    <table class="table data-table">
       <thead class="table align-middle">
       <tr>
-        <th scope="col"><%= t(".museum_name") %></th>
-        <th scope="col"><%= t(".request_status") %></th>
-        <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("museum_code") %></th>
-        <th scope="col"><%= t(".city") %></th>
-        <th scope="col"><%= t(".manager_email") %></th>
-        <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("created_at") %></th>
-        <th scope="col"><%= MuseumRegistrationRequest.human_attribute_name("updated_at") %></th>
+        <th scope="col">
+          <%= sort_link(@q, :museum_name, t(".museum_name"), class: "table-header-links") %>
+        </th>
+        <th scope="col">
+          <%= sort_link(@q, :registration_status, t(".request_status"), default_order: :asc, class: "table-header-links") %>
+        </th>
+        <th scope="col">
+          <%= sort_link(@q, :museum_code, t(".museum_code"), class: "table-header-links") %>
+        </th>
+        <th scope="col">
+          <%= sort_link(@q, :manager_email, t(".manager_email"), class: "table-header-links") %>
+        </th>
+        <th scope="col">
+          <%= sort_link(@q, :city_name, t(".city"), class: "table-header-links") %>
+        </th>
+        <th scope="col">
+          <%= sort_link(@q, :created_at, t(".created_at"), class: "table-header-links") %>
+        </th>
+        <th scope="col">
+          <%= sort_link(@q, :updated_at, t(".updated_at"), class: "table-header-links") %>
+        </th>
       </tr>
       </thead>
       <tbody class="align-middle">
@@ -53,8 +85,8 @@
               </span>
             </td>
             <td> <%= museum_registration_request.museum_code %></td>
-            <td> <%= museum_registration_request.city.name %> </td>
             <td> <%= museum_registration_request.manager_email %></td>
+            <td> <%= museum_registration_request.city.name %> </td>
             <td> <%= l(museum_registration_request.created_at) %></td>
             <td>
               <% if museum_registration_request.updated_by %>

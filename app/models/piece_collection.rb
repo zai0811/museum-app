@@ -9,6 +9,14 @@ class PieceCollection < ApplicationRecord
 
   enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED }, default: :hidden
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["name", "is_temporary", "status"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["museum"]
+  end
+
   def update_status!(status)
     return false unless status.in?([NOT_PUBLISHED, PUBLISHED, ARCHIVED])
     update!(status: status)

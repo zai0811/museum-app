@@ -6,13 +6,15 @@ class PieceCollectionsController < ApplicationController
 
   # GET /piece_collections or /piece_collections.json
   def index
-    @piece_collections = @museum.piece_collections
+    @pagy= pagy(@museum.piece_collections, limit: 5)
   end
 
   # GET /piece_collections/1 or /piece_collections/1.json
   def show
-    archived_pieces = Piece.where(status: Piece::ARCHIVED)
-    @pieces = @piece_collection.pieces.excluding(archived_pieces)
+    @q = Piece
+           .where(piece_collection_id: @piece_collection.id, status: [Piece::NOT_PUBLISHED, Piece::PUBLISHED])
+           .ransack(params[:q])
+    @pagy, @pieces = pagy(@q.result)
   end
 
   # GET /piece_collections/new

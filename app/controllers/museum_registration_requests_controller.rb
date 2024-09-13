@@ -9,8 +9,10 @@ class MuseumRegistrationRequestsController < ApplicationController
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
     # to-do: should review logic for showing or hiding items, also, should review the option to show or hide registration requests from non-admin creators
+    @q = MuseumRegistrationRequest.ransack(params[:q])
+
     if current_user.admin?
-      @museum_registration_requests = MuseumRegistrationRequest.all
+      @pagy, @museum_registration_requests = pagy(@q.result)
     else
       @museum_registration_requests = MuseumRegistrationRequest.where(created_by_id: current_user.id)
     end

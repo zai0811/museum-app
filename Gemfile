@@ -75,3 +75,4 @@ gem "cssbundling-rails", "~> 1.4"
 gem "jsbundling-rails", "~> 1.3"
 gem "ransack"
 gem "aws-sdk-s3", require: false
+gem "pagy"

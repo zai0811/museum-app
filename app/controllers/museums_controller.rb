@@ -7,13 +7,15 @@ class MuseumsController < ApplicationController
   def index
     @archived_museums = Museum.where(status: Museum::ARCHIVED)
     @q = Museum.ransack(params[:q])
-    @museums = @q.result(distinct: true).includes(:city).excluding(@archived_museums)
+    @pagy, @museums = pagy(@q.result.includes(:city, :user))
   end
 
   # GET /museums/1 or /museums/1.json
   def show
-    archived_collections = PieceCollection.where(status: PieceCollection::ARCHIVED)
-    @piece_collections = @museum.piece_collections.excluding(archived_collections)
+    @q = PieceCollection
+           .where(museum_id: @museum.id, status: [PieceCollection::NOT_PUBLISHED, PieceCollection::PUBLISHED])
+           .ransack(params[:q])
+    @pagy, @piece_collections = pagy(@q.result, limit: 5)
   end
 
   # GET /museums/new

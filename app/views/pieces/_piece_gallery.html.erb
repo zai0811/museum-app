@@ -1,4 +1,4 @@
-<div class="photo-gallery">
+<div class="photo-gallery pt-3">
   <% pieces.each do |piece| %>
     <% if piece.published? || owner_or_admin %>
       <div class="card shadow-sm photo-card" id="<%= dom_id piece %>">

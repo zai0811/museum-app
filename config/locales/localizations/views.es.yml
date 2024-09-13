@@ -16,7 +16,10 @@ es:
       city: "Ciudad"
       manager_email: "Correo del encargado"
       museum_name: "Museo"
+      museum_code: "Resolución"
       request_status: "Estado de solicitud"
+      created_at: "Creado el"
+      updated_at: "Actualizado el"
     show:
       back: "Volver a la lista de solicitudes"
       approve_button: " Aprobar"
@@ -72,6 +75,9 @@ es:
       title: "Explorar Museos"
       create: "Crear nuevo museo"
       view: "Ver más"
+      name: "Nombre"
+      code: "Resolución"
+      status: "Estado"
       department: "Departamento"
       city: "Ciudad"
       admin: "Encargado"
@@ -79,6 +85,8 @@ es:
       make_private: " Ocultar"
       make_public: " Hacer Visible"
       archive: "Archivar"
+      search_info: "Nombre, resolución, correo, ciudad"
+      created_at: "Creado el"
     show:
       back: "Volver a explorar museos"
       edit: "Editar museo"
@@ -105,6 +113,9 @@ es:
       collections: "Colecciones"
       create_collection: "Nueva colleción"
       cancel: "Cancelar"
+      is_temporary: "Temporal"
+      piece_collection_name: "Nombre"
+      piece_collection_status: "Estado"
     new:
       title: "Nuevo Museo"
       back: "Volver a explorar museos"
@@ -135,6 +146,12 @@ es:
       cancel: "Cancelar"
       see_table: "Ver como tabla"
       see_gallery: "Ver como galeria"
+      piece_name: "Nombre"
+      piece_status: "Estado"
+      piece_number: "Número"
+      piece_created_at: "Creado el"
+      piece_updated_at: "Actualizado el"
+      search_info: "Nombre"
     edit:
       title: "Editar colección"
   pieces:

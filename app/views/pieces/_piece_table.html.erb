@@ -1,11 +1,22 @@
-<div class="table-responsive pt-3">
-  <table class="table">
+<div class="table-responsive-md pt-3">
+  <table class="table data-table">
     <thead class="table align-middle">
     <tr>
-      <th scope="col"> <%= Piece.human_attribute_name("name") %> </th>
-      <th scope="col"> <%= Piece.human_attribute_name("number") %> </th>
-      <th scope="col"> <%= Piece.human_attribute_name("status") %> </th>
-      <th scope="col"> <%= Piece.human_attribute_name("updated_at") %> </th>
+      <th scope="col">
+        <%= sort_link(@q, :name, t("piece_collections.show.piece_name"), class: "table-header-links") %>
+      </th>
+      <th scope="col">
+        <%= sort_link(@q, :status, t("piece_collections.show.piece_status"), class: "table-header-links") %>
+      </th>
+      <th scope="col">
+        <%= sort_link(@q, :number, t("piece_collections.show.piece_number"), class: "table-header-links") %>
+      </th>
+      <th scope="col">
+        <%= sort_link(@q, :created_at, t("piece_collections.show.piece_created_at"), class: "table-header-links") %>
+      </th>
+      <th scope="col">
+        <%= sort_link(@q, :updated_at, t("piece_collections.show.piece_updated_at"), class: "table-header-links") %>
+      </th>
       <th scope="col"> <%= t(".actions") %> </th>
     </tr>
     </thead>
@@ -17,12 +28,15 @@
                       piece_path(piece),
                       class: "link-primary" %>
         </td>
-        <td> <%= piece.number %></td>
         <td>
           <i class="icon icon_<%= piece.status %>"> </i>
           <span>
                 <%= t("activerecord.attributes.piece.statuses.#{piece.status}") %>
               </span>
+        </td>
+        <td> <%= piece.number %></td>
+        <td>
+          <%= l(piece.created_at) %>
         </td>
         <td>
           <% if piece.updated_at %>
