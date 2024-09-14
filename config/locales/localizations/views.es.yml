@@ -197,6 +197,20 @@ es:
       new: "Crear material"
     edit:
       title: "Editar material"
+    new:
+      title: "Nuevo material"
     show:
       title: "Material"
       delete: "Eliminar"
+  object_types:
+    index:
+      title: "Objetos"
+      actions: "Acciones"
+      new: "Crear objeto"
+    new:
+      title: "Nuevo objeto"
+    edit:
+      title: "Editar objeto"
+    show:
+      title: "Objeto"
+      delete: "Eliminar objeto"

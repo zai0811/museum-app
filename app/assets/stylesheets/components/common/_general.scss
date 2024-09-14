@@ -13,6 +13,10 @@ $font-family-heading: Candara, 'Noto Sans', source-sans-pro, sans-serif, system-
   font-weight: bold;
 }
 
+.secondary_action{
+  @extend .btn-outline-dark
+}
+
 // Text
 h1, h2, h3, h4 {
   font-family: $font-family-heading;
