@@ -6,6 +6,7 @@ class Piece < ApplicationRecord
   belongs_to :piece_collection
   belongs_to :material, optional: true
   belongs_to :author, optional: true
+  belongs_to :object_type, optional: true
   has_one_attached :image
 
   validates_presence_of :name

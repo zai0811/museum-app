@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Object types</h1>
+
+<div id="object_types">
+  <% @object_types.each do |object_type| %>
+    <%= render object_type %>
+    <p>
+      <%= link_to "Show this object type", object_type %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New object type", new_object_type_path %>

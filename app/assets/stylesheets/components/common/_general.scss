@@ -22,6 +22,7 @@ h1, h2, h3, h4 {
   font-family: $font-family-heading;
   font-size: $h1-font-size;
   font-weight: 600;
+  @extend .lh-1;
 }
 .gallery_heading {
   font-family: $font-family-heading;

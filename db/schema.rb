@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_14_120532) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_14_221217) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -117,6 +117,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_14_120532) do
     t.index ["user_id"], name: "index_museums_on_user_id"
   end
 
+  create_table "object_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "piece_collections", force: :cascade do |t|
     t.string "name", null: false
     t.integer "status", null: false
@@ -133,7 +139,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_14_120532) do
     t.integer "number"
     t.text "description"
     t.string "measurement"
-    t.integer "conservation_state"
+    t.text "in_display_info"
     t.integer "status", null: false
     t.bigint "piece_collection_id", null: false
     t.datetime "created_at", null: false
@@ -141,8 +147,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_14_120532) do
     t.bigint "material_id"
     t.bigint "author_id"
     t.text "copyright_info"
+    t.bigint "object_type_id"
+    t.string "period"
+    t.boolean "in_display", default: true
+    t.text "conservation_state"
     t.index ["author_id"], name: "index_pieces_on_author_id"
     t.index ["material_id"], name: "index_pieces_on_material_id"
+    t.index ["object_type_id"], name: "index_pieces_on_object_type_id"
     t.index ["piece_collection_id"], name: "index_pieces_on_piece_collection_id"
   end
 
@@ -188,5 +199,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_14_120532) do
   add_foreign_key "piece_collections", "museums"
   add_foreign_key "pieces", "authors"
   add_foreign_key "pieces", "materials"
+  add_foreign_key "pieces", "object_types"
   add_foreign_key "pieces", "piece_collections"
 end

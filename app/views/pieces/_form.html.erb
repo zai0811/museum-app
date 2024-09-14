@@ -12,60 +12,66 @@
       </div>
     <% end %>
 
-    <div class="col-sm-6 mb-3">
+    <div class="col-sm-6 mb-3 border-top pt-2">
+      <h6 class="my-3"><%= t("pieces.new.public_data") %></h6>
       <%= form.label :name, class: "form-label" %>
-      <%= form.text_field :name, class: "form-control" %>
-    </div>
+      <%= form.text_field :name, class: "form-control mb-3" %>
 
-    <div class="col-sm-6 mb-3">
-      <%= form.label :author, class: "form-label" %>
-      <%= form.collection_select :author_id, Author.order(:last_name), :id, :full_name_reversed, { include_blank: 'Seleccione' }, class: "form-select" %>
-    </div>
-
-    <div class="col-sm-6 mb-3">
-      <%= form.label :number, class: "form-label" %>
-      <%= form.number_field :number, class: "form-control" %>
-    </div>
-
-    <div class="col-sm-6 mb-3">
       <%= form.label :description, class: "form-label" %>
-      <%= form.text_area :description, class: "form-control" %>
-    </div>
+      <%= form.text_area :description, class: "form-control mb-3" %>
 
-    <div class="col-sm-6 mb-3">
       <%= form.label :copyright_info, class: "form-label" %>
       <p class="small text-secondary mb-1">
         <%= t("pieces.new.copyright_info_explanation") %>
       </p>
-      <%= form.text_area :copyright_info, class: "form-control" %>
-    </div>
+      <%= form.text_area :copyright_info, class: "form-control mb-3" %>
 
-    <div class="col-sm-6 mb-3">
+      <%= form.label :author, class: "form-label" %>
+      <%= form.collection_select :author_id, Author.order(:last_name), :id, :full_name_reversed, { include_blank: 'Seleccione' }, class: "form-select mb-3" %>
+
       <%= form.label :material, class: "form-label" %>
-      <%= form.collection_select :material_id, Material.order(:name), :id, :name, { include_blank: 'Seleccione' }, class: "form-select" %>
-    </div>
+      <%= form.collection_select :material_id, Material.order(:name), :id, :name, { include_blank: 'Seleccione' }, class: "form-select mb-3" %>
 
-    <div class="col-sm-6 mb-3">
+      <%= form.label :object_type, class: "form-label" %>
+      <%= form.collection_select :object_type_id, ObjectType.order(:name), :id, :name, { include_blank: 'Seleccione' }, class: "form-select mb-3" %>
+
       <%= form.label :measurement, class: "form-label" %>
-      <%= form.text_field :measurement, class: "form-control" %>
-    </div>
+      <%= form.text_field :measurement, class: "form-control mb-3" %>
 
-    <div class="col-sm-6 mb-3">
       <%= form.label :image, class: "form-label" %>
-      <%= form.file_field :image, class: "form-control" %>
+      <%= form.file_field :image, class: "form-control mb-3" %>
     </div>
 
-    <div class="col-sm-6 my-3">
-      <%= form.label :status, class: "form-label" %>
-      <div class="form-check">
-        <%= form.radio_button :status, Piece::NOT_PUBLISHED, { checked: piece.hidden?, class: "form-check-input" } %>
-        <%= form.label t("activerecord.attributes.piece.statuses.hidden"), class: "form-check-label" %>
+    <div class="col-sm-6 mb-3 border-top mt-4">
+      <h6 class="my-3"><%= t("pieces.new.admin_data") %></h6>
+      <div class="mb-3">
+        <%= form.label :status, class: "form-label" %>
+        <div class="form-check">
+          <%= form.radio_button :status, Piece::NOT_PUBLISHED, { checked: piece.hidden?, class: "form-check-input" } %>
+          <%= form.label t("activerecord.attributes.piece.statuses.hidden"), class: "form-check-label" %>
+        </div>
+        <div class="form-check">
+          <%= form.radio_button :status, Piece::PUBLISHED, { checked: piece.published?, class: "form-check-input" } %>
+          <%= form.label t("activerecord.attributes.piece.statuses.published"), class: "form-check-label" %>
+        </div>
       </div>
 
-      <div class="form-check">
-        <%= form.radio_button :status, Piece::PUBLISHED, { checked: piece.published?, class: "form-check-input" } %>
-        <%= form.label t("activerecord.attributes.piece.statuses.published"), class: "form-check-label" %>
+      <%= form.label :number, class: "form-label" %>
+      <%= form.number_field :number, class: "form-control mb-3" %>
+
+      <div class="form-check form-switch">
+        <%= form.check_box :in_display, class: "form-check-input", role: "switch" %>
+        <%= form.label :in_display, class: "form-check-label" %>
       </div>
+
+      <%= form.label :in_display_info, class: "form-label" %>
+      <p class="small text-secondary mb-1">
+        <%= t("pieces.new.in_display_info_explanation") %>
+      </p>
+      <%= form.text_area :in_display_info, class: "form-control mb-3" %>
+
+      <%= form.label :conservation_state, class: "form-label" %>
+      <%= form.text_area :conservation_state, class: "form-control mb-3" %>
     </div>
 
     <div class="col-sm-6 mb-3">

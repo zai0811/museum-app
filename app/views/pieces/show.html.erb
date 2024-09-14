@@ -25,8 +25,8 @@
   </nav>
 
   <section class="page-info-section">
-    <div class="row">
-      <div class="col-lg-7 col-md-6" data-controller="info-handler">
+    <div class="row g-5" data-controller="info-handler">
+      <div class="col-xxl-7 col-xl-6">
         <div class="d-flex justify-content-center image-container">
           <% if @piece.image.attached? %>
             <%= image_tag(@piece.image, class: "img-fluid rounded-3") %>
@@ -34,7 +34,6 @@
             <%= image_tag("piece_placeholder_image.png", class: "img-fluid rounded-3") %>
           <% end %>
         </div>
-
         <% if @piece.copyright_info? %>
           <div class="copyright-overlay text-truncate" data-info-handler-target="infoOverlay">
             <%= @piece.copyright_info %>
@@ -46,56 +45,78 @@
         <% end %>
       </div>
 
-      <div class="col-lg-5 col-md-6" id="<%= dom_id @piece %>">
-        <div class="d-flex flex-column ps-3">
-          <div class="d-flex align-items-center">
-            <% if owner_or_admin %>
-              <div class="flex-grow-1">
+      <div class="col-xxl-5 col-xl-6" id="<%= dom_id @piece %>">
+        <div class="d-flex flex-wrap align-items-center">
+          <% if owner_or_admin %>
+            <div class="flex-grow-1 pb-3">
                 <span class="icon icon_<%= @piece.status %> icon_header me-1"
                       data-bs-toggle="tooltip"
                       data-bs-placement="top"
                       data-bs-title='<%= t("global.tooltips.header_icon_#{@piece.status}") %>'></span>
-                <span class="main_heading"><%= @piece.name %></span>
-              </div>
-              <div>
-                <%= link_to edit_piece_path(@piece), class: "btn btn-outline-dark flex-grow-0" do %>
-                  <i class="bi bi-pencil icon"></i>
-                  <span><%= t(".edit_piece") %></span>
-                <% end %>
-              </div>
-            <% else %>
-              <div class="flex-grow-1">
-                <span class="main_heading"><%= @piece.name %></span>
-              </div>
+              <span class="main_heading"><%= @piece.name %></span>
+            </div>
+            <div class="pb-3">
+              <%= link_to edit_piece_path(@piece), class: "btn btn-outline-dark flex-grow-0" do %>
+                <i class="bi bi-pencil icon"></i>
+                <span><%= t(".edit_piece") %></span>
+              <% end %>
+            </div>
+          <% else %>
+            <span class="main_heading"><%= @piece.name %></span>
+          <% end %>
+        </div>
+
+        <div class="mt-5">
+          <%= tag.p @piece.description %>
+
+          <p class="lh-1 mt-3 pt-3">
+            <span class="icon <%= in_display_class(@piece.in_display) %>"></span>
+            <%= in_display_label(@piece.in_display) %>
+          </p>
+
+          <dl class="row pt-3">
+            <% if @piece.author %>
+              <dt class="col-sm-2"><%= t(".author") %>:</dt>
+              <dd class="col-sm-10"><%= @piece.author.full_name %>  </dd>
             <% end %>
 
-          </div>
-          <div class="mt-5">
-            <p> <%= @piece.description %> </p>
-          </div>
-          <div class="pt-1">
-            <dl class="row">
-              <% if @piece.author %>
-                <dt class="col-sm-2"><%= t(".author") %>:</dt>
-                <dd class="col-sm-10"><%= @piece.author.full_name %>  </dd>
-              <% end %>
+            <% if @piece.material %>
+              <dt class="col-sm-2"><%= t(".material") %>:</dt>
+              <dd class="col-sm-10"> <%= @piece.material.name %> </dd>
+            <% end %>
 
-              <% if owner_or_admin %>
-                <dt class="col-sm-2"><%= Piece.human_attribute_name("number") %>:</dt>
-                <dd class="col-sm-10"><%= @piece.number %> </dd>
-              <% end %>
+            <% if @piece.object_type %>
+              <dt class="col-sm-2"><%= t(".object_type") %>:</dt>
+              <dd class="col-sm-10"> <%= @piece.object_type.name %> </dd>
+            <% end %>
 
-              <% if @piece.material %>
-                <dt class="col-sm-2"><%= t(".material") %>:</dt>
-                <dd class="col-sm-10"> <%= @piece.material.name %> </dd>
-              <% end %>
+            <% unless @piece.measurement.blank? %>
               <dt class="col-sm-2"><%= Piece.human_attribute_name("measurement") %>:</dt>
               <dd class="col-sm-10"> <%= @piece.measurement %>  </dd>
-            </dl>
-          </div>
+            <% end %>
+          </dl>
+
+          <% if owner_or_admin %>
+            <div class="card mt-3">
+              <div class="card-body">
+                <p> <%= Piece.human_attribute_name("number") %>: #<%= @piece.number %></p>
+
+                <% unless @piece.conservation_state.blank? %>
+                  <div class="pt-3 mb-3 border-top">
+                    <%= Piece.human_attribute_name("conservation_state") %>: <%= @piece.conservation_state %>
+                  </div>
+                <% end %>
+
+                <% unless @piece.in_display_info.blank? %>
+                  <div class="pt-3 mb-1 border-top">
+                    <%= Piece.human_attribute_name("in_display_info") %>: <%= @piece.in_display_info %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
-
     </div>
   </section>
 </div>

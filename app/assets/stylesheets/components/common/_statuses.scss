@@ -26,46 +26,56 @@
 
 .icon {
   padding-right: 0.25rem;
+
   &_published {
     @extend .bi;
     @extend .bi-unlock;
   }
+
   &_hidden {
     @extend .bi;
     @extend .bi-lock;
   }
+
   &_archived {
     @extend .bi;
     @extend .bi-archive;
   }
 
-  &_approved{
+  &_approved {
     @extend .bi;
     @extend .bi-check2;
   }
 
-  &_rejected{
+  &_rejected {
     @extend .bi;
     @extend .bi-x;
   }
 
-  &_not_reviewed{
+  &_not_reviewed {
     @extend .bi;
     @extend .bi-hourglass;
   }
 
-  &_collection_temporary{
+  &_collection_temporary {
     @extend .bi;
     @extend .bi-clock;
   }
 
-  &_collection_permanent{
+  &_collection_permanent {
     @extend .bi;
     @extend .bi-infinity;
   }
 
+  &_piece_displayed {
+    @extend #{".bi", ".bi-eye"}
+  }
 
-  &_header{
+  &_piece_not_displayed {
+    @extend #{".bi", ".bi-eye-slash"}
+  }
+
+  &_header {
     font-weight: bold;
     font-size: $h4-font-size;
   }
