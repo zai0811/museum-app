@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :object_types
   resources :authors
   resources :materials
   resources :museums do

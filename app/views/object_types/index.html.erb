@@ -9,7 +9,7 @@
       <h2> <%= t(".title") %> </h2>
     </div>
     <div class="p-2 bd-highlight">
-      <%= link_to t(".new"), new_material_path, class: "btn btn-primary" %>
+      <%= link_to t(".new"), new_object_type_path, class: "btn btn-primary" %>
     </div>
   </div>
 
@@ -22,13 +22,13 @@
       </tr>
       </thead>
       <tbody class="align-middle">
-      <% @materials.each do |material| %>
+      <% @object_types.each do |object_type| %>
         <tr id="">
-          <td> <%= material.name %>  </td>
+          <td> <%= object_type.name %>  </td>
           <td>
             <div class="btn-group">
-              <%= link_to "", material, class: "btn btn-outline-secondary btn-sm bi bi-eye-fill" %>
-              <%= link_to "", edit_material_path(material), class: "btn btn-outline-secondary btn-sm bi bi-pencil-fill" %>
+              <%= link_to "", object_type, class: "btn btn-outline-secondary btn-sm bi bi-eye-fill" %>
+              <%= link_to "", edit_object_type_path(object_type), class: "btn btn-outline-secondary btn-sm bi bi-pencil-fill" %>
             </div>
           </td>
         </tr>

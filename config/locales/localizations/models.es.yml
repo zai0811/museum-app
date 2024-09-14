@@ -22,6 +22,9 @@ es:
       material:
         one: "Material"
         other: "Materiales"
+      object_type:
+        one: "Objeto"
+        other: "Objetos"
     attributes:
       museum_registration_request:
         museum_name: "Nombre"
@@ -84,7 +87,7 @@ es:
           archived: "Archivado"
       piece:
         name: "Nombre"
-        number: "Número"
+        number: "Inventario"
         author: "Autor"
         description: "Descripción"
         material: "Material"
@@ -94,6 +97,11 @@ es:
         created_at: "Creado el"
         updated_at: "Actualizado el"
         image: "Imagen"
+        copyright_info: "Derechos de autor"
+        in_display: "Pieza exhibida"
+        in_display_info: "Detalles de ubicación"
+        period: "Periodo"
+        object_type: "Objeto"
         statuses:
           hidden: "Oculto"
           published: "Visible"
@@ -106,4 +114,6 @@ es:
         first_name: "Nombre"
         last_name: "Apellido"
       material:
+        name: "Nombre"
+      object_type:
         name: "Nombre"

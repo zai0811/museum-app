@@ -10,6 +10,9 @@ application.register("department-city-picker", DepartmentCityPickerController)
 import FlashActionsController from "./flash_actions_controller"
 application.register("flash-actions", FlashActionsController)
 
+import InfoHandlerController from "./info_handler_controller"
+application.register("info-handler", InfoHandlerController)
+
 import MapController from "./map_controller"
 application.register("map", MapController)
 

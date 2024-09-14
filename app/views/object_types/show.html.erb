@@ -1,0 +1,27 @@
+<div class="container page-container">
+  <div class="d-flex bd-highlight align-items-center">
+    <div class="p-2 flex-grow-1 bd-highlight">
+      <%= link_to "", object_types_path, class: "bi bi-arrow-left icon_back" %>
+    </div>
+  </div>
+  <div class="d-flex bd-highlight align-items-center">
+    <div class="p-2 flex-grow-1 bd-highlight">
+      <h2><%= t(".title") %> </h2>
+    </div>
+    <div class="p-2 bd-highlight">
+      <%= link_to "", edit_object_type_path(@object_type), class: "bi bi-pencil-fill icon_edit" %>
+    </div>
+    <div class="p-2 bd-highlight">
+      <%= button_to t(".delete"), @object_type, method: :delete, class: "btn btn-outline-danger", form: { data: { turbo_confirm: "Estas seguro?" } } %>
+    </div>
+  </div>
+
+  <div class="d-flex bd-highlight align-items-center">
+    <ul id="<%= dom_id @object_type %>" class="list-unstyled">
+      <li>
+        <strong> <%= Material.human_attribute_name("name") %>:</strong>
+        <%= @object_type.name %>
+      </li>
+    </ul>
+  </div>
+</div>

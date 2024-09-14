@@ -48,3 +48,8 @@ materials = [{ name: 'Barro' }, { name: 'Cerámica' }, { name: 'Hierro' }, { nam
 materials.each do |material|
   Material.find_or_create_by!(material)
 end
+
+object_types = [{ name: 'Manuscrito' }, { name: 'Fotografía' }, { name: 'Escultura' }, { name: 'Pintura' }, { name: 'Dibujo' }, { name: 'Mueble' }, { name: 'Instalación, conjunto' }, { name: 'Libro' }]
+object_types.each do |ot|
+  ObjectType.find_or_create_by!(ot)
+end

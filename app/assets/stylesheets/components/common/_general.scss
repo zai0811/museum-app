@@ -13,6 +13,10 @@ $font-family-heading: Candara, 'Noto Sans', source-sans-pro, sans-serif, system-
   font-weight: bold;
 }
 
+.secondary_action{
+  @extend .btn-outline-dark
+}
+
 // Text
 h1, h2, h3, h4 {
   font-family: $font-family-heading;
@@ -22,6 +26,7 @@ h1, h2, h3, h4 {
   font-family: $font-family-heading;
   font-size: $h1-font-size;
   font-weight: 600;
+  @extend .lh-1;
 }
 .gallery_heading {
   font-family: $font-family-heading;
@@ -50,4 +55,40 @@ h1, h2, h3, h4 {
 // Pagination
 .pagination-showing-count {
   @extend #{".small", ".text-secondary", ".text-center"}
+}
+
+// Piece
+.image-container {
+  margin-top: 10px;
+  position: relative;
+  display: inline-block;
+}
+
+.image-container img {
+  display: block;
+}
+
+// Copyright container
+.copyright-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  overflow: hidden;
+  max-height: 60px; // truncated
+  transition: max-height 0.5s ease;
+  margin-bottom: 10px;
+}
+
+.copyright-overlay.expanded {
+  max-height: fit-content; // expanded
+}
+
+.toggle-link {
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

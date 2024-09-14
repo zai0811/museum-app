@@ -148,7 +148,7 @@ es:
       see_gallery: "Ver como galeria"
       piece_name: "Nombre"
       piece_status: "Estado"
-      piece_number: "Número"
+      piece_number: "Inventario"
       piece_created_at: "Creado el"
       piece_updated_at: "Actualizado el"
       search_info: "Nombre"
@@ -158,17 +158,25 @@ es:
     show:
       details: "Detalles"
       material: "Material"
+      object_type: "Objeto"
       author: "Autor"
       make_private: " Ocultar"
       make_public: " Hacer Visible"
       archive: " Archivar"
       tooltip_status_change: "Las piezas visibles son accesibles por los visitantes de la página. Las piezas ocultas no se muestran a los visitantes."
+      copyright_info: "Derechos de autor"
       edit_piece: "Editar"
       cancel: "Cancelar"
+      displayed: " Pieza exhibida"
+      not_displayed: " Pieza no exhibida"
     edit:
       title: "Editar pieza"
     new:
       title: "Nueva pieza"
+      public_data: "Datos de la pieza"
+      admin_data: "Datos administrativos"
+      copyright_info_explanation: "Proporciona detalles adicionales sobre los derechos de propiedad intelectual, derechos de autor y condiciones de uso aplicables a esta imagen u obra."
+      in_display_info_explanation: "Información adicional sobre la ubicación de la pieza: si está en reserva técnica, ha sido robada, está en depósito o prestada, entre otros. Esta información será privada."
   authors:
     index:
       title: "Autores"
@@ -189,6 +197,20 @@ es:
       new: "Crear material"
     edit:
       title: "Editar material"
+    new:
+      title: "Nuevo material"
     show:
       title: "Material"
       delete: "Eliminar"
+  object_types:
+    index:
+      title: "Objetos"
+      actions: "Acciones"
+      new: "Crear objeto"
+    new:
+      title: "Nuevo objeto"
+    edit:
+      title: "Editar objeto"
+    show:
+      title: "Objeto"
+      delete: "Eliminar objeto"
