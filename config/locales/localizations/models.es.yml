@@ -90,7 +90,7 @@ es:
         number: "Inventario"
         author: "Autor"
         description: "Descripción"
-        material: "Material o técnica"
+        material: "Material"
         measurement: "Medidas"
         conservation_state: "Estado de Conservación"
         status: "Estado"
