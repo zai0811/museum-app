@@ -163,12 +163,14 @@ es:
       make_public: " Hacer Visible"
       archive: " Archivar"
       tooltip_status_change: "Las piezas visibles son accesibles por los visitantes de la página. Las piezas ocultas no se muestran a los visitantes."
+      copyright_info: "Derechos de autor"
       edit_piece: "Editar"
       cancel: "Cancelar"
     edit:
       title: "Editar pieza"
     new:
       title: "Nueva pieza"
+      copyright_info_explanation: "Proporciona detalles adicionales sobre los derechos de propiedad intelectual, derechos de autor y condiciones de uso aplicables a esta imagen u obra."
   authors:
     index:
       title: "Autores"

@@ -97,7 +97,8 @@ class PiecesController < ApplicationController
                              :piece_collection_id,
                              :material_id,
                              :author_id,
-                             :image
+                             :image,
+                             :copyright_info
                            ])
     attributes[:status] = attributes[:status].to_i
     attributes

@@ -33,6 +33,14 @@
     </div>
 
     <div class="col-sm-6 mb-3">
+      <%= form.label :copyright_info, class: "form-label" %>
+      <p class="small text-secondary mb-1">
+        <%= t("pieces.new.copyright_info_explanation") %>
+      </p>
+      <%= form.text_area :copyright_info, class: "form-control" %>
+    </div>
+
+    <div class="col-sm-6 mb-3">
       <%= form.label :material, class: "form-label" %>
       <%= form.collection_select :material_id, Material.order(:name), :id, :name, { include_blank: 'Seleccione' }, class: "form-select" %>
     </div>
