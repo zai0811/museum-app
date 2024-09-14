@@ -90,6 +90,11 @@
               <dd class="col-sm-10"> <%= @piece.object_type.name %> </dd>
             <% end %>
 
+            <% unless @piece.period.blank? %>
+              <dt class="col-sm-2"><%= Piece.human_attribute_name("period") %>:</dt>
+              <dd class="col-sm-10"> <%= @piece.period %>  </dd>
+            <% end %>
+
             <% unless @piece.measurement.blank? %>
               <dt class="col-sm-2"><%= Piece.human_attribute_name("measurement") %>:</dt>
               <dd class="col-sm-10"> <%= @piece.measurement %>  </dd>

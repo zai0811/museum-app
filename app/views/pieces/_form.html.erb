@@ -35,6 +35,9 @@
       <%= form.label :object_type, class: "form-label" %>
       <%= form.collection_select :object_type_id, ObjectType.order(:name), :id, :name, { include_blank: 'Seleccione' }, class: "form-select mb-3" %>
 
+      <%= form.label :period, class: "form-label" %>
+      <%= form.text_field :period, class: "form-control mb-3" %>
+
       <%= form.label :measurement, class: "form-label" %>
       <%= form.text_field :measurement, class: "form-control mb-3" %>
 
