@@ -44,15 +44,26 @@
     <dl>
       <dt class="record-title"><%= t("activerecord.attributes.museum.phone") %></dt>
       <dd><%= @museum.phone %></dd>
+
       <dt class="record-title"><%= t("activerecord.attributes.museum.email") %></dt>
       <dd><%= @museum.email %></dd>
+
       <dt class="record-title"><%= t("activerecord.attributes.museum.page") %></dt>
       <dd><%= @museum.page %></dd>
+
+      <dt class="record-title"><%= t("activerecord.attributes.museum.schedule") %></dt>
+      <dd><%= @museum.schedule %></dd>
+
+      <dt class="record-title"><%= t("activerecord.attributes.museum.accessibility_features") %></dt>
+      <dd><%= @museum.accessibility_features %></dd>
+
+      <dt class="record-title"><%= t("museums.show.entrance") %></dt>
+      <dd><%= free_entrance_label(@museum.free_entrance, @museum.entrance_price) %></dd>
     </dl>
   </li>
   <li class="list-group-item">
     <%= link_to t("museums.show.edit_record"),
                 edit_museum_path(@museum),
-                class: "btn btn-dark" %>
+                class: "btn secondary_action" %>
   </li>
 </ul>

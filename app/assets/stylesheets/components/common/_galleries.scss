@@ -2,7 +2,7 @@
   --gap: clamp(1rem, 5vmin, 2rem);
   columns: 350px;
   gap: var(--gap);
-  width: 96%;
+  width: 100%;
 }
 
 .photo-card {
@@ -16,4 +16,14 @@
 .photo-card:hover{
   transform: scale(1.025);
   z-index: 11;
+}
+
+.gallery-form{
+  max-width: 350px
+}
+
+.museum-collection-gallery{
+  padding-top: 3px;
+  padding-bottom: 10px;
+  background-color: $gray-100;
 }

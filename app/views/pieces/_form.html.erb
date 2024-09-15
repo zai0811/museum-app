@@ -78,7 +78,7 @@
     </div>
 
     <div class="col-sm-6 mb-3">
-      <%= form.submit class: "btn btn-sm btn-dark" %>
+      <%= form.submit class: "btn secondary_action" %>
       <% back_path = back_to_piece ? piece : @piece_collection %>
       <%= link_to t("pieces.show.cancel"), back_path, class: "link-body-emphasis px-3" %>
     </div>

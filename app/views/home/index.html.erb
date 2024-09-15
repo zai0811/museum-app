@@ -4,14 +4,14 @@
       <div class="col-xl-5 col-lg-6">
         <div class="m-5 px-xl-5">
           <h1 class="display-5 fw-bold text-body-emphasis mb-4"><%= t("global.hero.title") %> </h1>
-
           <div>
             <p class="lead"><%= t("global.hero.sub_title") %></p>
             <div role="search">
               <%= search_form_for @q, class: "d-sm-flex flex-lg-column" do |f| %>
                 <div class="flex-mb-grow-1 mb-2 me-3 me-xl-5">
                   <%= f.search_field :name_or_about_or_address_or_city_name_cont,
-                                     class: "form-control form-control-lg", placeholder: "Museo..." %>
+                                     class: "form-control form-control-lg",
+                                     placeholder: "Museo..." %>
                 </div>
                 <div class="flex-mb-grow-1">
                   <%= f.submit class: "btn btn-primary btn-lg cta" %>

@@ -73,6 +73,10 @@ es:
           hidden: "Oculto"
           published: "Visible"
           archived: "Archivado"
+        free_entrance: "Entrada gratuita"
+        entrance_price: "Precio de entradas"
+        schedule: "Horario"
+        accessibility_features: "Accesibilidad"
         museum/museum_registration_request:
           id: "Solicitud de registro"
       piece_collection:
