@@ -30,7 +30,7 @@ export default class extends Controller {
                     response.json.then((json) => {
                         json.forEach((museum) => {
                             L.marker([museum.latitude, museum.longitude])
-                                .bindPopup(`${museum.name}`)
+                                .bindPopup(`<h5>${museum.name}</h5><a href="/museums/${museum.id}" class="link-body-emphasis">Ver museo</a>`)
                                 .addTo(this.map);
                         })
                     })

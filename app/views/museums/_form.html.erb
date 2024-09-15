@@ -83,24 +83,40 @@
             <div class="col pb-3">
               <h6 class="my-3"><%= t("museums.show.section_contact") %></h6>
               <%= form.label :phone, class: "form-label" %>
-              <%= form.text_field :phone, class: "form-control mb-2", placeholder: "+595 985 111 111" %>
+              <%= form.text_field :phone, class: "form-control mb-2", placeholder: "(0985) 111 111" %>
 
               <%= form.label :email, class: "form-label" %>
               <%= form.email_field :email, class: "form-control mb-2", placeholder: "correo@museo.com.py" %>
 
               <%= form.label :page, class: "form-label" %>
               <%= form.text_field :page, class: "form-control mb-2", placeholder: "https://museo.com.py" %>
+
+              <%= form.label :schedule, class: "form-label" %>
+              <%= form.text_area :schedule, class: "form-control mb-2" %>
+
+              <%= form.label :accessibility_features, class: "form-label" %>
+              <p class="small text-secondary mb-1">
+                <%= t("museums.edit.accessibility_features_explanation") %>
+              </p>
+              <%= form.text_area :accessibility_features, class: "form-control mb-2" %>
+
+              <div class="form-check form-switch mt-2">
+                <%= form.check_box :free_entrance, class: "form-check-input", role: "switch" %>
+                <%= form.label :free_entrance, class: "form-check-label" %>
+              </div>
+
+              <%= form.label :entrance_price, class: "form-label" %>
+              <%= form.text_field :entrance_price, class: "form-control mb-2" %>
+
             </div>
 
-
             <div class="col-sm-6 mb-3">
-              <%= form.submit class: "btn btn-dark btn-sm", data: {turbo_frame: "_top"}%>
+              <%= form.submit class: "btn secondary_action", data: { turbo_frame: "_top" } %>
               <%= link_to t("museums.show.cancel"), @museum, class: "link-dark px-3" %>
               <% button_to "Eliminar Museo", @user, method: :delete, class: "btn btn-outline-danger px-3" %>
             </div>
           <% end %>
         </div>
-
 
 
       </div>

@@ -86,6 +86,7 @@ es:
       make_public: " Hacer Visible"
       archive: "Archivar"
       search_info: "Nombre, resolución, correo, ciudad"
+      search_info_public: "Nombre, dirección, ciudad o descripción"
       created_at: "Creado el"
     show:
       back: "Volver a explorar museos"
@@ -106,7 +107,7 @@ es:
       edit_record: "Editar"
       section_admin: "Información Administrativa"
       section_general: "Información del Museo"
-      section_contact: "Información de Contacto"
+      section_contact: "Información de Contacto y Visita"
       map_location: "Ubicación"
       edit_location: "Editar ubicación"
       created_by_request: "Creado por"
@@ -116,6 +117,9 @@ es:
       is_temporary: "Temporal"
       piece_collection_name: "Nombre"
       piece_collection_status: "Estado"
+      entrance: "Entrada"
+      free: "Entrada libre y gratuita"
+      payed: "Precio de entrada: %{price}"
     new:
       title: "Nuevo Museo"
       back: "Volver a explorar museos"
@@ -127,6 +131,7 @@ es:
       back: "Volver a explorar museos"
       department: "Departamento"
       city: "Ciudad"
+      accessibility_features_explanation: "Menciona si el museo posee facilidades para personas en silla de ruedas o con movilidad reducida, personas ciegas o con baja visión, entre otros."
   piece_collections:
     new:
       is_temporary: "Colección temporal?"

@@ -3,10 +3,17 @@ class MuseumsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[ index show coordinates ]
   skip_before_action :authorize_user!, only: %i[ index show coordinates ]
 
-  # GET /museums or /museums.json
+  # admin can see every museum
+  # non-admin can only see their museum
+  # the public can only see "public" museums
   def index
-    @archived_museums = Museum.where(status: Museum::ARCHIVED)
-    @q = Museum.ransack(params[:q])
+    if current_user&.admin?
+      @q = Museum.where(status: [Museum::NOT_PUBLISHED, Museum::PUBLISHED]).ransack(params[:q])
+    elsif current_user
+      @q = Museum.where(status: [Museum::NOT_PUBLISHED, Museum::PUBLISHED], user_id: current_user.id).ransack(params[:q])
+    else
+      @q = Museum.where(status: [Museum::PUBLISHED]).ransack(params[:q])
+    end
     @pagy, @museums = pagy(@q.result.includes(:city, :user))
   end
 
@@ -82,7 +89,7 @@ class MuseumsController < ApplicationController
 
   def coordinates
     @museums = Museum.published
-    render formats: :json
+    render json: @museums, only: [:id, :name, :latitude, :longitude]
   end
 
   private
@@ -112,7 +119,11 @@ class MuseumsController < ApplicationController
                              :status,
                              :image,
                              :latitude,
-                             :longitude
+                             :longitude,
+                             :free_entrance,
+                             :entrance_price,
+                             :schedule,
+                             :accessibility_features
                            ])
     attributes[:status] = attributes[:status].to_i
     attributes
