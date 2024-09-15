@@ -147,13 +147,13 @@
         </div>
         <!-- gallery -->
         <div class="tab-pane fade" id="gallery-tab-pane" role="tabpanel" aria-labelledby="gallery-tab" tabindex="0">
-          <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces, owner_or_admin: owner_or_admin } %>
+          <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces } %>
         </div>
       </div>
 
       <!-- only gallery -->
     <% else %>
-      <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces, owner_or_admin: owner_or_admin } %>
+      <%= render partial: "pieces/piece_gallery", locals: { pieces: @pieces } %>
     <% end %>
   </section>
 </div>

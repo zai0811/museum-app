@@ -12,6 +12,7 @@ es:
       users_list: "Usuarios"
       registrations_request_list: "Solicitudes de Registro"
       museums_list: "Museos"
+      pieces: "Piezas"
       new_registration_request: "Registrar Museo"
       profile: "Perfil"
       log_out: "Cerrar sesión"
