@@ -8,8 +8,9 @@ class PiecesController < ApplicationController
   def index
     @q = Piece
            .published
+           .includes(:author, :object_type, :material)
            .ransack(params[:q])
-    @pagy, @pieces = pagy(@q.result.includes(:author, :object_type, :material))
+    @pagy, @pieces = pagy(@q.result)
   end
 
   # GET /pieces/1 or /pieces/1.json
