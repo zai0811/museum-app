@@ -117,7 +117,10 @@ es:
       is_temporary: "Temporal"
       piece_collection_name: "Nombre"
       piece_collection_status: "Estado"
+      contact: "Contacto"
+      schedule: "Horarios"
       entrance: "Entrada"
+      accessibility: "Accesibilidad"
       free: "Entrada libre y gratuita"
       payed: "Precio de entrada: %{price}"
     new:
@@ -182,6 +185,9 @@ es:
       admin_data: "Datos administrativos"
       copyright_info_explanation: "Proporciona detalles adicionales sobre los derechos de propiedad intelectual, derechos de autor y condiciones de uso aplicables a esta imagen u obra."
       in_display_info_explanation: "Información adicional sobre la ubicación de la pieza: si está en reserva técnica, ha sido robada, está en depósito o prestada, entre otros. Esta información será privada."
+    index:
+      gallery_title: "Explorar piezas"
+      search_info_public: "Nombre, descripción"
   authors:
     index:
       title: "Autores"

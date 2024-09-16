@@ -1,13 +1,15 @@
 class PiecesController < ApplicationController
-  prepend_before_action :set_piece_collection, only: %i[ index new create ]
+  prepend_before_action :set_piece_collection, only: %i[ new create ]
   prepend_before_action :set_piece, only: %i[ show edit update destroy update_status ]
   skip_before_action :authenticate_user!, only: %i[ index show ]
   skip_before_action :authorize_user!, only: %i[ index show ]
 
   # GET /pieces or /pieces.json
   def index
-    # need a separate method to show every piece at once if I want to implement that
-    @pieces = @piece_collection.pieces
+    @q = Piece
+           .published
+           .ransack(params[:q])
+    @pagy, @pieces = pagy(@q.result.includes(:author, :object_type, :material))
   end
 
   # GET /pieces/1 or /pieces/1.json

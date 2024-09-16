@@ -25,6 +25,7 @@
         <%= link_to t('global.menu.app_name'), root_path, class: "d-flex align-items-center mb-2 mb-lg-0 me-lg-3 text-dark text-decoration-none fs-4" %>
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li> <%= link_to t('global.menu.museums_list'), museums_path, class: "nav-link px-2 link-body-emphasis" %> </li>
+          <li> <%= link_to t('global.menu.pieces'), pieces_path, class: "nav-link px-2 link-body-emphasis" %> </li>
           <% if admin %>
             <li>
               <div class="dropdown text-end">
