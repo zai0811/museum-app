@@ -70,8 +70,11 @@
           <%= tag.p @piece.description %>
 
           <p class="lh-1 mt-3 pt-3">
-            <span class="icon <%= in_display_class(@piece.in_display) %>"></span>
-            <%= in_display_label(@piece.in_display) %>
+            <span class="icon <%= in_display_class(@piece.in_display) %>" data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-title='<%= in_display_tooltip(@piece.in_display) %>'>
+              <%= in_display_label(@piece.in_display) %>
+            </span>
           </p>
 
           <dl class="row pt-3">

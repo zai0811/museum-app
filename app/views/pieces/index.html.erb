@@ -13,25 +13,26 @@
     </ol>
   </nav>
 
-  <div class="row align-items-center mb-5 g-3">
+  <div class="row align-items-center mb-3 pb-3 g-3">
     <div class="main_heading col-xl-8">
       <%= t(".gallery_title") %>
     </div>
   </div>
 
-  <section class="bg-altlight p-4 my-3 rounded-3">
-    <%= search_form_for @q, class: "row g-3" do |f| %>
-      <div class="col-lg-3">
+  <section class="bg-primary-subtle p-4 my-3 rounded-3">
+    <%= search_form_for @q,
+                        class: "row g-3 align-items-center" do |f| %>
+      <div class="col-lg-4">
         <%= f.label "Nombre o descripción", class: "form-label" %>
         <%= f.search_field :name_or_description_cont,
-                           class: "form-control gallery-form",
+                           class: "form-control mb-3",
                            placeholder: t(".search_info_public"),
                            data: {
                              bs_toggle: "tooltip",
                              bs_placement: "top",
                              bs_title: t(".search_info_public") } %>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         <%= f.label "Museo", class: "form-label" %>
         <%= f.collection_select :museum_id_eq,
                                 Museum.published.order(:name),
@@ -40,7 +41,7 @@
                                 { include_blank: 'Seleccione' },
                                 class: "form-select mb-3" %>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         <%= f.label "Autor", class: "form-label" %>
         <%= f.collection_select :author_id_eq,
                                 Author.order(:last_name),
@@ -49,7 +50,7 @@
                                 { include_blank: 'Seleccione' },
                                 class: "form-select mb-3" %>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         <%= f.label "Material", class: "form-label" %>
         <%= f.collection_select :material_id_eq,
                                 Material.order(:name),
@@ -59,9 +60,19 @@
                                 class: "form-select mb-3" %>
       </div>
 
-      <div class="col-lg-3">
-        <div class="form-check form-switch">
-          <%= f.check_box :in_display_true, class: "form-check-input", role: "switch" %>
+      <div class="col-lg-4">
+        <%= f.label "Objeto", class: "form-label" %>
+        <%= f.collection_select :object_type_id_eq,
+                                ObjectType.order(:name),
+                                :id,
+                                :name,
+                                { include_blank: 'Seleccione' },
+                                class: "form-select mb-3" %>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="form-check form-switch col-auto align-self-baseline">
+          <%= f.check_box :in_display_true, class: "form-check-input", checked: true, role: "switch" %>
           <%= f.label "Exhibida en el museo", class: "form-check-label" %>
         </div>
       </div>
@@ -72,7 +83,7 @@
       </div>
     <% end %>
   </section>
-  <div class="mb-3">
+  <div class="py-3">
     <h5>
       Resultados (<%= @pagy.count %>)
     </h5>

@@ -19,7 +19,7 @@ class Piece < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["piece_collection", "museum" ,"author", "material"]
+    ["piece_collection", "museum" ,"author", "material", "object_type"]
   end
 
   def self.published

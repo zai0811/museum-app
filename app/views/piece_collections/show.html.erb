@@ -38,8 +38,8 @@
         <i class="bi bi-clock icon icon_collection_<%= temporary_label %>"></i>
         <span data-bs-toggle="tooltip"
               data-bs-placement="top"
-              data-bs-title="<%= t(".#{temporary_label}") %>">
-            <%= t(".tooltip_#{temporary_label}") %>
+              data-bs-title="<%= t(".tooltip_#{temporary_label}") %>">
+            <%= t(".#{temporary_label}") %>
         </span>
       </div>
 
@@ -54,7 +54,7 @@
       </div>
 
       <% if @piece_collection.description %>
-        <div class="col-sm-8 my-3">
+        <div class="col-auto my-5" style="max-width: 80%">
           <p> <%= @piece_collection.description %> </p>
         </div>
       <% end %>
