@@ -27,7 +27,7 @@
         <%= image_tag("placeholder.png", class: "card-img-top") %>
       <% end %>
       <div class="card-body">
-        <h4 class="card-title fw-semibold pb-2"> <%= link_to museum.name, museum, class: "card-link link-body-emphasis link-underline-opacity-0 " %>  </h4>
+        <h4 class="card-title pb-2"> <%= link_to museum.name, museum, class: "card-link link-body-emphasis link-underline-opacity-0 " %>  </h4>
         <p class="card-text text-body-tertiary"><%= museum.city.name %>, <%= museum.department.name %></p>
       </div>
     </div>

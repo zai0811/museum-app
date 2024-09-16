@@ -4,6 +4,7 @@ class Piece < ApplicationRecord
   ARCHIVED = 2
 
   belongs_to :piece_collection
+  has_one :museum, through: :piece_collection
   belongs_to :material, optional: true
   belongs_to :author, optional: true
   belongs_to :object_type, optional: true
@@ -14,11 +15,18 @@ class Piece < ApplicationRecord
   enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED }, default: :hidden
 
   def self.ransackable_attributes(auth_object = nil)
-    ["name", "description", "status", "created_at", "updated_at"]
+    ["name", "description", "status", "created_at", "updated_at", "in_display"]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["piece_collection", "author", "material"]
+    ["piece_collection", "museum" ,"author", "material", "object_type"]
+  end
+
+  def self.published
+    joins(piece_collection: :museum)
+      .where({ museums: {status: PUBLISHED}})
+      .where({ piece_collections: {status: PUBLISHED}})
+      .where(status: PUBLISHED) || []
   end
 
   def update_status!(status)

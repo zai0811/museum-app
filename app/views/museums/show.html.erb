@@ -66,7 +66,7 @@
         <div class="col text-end">
           <%= link_to t(".create_collection"),
                       new_museum_piece_collection_path(@museum),
-                      class: "btn btn-primary cta",
+                      class: "btn btn-primary",
                       data: { turbo_frame: dom_id(PieceCollection.new) } %>
         </div>
       </div>
@@ -74,7 +74,7 @@
       <!-- Empty tag that will be replaced with the New Form for the piece collection -->
       <%= turbo_frame_tag PieceCollection.new %>
 
-      <div class="table-responsive-md mt-2">
+      <div class="table-responsive-md mt-2 pt-2">
         <table class="table data-table">
           <thead class="table align-miple">
           <tr>
@@ -115,7 +115,7 @@
   <%= render partial: 'museum_visitor_page', locals: { museum: @museum, piece_collection: @piece_collections } %>
 <% end %>
 
-<div class="container mb-3">
+<div class="container mb-3 pt-2">
   <div data-controller="museum-map"
        data-museum-map-lat-value="<%= @museum.latitude %>"
        data-museum-map-long-value="<%= @museum.longitude %>"
