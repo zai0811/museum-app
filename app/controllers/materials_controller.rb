@@ -3,7 +3,9 @@ class MaterialsController < ApplicationController
 
   # GET /materials or /materials.json
   def index
-    @materials = Material.all
+    @q = Material.ransack(params[:q])
+    @q.sorts = 'name asc' if @q.sorts.empty?
+    @pagy, @materials = pagy(@q.result)
   end
 
   # GET /materials/1 or /materials/1.json
@@ -25,8 +27,9 @@ class MaterialsController < ApplicationController
 
     respond_to do |format|
       if @material.save
-        format.html { redirect_to materials_path, notice: "Material was successfully created." }
-        format.json { render :show, status: :created, location: @material }
+        @pagy, @materials = pagy(Material.all)
+        format.html { redirect_to materials_path, notice: t(".success") }
+        format.turbo_stream { flash.now[:notice] = t(".success") }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @material.errors, status: :unprocessable_entity }
@@ -38,7 +41,7 @@ class MaterialsController < ApplicationController
   def update
     respond_to do |format|
       if @material.update(material_params)
-        format.html { redirect_to material_url(@material), notice: "Material was successfully updated." }
+        format.html { redirect_to material_url(@material), notice: t(".success")}
         format.json { render :show, status: :ok, location: @material }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,11 +52,13 @@ class MaterialsController < ApplicationController
 
   # DELETE /materials/1 or /materials/1.json
   def destroy
-    @material.destroy!
-
     respond_to do |format|
-      format.html { redirect_to materials_url, notice: "Material was successfully destroyed." }
-      format.json { head :no_content }
+      begin
+        @material.destroy!
+        format.html { redirect_to materials_url, notice: t(".success") }
+      rescue StandardError
+        format.html { redirect_to material_url(@material), notice: t(".error") }
+      end
     end
   end
 

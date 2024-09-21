@@ -1,27 +1,49 @@
 <div class="container page-container">
-  <div class="d-flex bd-highlight align-items-center">
-    <div class="p-2 flex-grow-1 bd-highlight">
-      <%= link_to "", materials_path, class: "bi bi-arrow-left icon_back" %>
+  <nav aria-label="breadcrumb primary">
+    <ol class="breadcrumb breadcrumb-chevron">
+      <li class="breadcrumb-item">
+        <%= link_to root_path, class: "link-body-emphasis" do %>
+          <i class="bi bi bi-house-door" width="16" height="16"></i>
+          <span class="visually-hidden">Home</span>
+        <% end %>
+      </li>
+      <li class="breadcrumb-item">
+        <%= link_to "Materiales", materials_path, class: "link-body-emphasis text-decoration-none" %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= @material.name %>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-center mb-3">
+    <div class="p-2 flex-grow-1">
+      <span class="main_heading"><%= t(".title") %> </span>
     </div>
-  </div>
-  <div class="d-flex bd-highlight align-items-center">
-    <div class="p-2 flex-grow-1 bd-highlight">
-      <h2><%= t(".title") %> </h2>
+    <div class="p-2">
+      <%= link_to edit_material_path(@material),
+                  class: "btn btn-outline-dark" do %>
+        <i class="bi bi-pencil icon"></i>
+        <span>Editar</span>
+      <% end %>
     </div>
-    <div class="p-2 bd-highlight">
-      <%= link_to "", edit_material_path(@material), class: "bi bi-pencil-fill icon_edit" %>
-    </div>
-    <div class="p-2 bd-highlight">
-      <%= button_to t(".delete"), @material, method: :delete, class: "btn btn-outline-danger", form: { data: { turbo_confirm: "Estas seguro?" } } %>
+    <div class="ps-2">
+      <%= button_to " Eliminar", @material,
+                    method: :delete,
+                    class: "btn btn-danger bi bi-trash",
+                    form: {
+                      data: {
+                        turbo_confirm: "¿Estás de que quieres eliminar este material?" } } %>
     </div>
   </div>
 
-  <div class="d-flex bd-highlight align-items-center">
-    <ul id="<%= dom_id @material %>" class="list-unstyled">
-      <li>
-        <strong> <%= Material.human_attribute_name("name") %>:</strong>
-        <%= @material.name %>
-      </li>
-    </ul>
+  <div class="d-flex align-items-center">
+    <dl id="<%= dom_id @material %>" class="row">
+      <dt class="record-title col-sm-3"> <%= Material.human_attribute_name("name") %>:</dt>
+      <dd class="col-sm-9"> <%= @material.name %> </dd>
+      <dt class="record-title col-sm-3"><%= t(".pieces") %>:</dt>
+      <dd class="col-sm-9"> <%= @material.pieces.count %> </dd>
+    </dl>
+
   </div>
 </div>

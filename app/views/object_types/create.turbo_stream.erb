@@ -1,0 +1,4 @@
+<%= turbo_stream.prepend("object_types_table", partial: "object_types/object_type", locals: { object_type: @object_type }) %>
+<%= turbo_stream.update ObjectType.new, "" %>
+<%= turbo_stream.prepend("flash", partial: "layouts/flash") %>
+<%= turbo_stream.update("pagination-container", partial: "layouts/pagination", locals: { pagy: @pagy }) %>

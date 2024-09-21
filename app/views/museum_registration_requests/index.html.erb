@@ -1,5 +1,3 @@
-<% admin = current_user.admin? ? true : false %>
-
 <div class="container page-container">
 
   <nav aria-label="breadcrumb">
@@ -16,11 +14,11 @@
     </ol>
   </nav>
 
-  <div class="d-flex bd-highlight align-items-center">
-    <div class="p-2 flex-grow-1 bd-highlight">
+  <div class="d-flex align-items-center">
+    <div class="p-2 flex-grow-1">
       <span class="main_heading"> <%= MuseumRegistrationRequest.model_name.human(count: 2) %> </span>
     </div>
-    <div class="p-2 bd-highlight">
+    <div class="p-2">
       <%= button_to t("global.menu.new_registration_request"), new_museum_registration_request_path, method: :get, class: "btn btn-primary" %>
     </div>
   </div>

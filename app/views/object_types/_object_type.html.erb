@@ -1,7 +1,6 @@
-<div id="<%= dom_id object_type %>">
-  <p>
-    <strong>Name:</strong>
-    <%= object_type.name %>
-  </p>
-
-</div>
+<tr id="<%= dom_id object_type %>">
+  <td> <%= link_to object_type.name, object_type %> </td>
+  <td>
+    <%= object_type.pieces.count %>
+  </td>
+</tr>

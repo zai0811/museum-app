@@ -10,22 +10,12 @@
     </div>
   </div>
 
-  <%= form_with( model: @museum_registration_request,
-                 class: "needs-validation",
-                 data: { controller: "form-validator" }) do |form| %>
+  <%= form_with(model: @museum_registration_request,
+                class: "needs-validation",
+                data: { controller: "form-validator" }) do |form| %>
 
     <% if @museum_registration_request.errors.any? %>
-      <div class="validation-errors">
-        <p>
-          <%= t("activerecord.errors.messages.record_invalid") %>
-          <%= pluralize(@museum_registration_request.errors.count, "errores") %>:
-        </p>
-        <ul>
-          <% @museum_registration_request.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
+      <%= render "layouts/validation_errors", errors_list: @museum_registration_request.errors %>
     <% end %>
 
     <div class="col-sm-6 mb-3 border-top">
@@ -35,7 +25,7 @@
     </div>
 
     <div class="col-sm-6 mb-3">
-      <%= form.label :museum_code, class: "form-label" %> <span class="small text-secondary"><%= t(".optional") %></span>
+      <%= form.label :museum_code, class: "form-label" %>
       <p class="small text-secondary mb-1">
         <%= t(".museum_code_explanation") %>
       </p>
@@ -43,7 +33,7 @@
     </div>
 
     <div class="col-sm-6 mb-3">
-      <%= form.label :registration_doc, class: "form-label" %>  <span class="small text-secondary"><%= t(".optional") %></span>
+      <%= form.label :registration_doc, class: "form-label" %>
       <p class="small text-secondary mb-1">
         <%= t(".museum_code_document") %>
       </p>

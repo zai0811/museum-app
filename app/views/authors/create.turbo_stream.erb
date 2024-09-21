@@ -1,0 +1,4 @@
+<%= turbo_stream.prepend("authors_table", partial: "authors/author", locals: { author: @author }) %>
+<%= turbo_stream.update Author.new, "" %>
+<%= turbo_stream.prepend("flash", partial: "layouts/flash") %>
+<%= turbo_stream.update("pagination-container", partial: "layouts/pagination", locals: { pagy: @pagy }) %>

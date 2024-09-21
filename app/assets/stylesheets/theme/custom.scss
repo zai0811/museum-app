@@ -3,10 +3,11 @@ $white: #ffffff;
 $primary: #9B6206;
 $dark: #1c1e1d;
 $light: #e4e3e6;
+$red: #d2051d;
 
 
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 
-$custom-theme-colors: ( "altlight" : #e9e8df );
+$custom-theme-colors: ( "altlight" : #eddea4 );
 $theme-colors: map-merge($custom-theme-colors, $theme-colors);

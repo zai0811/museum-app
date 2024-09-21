@@ -26,10 +26,11 @@
 }
 
 .validation-errors{
-  background-color: $red-600;
-  color: white;
-  padding: 10px;
+  color: $red-600;
+  padding: 0.5rem 1rem;
   border-radius: 8px;
   font-weight: bold;
   max-width: 600px;
+  border: 2px solid $red-600;
+  border-left: 4px solid;
 }

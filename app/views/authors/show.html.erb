@@ -1,36 +1,55 @@
 <div class="container page-container">
-  <div class="d-flex bd-highlight align-items-center">
-    <div class="p-2 flex-grow-1 bd-highlight">
-      <%= link_to "", authors_path, class: "bi bi-arrow-left icon_back" %>
-    </div>
-  </div>
-  <div class="d-flex bd-highlight align-items-center">
-    <div class="p-2 flex-grow-1 bd-highlight">
-      <h2><%= t(".title") %> </h2>
-    </div>
-    <div class="p-2 bd-highlight">
-      <%= link_to "", edit_author_path(@author), class: "bi bi-pencil-fill icon_edit" %>
-    </div>
-    <div class="p-2 bd-highlight">
-      <%= button_to t(".delete"), @author, method: :delete, class: "btn btn-outline-danger", form: { data: { turbo_confirm: "Estas seguro?" } } %>
-    </div>
-  </div>
-
-  <div class="d-flex bd-highlight align-items-center">
-    <ul id="<%= dom_id @author %>" class="list-unstyled">
-      <li>
-        <strong> <%= Author.human_attribute_name("first_name") %>:</strong>
-        <%= @author.first_name %>
+  <nav aria-label="breadcrumb primary">
+    <ol class="breadcrumb breadcrumb-chevron">
+      <li class="breadcrumb-item">
+        <%= link_to root_path, class: "link-body-emphasis" do %>
+          <i class="bi bi bi-house-door" width="16" height="16"></i>
+          <span class="visually-hidden">Home</span>
+        <% end %>
       </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= link_to "Autores", authors_path, class: "link-body-emphasis text-decoration-none" %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= @author.full_name %>
+      </li>
+    </ol>
+  </nav>
 
-      <li>
-        <strong><%= Author.human_attribute_name("last_name") %>:</strong>
+  <div class="d-flex align-items-center mb-3">
+    <div class="p-2 flex-grow-1 bd-highlight">
+      <span class="main_heading"><%= t(".title") %> </span>
+    </div>
+    <div class="p-2">
+      <%= link_to edit_author_path(@author),
+                  class: "btn btn-outline-dark" do %>
+        <i class="bi bi-pencil icon"></i>
+        <span>Editar</span>
+      <% end %>
+    </div>
+    <div class="ps-2">
+      <%= button_to " Eliminar", @author,
+                    method: :delete,
+                    class: "btn btn-danger bi bi-trash",
+                    form: {
+                      data: {
+                        bs_toggle: "tooltip",
+                        bs_placement: "top",
+                        bs_title: t("authors.show.delete"),
+                        turbo_confirm: "¿Estás seguro que quieres eliminar este Autor?" } } %>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center">
+    <dl id="<%= dom_id @author %>" class="row">
+      <dt class="record-title col-sm-3"> <%= Author.human_attribute_name("first_name") %>:</dt>
+      <dd class="col-sm-9"> <%= @author.first_name %> </dd>
+      <dt class="record-title col-sm-3"><%= Author.human_attribute_name("last_name") %>:</dt>
+      <dd class="col-sm-9">
         <%= @author.last_name %>
-      </li>
-
-      <li><strong><%= t(".pieces") %>:</strong>
-        <%= @author.pieces.count %>
-      </li>
-    </ul>
+      </dd>
+      <dt class="record-title col-sm-3"><%= t(".pieces") %>:</dt>
+      <dd class="col-sm-9"> <%= @author.pieces.count %> </dd>
+    </dl>
   </div>
 </div>

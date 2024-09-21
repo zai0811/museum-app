@@ -14,6 +14,7 @@ class MuseumsController < ApplicationController
     else
       @q = Museum.where(status: [Museum::PUBLISHED]).ransack(params[:q])
     end
+    @q.sorts = 'name asc' if @q.sorts.empty?
     @pagy, @museums = pagy(@q.result.includes(:city, :user))
   end
 

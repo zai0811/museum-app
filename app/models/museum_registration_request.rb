@@ -3,6 +3,7 @@ class MuseumRegistrationRequest < ApplicationRecord
   APPROVED = 1
   REJECTED = 2
   ARCHIVED = 3
+  FILE_SIZE_LIMIT = 5
 
   has_one :museum
   belongs_to :created_by, class_name: "User", optional: true
@@ -12,9 +13,20 @@ class MuseumRegistrationRequest < ApplicationRecord
   has_one_attached :registration_doc
 
   enum :registration_status, { not_reviewed: NOT_REVIEWED, approved: APPROVED, rejected: REJECTED, archived: ARCHIVED }, default: :not_reviewed
-  validates_presence_of :manager_email, :museum_name, :museum_address, :first_name, :last_name, :ci, :department_id, :city_id
-  after_save :check_registration_status!
+  validates :museum_name, length: { in: 5..50 }
+  validates :museum_code, length: { in: 5..50 }
+  validates_presence_of :manager_email,
+                        :museum_name,
+                        :museum_address,
+                        :first_name,
+                        :last_name,
+                        :ci,
+                        :department_id,
+                        :city_id,
+                        :museum_code
+  validate :valid_registration_doc
 
+  after_save :check_registration_status!
   scope :active_status, -> { where(registration_status: [NOT_REVIEWED, APPROVED, REJECTED]) }
 
   def self.ransackable_attributes(auth_object = nil)
@@ -25,13 +37,27 @@ class MuseumRegistrationRequest < ApplicationRecord
     ["city"]
   end
 
+  def valid_registration_doc
+    unless registration_doc.attached?
+      errors.add(:registration_doc, "debe existir")
+      return
+    end
+
+    unless registration_doc.byte_size <= FILE_SIZE_LIMIT.megabyte
+      errors.add(:registration_doc, "excede el límite de #{FILE_SIZE_LIMIT} Mb")
+    end
+    unless registration_doc.content_type ==  "application/pdf"
+      errors.add(:registration_doc, "debe ser de tipo PDF")
+    end
+  end
+
   # Should not perform further updates to approved requests
   def check_registration_status!
     if self.approved?
       process_approval!
     end
-  rescue StandardError
-    errors.add(:base, "Error configurando usuario y museo, los cambios no han sido guardados. Favor contactar a soporte técnico.")
+  rescue StandardError => error
+    errors.add(:base, "Error configurando usuario y museo, los cambios no han sido guardados. Favor contactar a soporte técnico. Error: #{error.message} #{error.class}." )
     raise ActiveRecord::RecordInvalid.new(self)
   end
 

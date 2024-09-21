@@ -2,21 +2,13 @@ class MuseumRegistrationRequestsController < ApplicationController
   prepend_before_action :set_museum_registration_request, only: %i[ show update ]
   skip_before_action :authenticate_user!, only: %i[ new create cities ]
   skip_before_action :authorize_user!, only: %i[ new create cities ]
-  after_action :notify_new_request, only: :create
-  after_action :notify_updated_request, only: :update
   before_action :set_department_city, only: :new
 
   # GET /museum_registration_requests or /museum_registration_requests.json
   def index
-    # to-do: should review logic for showing or hiding items, also, should review the option to show or hide registration requests from non-admin creators
+    # to-do: should review logic for showing or hiding items
     @q = MuseumRegistrationRequest.ransack(params[:q])
-
-    if current_user.admin?
-      @pagy, @museum_registration_requests = pagy(@q.result)
-    else
-      @museum_registration_requests = MuseumRegistrationRequest.where(created_by_id: current_user.id)
-    end
-
+    @pagy, @museum_registration_requests = pagy(@q.result)
   end
 
   # GET /museum_registration_requests/1 or /museum_registration_requests/1.json
@@ -44,6 +36,7 @@ class MuseumRegistrationRequestsController < ApplicationController
     respond_to do |format|
       if @museum_registration_request.save
         format.html { redirect_to root_path, notice: t(".success") }
+        notify_new_request
       else
         set_department_city
         format.html { render :new, status: :unprocessable_entity }
@@ -57,6 +50,7 @@ class MuseumRegistrationRequestsController < ApplicationController
   def update
     if @museum_registration_request.update(museum_registration_request_params)
       redirect_to museum_registration_request_url(@museum_registration_request), notice: t(".success")
+      notify_updated_request
     else
       render :show, status: :unprocessable_entity
     end
@@ -108,7 +102,6 @@ class MuseumRegistrationRequestsController < ApplicationController
     @museum_registration_requests = MuseumRegistrationRequest.where(registration_status: MuseumRegistrationRequest::ARCHIVED)
   end
 
-  # after_action callbacks are executed if the action was successful
   def notify_new_request
     UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request.deliver_later
     UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request_user.deliver_later
