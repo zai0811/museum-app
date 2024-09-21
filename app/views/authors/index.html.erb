@@ -40,17 +40,14 @@
         <% end %>
       </div>
     </div>
-    <div class="col-auto">
-      <div class="pagination-showing-count">
-        <%== pagy_info(@pagy, item_name: "") %>
-      </div>
-      <%== pagy_bootstrap_nav(@pagy) %>
+    <div class="col-auto" id="pagination-container" >
+      <%= render "layouts/pagination" %>
     </div>
   </div>
 
   <%= turbo_frame_tag Author.new %>
 
-  <div class="table-md mt-3">
+  <div class="table-responsive-md mt-3">
     <table class="table data-table">
       <thead class="table align-middle">
       <tr>

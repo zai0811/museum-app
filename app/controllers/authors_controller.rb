@@ -27,6 +27,7 @@ class AuthorsController < ApplicationController
 
     respond_to do |format|
       if @author.save
+        @pagy, @authors = pagy(Author.all)
         format.html { redirect_to authors_path, notice: t(".success") }
         format.turbo_stream { flash.now[:notice] = t(".success") }
       else

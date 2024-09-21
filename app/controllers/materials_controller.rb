@@ -3,7 +3,9 @@ class MaterialsController < ApplicationController
 
   # GET /materials or /materials.json
   def index
-    @materials = Material.all
+    @q = Material.ransack(params[:q])
+    @q.sorts = 'name asc' if @q.sorts.empty?
+    @pagy, @materials = pagy(@q.result)
   end
 
   # GET /materials/1 or /materials/1.json
@@ -25,8 +27,9 @@ class MaterialsController < ApplicationController
 
     respond_to do |format|
       if @material.save
-        format.html { redirect_to materials_path, notice: "Material was successfully created." }
-        format.json { render :show, status: :created, location: @material }
+        @pagy, @materials = pagy(Material.all)
+        format.html { redirect_to materials_path, notice: t(".success") }
+        format.turbo_stream { flash.now[:notice] = t(".success") }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @material.errors, status: :unprocessable_entity }

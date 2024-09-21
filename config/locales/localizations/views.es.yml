@@ -212,12 +212,16 @@ es:
     index:
       title: "Materiales"
       new: "Crear material"
+      pieces: "Piezas"
+      search_info: "Nombre"
+      search_info_tooltip: "Buscar por Nombre"
     edit:
       title: "Editar material"
     new:
       title: "Nuevo material"
     show:
       title: "Material"
+      pieces: "Piezas"
       delete: "Eliminar"
   object_types:
     index:

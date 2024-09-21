@@ -39,4 +39,12 @@ es:
       success: "El autor fue actualizada exitosamente!"
     destroy:
       success: "El autor fue eliminado exitosamente!"
-      error: "No se puede eliminar porque tiene piezas."
+      error: "No se puede eliminar porque está siendo utilizado en piezas."
+  materials:
+    create:
+      success: "El material fue creado exitosamente!"
+    update:
+      success: "El material fue actualizada exitosamente!"
+    destroy:
+      success: "El material fue eliminado exitosamente!"
+      error: "No se puede eliminar porque está siendo utilizado en piezas."
