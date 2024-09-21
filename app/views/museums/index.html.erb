@@ -36,7 +36,7 @@
                                data: {
                                  bs_toggle: "tooltip",
                                  bs_placement: "top",
-                                 bs_title: t(".search_info") } %>
+                                 bs_title: t(".search_info_tooltip") } %>
             <%= f.submit "Buscar", class: "btn btn-light" %>
           <% end %>
         </div>
@@ -55,7 +55,7 @@
         <thead class="table align-middle">
         <tr>
           <th scope="col">
-            <%= sort_link(@q, :name, t(".name"), class: "table-header-links") %>
+            <%= sort_link(@q, :name, default_order: :asc, class: "table-header-links") %>
           </th>
           <th scope="col">
             <%= sort_link(@q, :status, t(".status"), class: "table-header-links") %>

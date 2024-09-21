@@ -101,7 +101,7 @@ class MuseumRegistrationRequestsController < ApplicationController
   def get_archived
     @museum_registration_requests = MuseumRegistrationRequest.where(registration_status: MuseumRegistrationRequest::ARCHIVED)
   end
-  
+
   def notify_new_request
     UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request.deliver_later
     UserMailer.with(museum_registration_request: @museum_registration_request).new_museum_registration_request_user.deliver_later

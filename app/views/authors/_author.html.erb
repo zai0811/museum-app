@@ -1,12 +1,7 @@
-<div id="<%= dom_id author %>">
-  <p>
-    <strong>First name:</strong>
-    <%= author.first_name %>
-  </p>
-
-  <p>
-    <strong>Last name:</strong>
-    <%= author.last_name %>
-  </p>
-
-</div>
+<tr id="">
+  <td>
+    <%= link_to author.first_name, author %>
+  </td>
+  <td> <%= author.last_name %>  </td>
+  <td> <%= author.pieces.count %>  </td>
+</tr>

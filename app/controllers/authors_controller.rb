@@ -3,7 +3,9 @@ class AuthorsController < ApplicationController
 
   # GET /authors or /authors.json
   def index
-    @authors = Author.all
+    @q = Author.ransack(params[:q])
+    @q.sorts = 'first_name asc' if @q.sorts.empty?
+    @pagy, @authors = pagy(@q.result)
   end
 
   # GET /authors/1 or /authors/1.json
@@ -25,8 +27,8 @@ class AuthorsController < ApplicationController
 
     respond_to do |format|
       if @author.save
-        format.html { redirect_to authors_path, notice: "Author was successfully created." }
-        format.json { render :show, status: :created, location: @author }
+        format.html { redirect_to authors_path, notice: t(".success") }
+        format.turbo_stream { flash.now[:notice] = t(".success") }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @author.errors, status: :unprocessable_entity }
@@ -38,7 +40,7 @@ class AuthorsController < ApplicationController
   def update
     respond_to do |format|
       if @author.update(author_params)
-        format.html { redirect_to author_url(@author), notice: "Author was successfully updated." }
+        format.html { redirect_to author_url(@author), notice: t(".success") }
         format.json { render :show, status: :ok, location: @author }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,24 +51,28 @@ class AuthorsController < ApplicationController
 
   # DELETE /authors/1 or /authors/1.json
   def destroy
-    @author.destroy!
-
     respond_to do |format|
-      format.html { redirect_to authors_url, notice: "Author was successfully destroyed." }
-      format.json { head :no_content }
+      begin
+        @author.destroy!
+        format.html { redirect_to authors_url, notice: t(".success") }
+        format.json { head :no_content }
+      rescue StandardError
+        format.html { redirect_to authors_url, notice: t(".error") }
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_author
-      @author = Author.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def author_params
-      params.require(:author).permit(:first_name, :last_name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_author
+    @author = Author.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def author_params
+    params.require(:author).permit(:first_name, :last_name)
+  end
 
   def authorize_user!
     not_authorized unless current_user.admin?

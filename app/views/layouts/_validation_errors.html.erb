@@ -1,0 +1,11 @@
+<div class="validation-errors mb-3">
+  <p>
+    <%= t("activerecord.errors.messages.record_invalid") %>
+    <%= pluralize(errors_list.count, "errores") %>:
+  </p>
+  <ul>
+    <% errors_list.each do |error| %>
+      <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+</div>

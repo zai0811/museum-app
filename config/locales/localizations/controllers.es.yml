@@ -3,32 +3,40 @@ es:
     create:
       success: "La solicitud fue creada exitosamente!"
     update:
-      success: "Has actualizado el estado correctamente!"
+      success: "Has actualizado el estado exitosamente!"
   museums:
     create:
       success: "El museo fue creado exitosamente!"
     update:
-      success: "El museo fue editado exitosamente!"
+      success: "El museo fue actualizado exitosamente!"
     destroy:
       success: "El museo fue eliminado exitosamente!"
     update_museum_status:
-      success: "Actualizado!"
-      error: "Algo salio mal!"
+      success: "El museo fue actualizado exitosamente!"
+      error: "Algo salió mal!"
   piece_collections:
     create:
-      success: "Colección agregada correctamente!"
-      error: "Algo salio mal!"
+      success: "La colección fue creada exitosamente!"
+      error: "Algo salió mal!"
     update:
-      success: "Colección editada exitosamente!"
-      error: "Algo salio mal!"
+      success: "La colección fue actualizada exitosamente!"
+      error: "Algo salió mal!"
     update_status:
-      success: "Actualizado!"
-      error: "Algo salio mal!"
+      success: "La colección fue actualizado exitosamente!"
+      error: "Algo salió mal!"
   pieces:
     create:
-      success: "Pieza agregada correctamente!"
+      success: "La pieza fue creada exitosamente!"
     update:
-      success: "Pieza actualizada correctamente!"
+      success: "La pieza fue actualizada exitosamente!"
     update_status:
-      success: "Actualizado!"
-      error: "Algo salio mal!"
+      success: "El estado fue actualizado exitosamente!"
+      error: "Algo salió mal!"
+  authors:
+    create: 
+      success: "El autor fue creado exitosamente!"
+    update:
+      success: "El autor fue actualizada exitosamente!"
+    destroy:
+      success: "El autor fue eliminado exitosamente!"
+      error: "No se puede eliminar porque tiene piezas."
