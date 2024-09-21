@@ -57,7 +57,7 @@ class MuseumRegistrationRequest < ApplicationRecord
       process_approval!
     end
   rescue StandardError => error
-    errors.add(:base, "Error configurando usuario y museo, los cambios no han sido guardados. Favor contactar a soporte técnico: #{error.full_message}" )
+    errors.add(:base, "Error configurando usuario y museo, los cambios no han sido guardados. Favor contactar a soporte técnico. Error: #{error.message} #{error.class}." )
     raise ActiveRecord::RecordInvalid.new(self)
   end
 
