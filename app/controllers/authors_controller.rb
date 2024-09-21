@@ -56,9 +56,8 @@ class AuthorsController < ApplicationController
       begin
         @author.destroy!
         format.html { redirect_to authors_url, notice: t(".success") }
-        format.json { head :no_content }
       rescue StandardError
-        format.html { redirect_to authors_url, notice: t(".error") }
+        format.html { redirect_to author_url(@author), notice: t(".error") }
       end
     end
   end

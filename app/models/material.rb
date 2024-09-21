@@ -1,5 +1,5 @@
 class Material < ApplicationRecord
-  has_many :pieces
+  has_many :pieces, dependent: :restrict_with_exception
   validates_presence_of :name
   validates_uniqueness_of :name
 

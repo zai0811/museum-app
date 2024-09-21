@@ -1,15 +1,7 @@
 <div class="row">
   <%= form_with(model: object_type) do |form| %>
     <% if object_type.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(object_type.errors.count, "error") %> prohibited this object_type from being saved:</h2>
-
-        <ul>
-          <% object_type.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
+      <%= render "layouts/validation_errors", errors_list: object_type.errors %>
     <% end %>
 
     <div class="col-sm-8 mb-3">

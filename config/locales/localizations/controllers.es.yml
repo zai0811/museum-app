@@ -48,3 +48,11 @@ es:
     destroy:
       success: "El material fue eliminado exitosamente!"
       error: "No se puede eliminar porque está siendo utilizado en piezas."
+  object_types:
+    create:
+      success: "El objeto fue creado exitosamente!"
+    update:
+      success: "El objeto fue actualizada exitosamente!"
+    destroy:
+      success: "El objeto fue eliminado exitosamente!"
+      error: "No se puede eliminar porque está siendo utilizado en piezas."

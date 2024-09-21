@@ -227,6 +227,8 @@ es:
     index:
       title: "Objetos"
       actions: "Acciones"
+      search_info: "Nombre"
+      search_info_tooltip: "Buscar por Nombre"
       new: "Crear objeto"
     new:
       title: "Nuevo objeto"
@@ -235,3 +237,4 @@ es:
     show:
       title: "Objeto"
       delete: "Eliminar objeto"
+      pieces: "Piezas"
