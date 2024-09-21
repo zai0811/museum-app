@@ -141,7 +141,7 @@ es:
       odd: debe ser impar
       other_than: debe ser distinto de %{count}
       present: debe estar en blanco
-      required: debe existir
+      required: es requerido
       taken: ya está en uso
       too_long:
         one: es demasiado largo (%{count} carácter máximo)
