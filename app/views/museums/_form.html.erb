@@ -15,15 +15,7 @@
         <div class="row ps-2">
           <%= form_with(model: museum) do |form| %>
             <% if museum.errors.any? %>
-              <div style="color: red">
-                <h2><%= pluralize(museum.errors.count, "error") %> prohibited this museum from being saved:</h2>
-
-                <ul>
-                  <% museum.errors.each do |error| %>
-                    <li><%= error.full_message %></li>
-                  <% end %>
-                </ul>
-              </div>
+              <%= render "layouts/validation_errors", errors_list: museum.errors %>
             <% end %>
 
             <% if owner_or_admin %>

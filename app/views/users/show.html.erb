@@ -1,10 +1,25 @@
 <div class="container page-container">
-  <%= render @user %>
+  <div class="row">
+    <aside class="side-menu">
+      <%= render "users/side_menu", user: @user %>
+    </aside>
 
-  <div>
-    <%= link_to "Edit this user", edit_user_path(@user) %> |
-    <%= link_to "Back to users", users_path %>
+    <div class="menu-content">
+      <div class="border-bottom pb-4">
+        <h4 class="menu-subtitle">Información general</h4>
+        <%= render "form", user: @user %>
+      </div>
 
-    <%= button_to "Destroy this user", @user, method: :delete %>
+      <% if current_user&.admin %>
+        <div class="mt-4">
+          <h4 class="menu-subtitle"><%= t(".admin_title") %></h4>
+          <p>
+            <%= t("users.index.invited") %> : <%= status_label(@user.created_by_invite?) %> <br>
+            <%= t("users.index.invitation_accepted") %> : <%= status_label(@user.invitation_accepted?) %> <br>
+            <%= t(".museums") %>: <%= @user.museums_count %>
+          </p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
