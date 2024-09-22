@@ -14,7 +14,6 @@ class MuseumRegistrationRequest < ApplicationRecord
 
   enum :registration_status, { not_reviewed: NOT_REVIEWED, approved: APPROVED, rejected: REJECTED, archived: ARCHIVED }, default: :not_reviewed
   validates :museum_name, length: { in: 5..50 }
-  validates :museum_code, length: { in: 5..50 }
   validates_presence_of :manager_email,
                         :museum_name,
                         :museum_address,

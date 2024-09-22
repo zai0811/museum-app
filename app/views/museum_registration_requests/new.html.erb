@@ -90,8 +90,9 @@
         <%= form.text_field :phone_number, class: "form-control mb-3", placeholder: "(0985) 111 111" %>
       </div>
     <% end %>
-    <div>
+    <div class="d-inline-flex align-items-center">
       <%= form.submit t(".send_request"), class: "btn btn-primary cta", placeholder: "correo@museo.com.py" %>
+      <%= link_to "Cancelar", root_path, class:"link-body-emphasis ms-3" %>
     </div>
   <% end %>
 </div>
