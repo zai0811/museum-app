@@ -1,30 +1,59 @@
-<div class="row align-items-center mb-5 g-3">
+<div class="row align-items-center mb-3 pb-3 g-3">
   <div class="main_heading col-xl-8">
     <%= t("museums.show.gallery_title") %>
   </div>
-  <div class="col-xl-4 text-end pt-1">
-    <div class="input-group">
-      <%= search_form_for @q, class: "input-group" do |f| %>
-        <%= f.search_field :name_or_about_or_address_or_city_name_cont,
-                           class: "form-control gallery-form",
-                           placeholder: t("museums.index.search_info_public"),
-                           data: {
-                             bs_toggle: "tooltip",
-                             bs_placement: "top",
-                             bs_title: t("museums.index.search_info_public_tooltip") } %>
-        <%= f.submit "Buscar", class: "btn btn-light" %>
-      <% end %>
-    </div>
-  </div>
 </div>
 
-<div class="photo-gallery" id="museums">
+<section class="bg-primary-subtle p-4 my-3 rounded-3">
+  <%= search_form_for @q, class: "row g-3 align-items-center" do |f| %>
+    <div class="col-lg-4">
+      <%= f.label "Nombre o descripción", class: "form-label" %>
+      <%= f.search_field :name_or_about_cont,
+                         class: "form-control mb-3",
+                         placeholder: t("museums.index.search_info_public"),
+                         data: {
+                           bs_toggle: "tooltip",
+                           bs_placement: "top",
+                           bs_title: t("museums.index.search_info_public_tooltip") } %>
+    </div>
+    <div class="col-lg-4">
+      <%= f.label "Ciudad", class: "form-label" %>
+      <%= f.collection_select :city_id_eq,
+                              City.all.order(:name),
+                              :id,
+                              :name,
+                              { include_blank: 'Seleccione' },
+                              class: "form-select mb-3" %>
+    </div>
+    <div class="col-lg-4">
+      <%= f.label "Departamento", class: "form-label" %>
+      <%= f.collection_select :department_id_eq,
+                              Department.all.order(:name),
+                              :id,
+                              :name,
+                              { include_blank: 'Seleccione' },
+                              class: "form-select mb-3" %>
+    </div>
+    <div class="col-auto align-self-end">
+      <%= f.submit "Buscar", class: "btn btn-primary me-2" %>
+      <%= link_to "Limpiar filtros", museums_path, class: "link link-body-emphasis" %>
+    </div>
+  <% end %>
+</section>
+
+<div class="py-3">
+  <h5>
+    Resultados (<%= @pagy.count %>)
+  </h5>
+</div>
+
+<div class="photo-gallery pt-3" id="museums">
   <% museums.each do |museum| %>
     <div class="card shadow-sm photo-card" id="<%= dom_id museum %>">
       <% if museum.image.attached? %>
         <%= image_tag(museum.image, class: "card-img-top") %>
       <% else %>
-        <%= image_tag("placeholder.png", class: "card-img-top") %>
+        <%= image_tag("placeholder_image.png", class: "card-img-top") %>
       <% end %>
       <div class="card-body">
         <h4 class="card-title pb-2"> <%= link_to museum.name, museum, class: "card-link link-body-emphasis link-underline-opacity-0 " %>  </h4>

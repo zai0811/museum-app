@@ -16,11 +16,11 @@ class Piece < ApplicationRecord
   enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED }, default: :hidden
 
   def self.ransackable_attributes(auth_object = nil)
-    ["name", "description", "status", "created_at", "updated_at", "in_display"]
+    %w[name description status created_at updated_at in_display]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["piece_collection", "museum", "author", "material", "object_type"]
+    %w[piece_collection museum author material object_type]
   end
 
   def self.published

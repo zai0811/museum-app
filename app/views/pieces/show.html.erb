@@ -31,7 +31,7 @@
           <% if @piece.image.attached? %>
             <%= image_tag(@piece.image, class: "img-fluid rounded-3") %>
           <% else %>
-            <%= image_tag("piece_placeholder_image.png", class: "img-fluid rounded-3") %>
+            <%= image_tag("placeholder_image.png", class: "img-fluid rounded-3") %>
           <% end %>
         </div>
         <% if @piece.copyright_info? %>
