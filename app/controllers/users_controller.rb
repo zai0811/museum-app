@@ -74,6 +74,7 @@ class UsersController < ApplicationController
                   :email,
                   :ci,
                   :password_digest,
+                  :phone_number,
                   :profile_picture
           )
   end

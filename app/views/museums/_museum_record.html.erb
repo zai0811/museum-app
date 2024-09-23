@@ -30,7 +30,7 @@
 
       <dt class="record-title"><%= t("activerecord.attributes.museum.image") %></dt>
       <dd>
-        <% if @museum.image.attached? %>
+        <% if @museum.image.attached? && !@museum.image.new_record? %>
           <%= image_tag(@museum.image, class: "image-record") %>
         <% else %>
           <%= t("museums.show.no_image_message") %>

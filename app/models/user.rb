@@ -14,7 +14,7 @@ class User < ApplicationRecord
                         :phone_number,
                         :ci
   validates_uniqueness_of :email
-
+  validates :profile_picture, image: true
   def self.ransackable_attributes(auth_object = nil)
     %w[ email first_name last_name phone_number ci created_at ]
   end

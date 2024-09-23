@@ -6,7 +6,7 @@
 
     <div class="menu-content">
       <div class="border-bottom pb-4">
-        <h4 class="menu-subtitle">Información general</h4>
+        <h4 class="menu-subtitle"><%= t(".general_title") %></h4>
         <%= render "form", user: @user %>
       </div>
 
@@ -14,8 +14,8 @@
         <div class="mt-4">
           <h4 class="menu-subtitle"><%= t(".admin_title") %></h4>
           <p>
-            <%= t("users.index.invited") %> : <%= status_label(@user.created_by_invite?) %> <br>
-            <%= t("users.index.invitation_accepted") %> : <%= status_label(@user.invitation_accepted?) %> <br>
+            <%= t("users.index.invited") %>: <%= status_label(@user.created_by_invite?) %> <br>
+            <%= t("users.index.invitation_accepted") %>: <%= status_label(@user.invitation_accepted?) %> <br>
             <%= t(".museums") %>: <%= @user.museums_count %>
           </p>
         </div>

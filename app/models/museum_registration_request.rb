@@ -43,7 +43,7 @@ class MuseumRegistrationRequest < ApplicationRecord
     end
 
     unless registration_doc.byte_size <= FILE_SIZE_LIMIT.megabyte
-      errors.add(:registration_doc, "excede el límite de #{FILE_SIZE_LIMIT} Mb")
+      errors.add(:registration_doc, "excede el límite de #{FILE_SIZE_LIMIT} MB")
     end
     unless registration_doc.content_type ==  "application/pdf"
       errors.add(:registration_doc, "debe ser de tipo PDF")

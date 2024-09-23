@@ -1,7 +1,7 @@
 <div class="pt-5">
   <div class="text-center">
     <div class="d-table mx-auto py-3">
-      <% if @user.profile_picture.attached? %>
+      <% if @user.profile_picture.attached? && !@user.profile_picture.new_record? %>
         <%= image_tag(@user.profile_picture, class: "d-block rounded-circle", width: "120", height: "120") %>
       <% else %>
         <%= image_tag("profile_placeholder.png", class: "d-block rounded-circle", width: "120") %>
@@ -14,17 +14,17 @@
       <div class="list-group list-group-flush mx-xl-4">
         <%= link_to @user, class: "list-group-item list-group-item-action d-flex align-items-center" do %>
           <i class="bi bi-gear me-2"></i>
-          Información
+          <%= t("users.show.info") %>
         <% end %>
 
         <%= link_to edit_user_registration_path, class: "list-group-item list-group-item-action d-flex align-items-center" do %>
           <i class="bi bi-key me-2"></i>
-          Contraseña
+          <%= t("users.show.password") %>
         <% end %>
 
         <div class="list-group-item list-group-item-action d-flex align-items-center">
           <i class="bi bi-box-arrow-left"></i>
-          <%= button_to "  Cerrar Sesión",
+          <%= button_to t("users.show.logout"),
                         destroy_user_session_path,
                         method: :delete,
                         class: "btn btn-link link-body-emphasis link-underline link-underline-opacity-0 " %>
