@@ -1,5 +1,9 @@
 <% flash.each do |flash_type, message| %>
-  <div class="flash__message" data-controller="flash-actions" data-action="animationend->flash-actions#remove">
+  <div class="flash__body" data-controller="flash-actions" data-action="animationend->flash-actions#remove">
+    <i class="<%= flash_type_indicator(flash_type) %> bi bi-circle-fill pe-2"></i>
     <%= message %>
+    <button type="button" data-action="flash-actions#remove" class="btn btn-link flash__button">
+      <i class="bi bi-x-lg"></i>
+    </button>
   </div>
 <% end %>

@@ -23,7 +23,7 @@ class Museum < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[city user piece_collection piece]
+    %w[city department user piece_collection piece]
   end
 
   def self.published

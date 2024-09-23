@@ -12,7 +12,7 @@ class MuseumsController < ApplicationController
     elsif current_user
       @q = Museum.where(status: [Museum::NOT_PUBLISHED, Museum::PUBLISHED], user_id: current_user.id).ransack(params[:q])
     else
-      @q = Museum.where(status: [Museum::PUBLISHED]).ransack(params[:q])
+      @q = Museum.where(status: [Museum::PUBLISHED]).includes(:city, :department).ransack(params[:q])
     end
     @q.sorts = 'name asc' if @q.sorts.empty?
     @pagy, @museums = pagy(@q.result.includes(:city, :user))

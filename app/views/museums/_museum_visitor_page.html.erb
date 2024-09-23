@@ -20,6 +20,8 @@
     <div class="col-lg-3 col-md-3">
       <% if museum.image.attached? %>
         <%= image_tag(museum.image, class: "image-header") %>
+      <% else %>
+        <%= image_tag("placeholder_image.png", class: "image-header") %>
       <% end %>
     </div>
     <div class="col-lg-7 col-md-6 mx-3">
