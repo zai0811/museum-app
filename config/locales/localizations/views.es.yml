@@ -8,6 +8,8 @@ es:
     tooltips:
       header_icon_published: "Visible en la página"
       header_icon_hidden: "Oculto en la página"
+    forms:
+      allowed_image_explanation: "Seleccione una foto del tipo JPEG, JPG o PNG. Tamaño máximo de 1MB."
   museum_registration_requests:
     index:
       view: " Ver"
@@ -198,8 +200,8 @@ es:
       actions: "Acciones"
       new: "Crear autor"
       pieces: "Piezas"
-      search_info: "Nombre, Appellido"
-      search_info_tooltip: "Buscar por Nombre o Appellido"
+      search_info: "Nombre, apellido"
+      search_info_tooltip: "Buscar por nombre o apellido"
     new:
       title: "Nuevo autor"
     edit:
@@ -238,3 +240,27 @@ es:
       title: "Objeto"
       delete: "Eliminar objeto"
       pieces: "Piezas"
+  users:
+    index:
+      title: "Usuarios"
+      new: "Crear usuario"
+      invited: "Creado por invitación"
+      invitation_accepted: "Invitación aceptada"
+      created_at: "Creado el"
+      search_info: "Nombre, apellido, ci, correo"
+      search_info_tooltip: "Buscar por nombre, apellido, ci o correo"
+    edit:
+      title: "Editar perfil"
+      edit_pdw_title: "Editar contraseña"
+      edit_pdw_delete_account_title: "Eliminar cuenta"
+      edit_pwd_explanation: "Dejar en blanco si no quieres cambiar la contraseña"
+      edit_pwd_submit: "Actualizar"
+      edit_pwd_pwd_rule: "caracteres como mínimo"
+      edit_pwd_confirmation_explanation: "Necesitamos tu contraseña actual para confirmar los cambios"
+    show:
+      general_title: "Información general"
+      admin_title: "Información administrativa"
+      museums: "Museos a cargo de este usuario"
+      info: "Información"
+      password: "Contraseña"
+      logout: "  Cerrar Sesión"

@@ -25,6 +25,9 @@ es:
       object_type:
         one: "Objeto"
         other: "Objetos"
+      user:
+        one: "Usuario"
+        other: "Usuarios"
     attributes:
       museum_registration_request:
         museum_name: "Nombre"
@@ -121,3 +124,12 @@ es:
         name: "Nombre"
       object_type:
         name: "Nombre"
+      user:
+        admin: "Es administrador?"
+        first_name: "Nombre"
+        last_name: "Apellido"
+        ci: "Cédula de identidad"
+        phone_number: "Celular"
+        email: "Correo"
+        created_at: "Creado el"
+        profile_picture: "Foto de perfil"

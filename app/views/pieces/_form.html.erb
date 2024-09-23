@@ -1,15 +1,7 @@
 <div class="row">
   <%= form_with(model: [@piece_collection, piece]) do |form| %>
     <% if piece.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(piece.errors.count, "error") %> prohibited this piece from being saved:</h2>
-
-        <ul>
-          <% piece.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
+      <%= render "layouts/validation_errors", errors_list: piece.errors %>
     <% end %>
 
     <div class="col-sm-6 mb-3">
@@ -41,7 +33,10 @@
       <%= form.label :measurement, class: "form-label" %>
       <%= form.text_field :measurement, class: "form-control mb-3" %>
 
-      <%= form.label :image, class: "form-label" %>
+      <%= form.label :image, class: "form-label mb-0" %>
+      <p class="small text-secondary mb-1">
+      <%= t("global.forms.allowed_image_explanation") %>
+    </p>
       <%= form.file_field :image, class: "form-control mb-3" %>
     </div>
 

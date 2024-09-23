@@ -14,9 +14,10 @@ class Museum < ApplicationRecord
   has_one_attached :image
 
   validates_presence_of :name, :code, :city, :department
+  validates :name, length: { in: 5..50 }
   validates :latitude, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }
   validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
-
+  validates :image, image: true
   def self.ransackable_attributes(auth_object = nil)
     %w[id name about address code status created_at]
   end

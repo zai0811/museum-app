@@ -147,8 +147,8 @@ es:
         one: es demasiado largo (%{count} carácter máximo)
         other: es demasiado largo (%{count} caracteres máximo)
       too_short:
-        one: es demasiado corto (%{count} carácter mínimo)
-        other: es demasiado corto (%{count} caracteres mínimo)
+        one: debe tener al menos %{count} caracteres
+        other: debe tener al menos %{count} caracteres
       wrong_length:
         one: no tiene la longitud correcta (%{count} carácter exactos)
         other: no tiene la longitud correcta (%{count} caracteres exactos)

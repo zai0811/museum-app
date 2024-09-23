@@ -8,6 +8,7 @@ class MuseumRegistrationRequestsController < ApplicationController
   def index
     # to-do: should review logic for showing or hiding items
     @q = MuseumRegistrationRequest.ransack(params[:q])
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
     @pagy, @museum_registration_requests = pagy(@q.result)
   end
 

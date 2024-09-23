@@ -13,7 +13,7 @@ $font-family-heading: Candara, 'Noto Sans', source-sans-pro, sans-serif, system-
   font-weight: bold;
 }
 
-.secondary_action{
+.secondary_action {
   @extend .btn-outline-dark
 }
 
@@ -22,17 +22,19 @@ h1, h2, h3, h4 {
   font-family: $font-family-heading;
 }
 
-.main_heading{
+.main_heading {
   font-family: $font-family-heading;
   font-size: $h1-font-size;
   font-weight: 600;
   @extend .lh-1;
 }
+
 .gallery_heading {
   font-family: $font-family-heading;
   font-size: $h3-font-size;
   font-weight: 600;
 }
+
 // Spacing
 .page-container {
   margin-top: 1rem;
@@ -40,14 +42,15 @@ h1, h2, h3, h4 {
 
 
 //Breadcrumb
-.breadcrumb-item{
+.breadcrumb-item {
   font-family: $font-family-heading;
 }
 
 // Tables
-.data-table{
+.data-table {
   @extend #{".table-bordered"}
 }
+
 .table-header-links {
   @extend #{".link-body-emphasis", ".link-underline", ".link-underline-opacity-0"}
 }
@@ -91,4 +94,17 @@ h1, h2, h3, h4 {
   display: block;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+// Profile
+.side-menu {
+  @extend #{".col-lg-3", ".border-end"}
+}
+
+.menu-content {
+  @extend #{".col-lg-8", ".offset-lg-1", ".pt-4",  ".mt-3"}
+}
+
+.menu-subtitle {
+  @extend #{".fw-semibold", ".mb-4"}
 }

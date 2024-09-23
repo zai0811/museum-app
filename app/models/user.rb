@@ -6,14 +6,29 @@ class User < ApplicationRecord
   has_many :invitees, class_name: 'User', foreign_key: :invited_by_id
   has_many :museums
   has_many :museum_registration_requests
-  validates_presence_of :email
+  has_one_attached :profile_picture
 
+  validates_presence_of :email,
+                        :first_name,
+                        :last_name,
+                        :phone_number,
+                        :ci
+  validates_uniqueness_of :email
+  validates :profile_picture, image: true
   def self.ransackable_attributes(auth_object = nil)
-    [ "email" ]
+    %w[ email first_name last_name phone_number ci created_at ]
   end
 
   def self.ransackable_associations(auth_object = nil)
     []
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def museums_count
+    self.museums.count
   end
 
   def museum_owner?(museum)

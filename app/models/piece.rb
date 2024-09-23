@@ -11,6 +11,7 @@ class Piece < ApplicationRecord
   has_one_attached :image
 
   validates_presence_of :name
+  validates :image, image: true
 
   enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED }, default: :hidden
 
@@ -19,13 +20,13 @@ class Piece < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["piece_collection", "museum" ,"author", "material", "object_type"]
+    ["piece_collection", "museum", "author", "material", "object_type"]
   end
 
   def self.published
     joins(piece_collection: :museum)
-      .where({ museums: {status: PUBLISHED}})
-      .where({ piece_collections: {status: PUBLISHED}})
+      .where({ museums: { status: PUBLISHED } })
+      .where({ piece_collections: { status: PUBLISHED } })
       .where(status: PUBLISHED) || []
   end
 

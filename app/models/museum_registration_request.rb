@@ -14,7 +14,6 @@ class MuseumRegistrationRequest < ApplicationRecord
 
   enum :registration_status, { not_reviewed: NOT_REVIEWED, approved: APPROVED, rejected: REJECTED, archived: ARCHIVED }, default: :not_reviewed
   validates :museum_name, length: { in: 5..50 }
-  validates :museum_code, length: { in: 5..50 }
   validates_presence_of :manager_email,
                         :museum_name,
                         :museum_address,
@@ -44,7 +43,7 @@ class MuseumRegistrationRequest < ApplicationRecord
     end
 
     unless registration_doc.byte_size <= FILE_SIZE_LIMIT.megabyte
-      errors.add(:registration_doc, "excede el límite de #{FILE_SIZE_LIMIT} Mb")
+      errors.add(:registration_doc, "excede el límite de #{FILE_SIZE_LIMIT} MB")
     end
     unless registration_doc.content_type ==  "application/pdf"
       errors.add(:registration_doc, "debe ser de tipo PDF")

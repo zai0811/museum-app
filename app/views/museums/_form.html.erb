@@ -1,7 +1,5 @@
 <% owner_or_admin = current_user && current_user.admin_or_museum_owner?(@museum) %>
 
-
-
 <div class="accordion shadow-sm my-4" id="record-accordion">
   <div class="accordion-item">
     <div class="accordion-header" id="accordion-heading">
@@ -13,112 +11,107 @@
       <div class="accordion-body">
 
         <div class="row ps-2">
-          <%= form_with(model: museum) do |form| %>
-            <% if museum.errors.any? %>
-              <div style="color: red">
-                <h2><%= pluralize(museum.errors.count, "error") %> prohibited this museum from being saved:</h2>
+          <div class="col-xl-8">
+            <%= form_with(model: museum) do |form| %>
+              <% if museum.errors.any? %>
+                <%= render "layouts/validation_errors", errors_list: museum.errors %>
+              <% end %>
 
-                <ul>
-                  <% museum.errors.each do |error| %>
-                    <li><%= error.full_message %></li>
-                  <% end %>
-                </ul>
-              </div>
-            <% end %>
+              <% if owner_or_admin %>
+                <div class="col pb-3 border-bottom">
+                  <h6 class="my-3"><%= t("museums.show.section_admin") %></h6>
+                  <%= form.label :code, class: "form-label" %>
+                  <%= form.text_field :code, class: "form-control mb-3" %>
 
-            <% if owner_or_admin %>
+                  <%= form.label :status, class: "form-label mt-3" %>
+                  <div class="form-check">
+                    <%= form.radio_button :status, Museum::NOT_PUBLISHED, { checked: museum.hidden?, class: "form-check-input" } %>
+                    <%= form.label t("activerecord.attributes.museum.statuses.hidden"), class: "form-check-label" %>
+                  </div>
+
+                  <div class="form-check mb-3">
+                    <%= form.radio_button :status, Museum::PUBLISHED, { checked: museum.published?, class: "form-check-input" } %>
+                    <%= form.label t("activerecord.attributes.museum.statuses.published"), class: "form-check-label" %>
+                  </div>
+                </div>
+              <% end %>
+
               <div class="col pb-3 border-bottom">
-                <h6 class="my-3"><%= t("museums.show.section_admin") %></h6>
-                <%= form.label :code, class: "form-label" %>
-                <%= form.text_field :code, class: "form-control mb-2" %>
+                <h6 class="my-3"><%= t("museums.show.section_general") %></h6>
+                <%= form.label :name, class: "form-label" %>
+                <%= form.text_field :name, class: "form-control mb-3" %>
 
-                <%= form.label :status, class: "form-label mt-3" %>
-                <div class="form-check">
-                  <%= form.radio_button :status, Museum::NOT_PUBLISHED, { checked: museum.hidden?, class: "form-check-input" } %>
-                  <%= form.label t("activerecord.attributes.museum.statuses.hidden"), class: "form-check-label" %>
+                <%= form.label :about, class: "form-label" %>
+                <%= form.text_area :about, class: "form-control mb-3" %>
+
+                <%= form.label :address, class: "form-label" %>
+                <%= form.text_field :address, class: "form-control mb-3" %>
+
+                <div data-controller="department-city-picker" class="row">
+                  <div class="col-md-3 mb-3">
+                    <%= form.label t("museum_registration_requests.new.department"), class: "form-label" %>
+                    <%= form.select :department_id,
+                                    @departments,
+                                    { prompt: "Elegir" },
+                                    { class: "form-select", data: { action: "change->department-city-picker#change" } } %>
+
+                  </div>
+
+                  <div class="col-md-3 mb-3">
+                    <%= form.label t("museum_registration_requests.new.city"), class: "form-label" %>
+                    <%= form.select :city_id,
+                                    @cities,
+                                    { prompt: "Elegir" },
+                                    { class: "form-select", data: { department_city_picker_target: "citySelect" } } %>
+                  </div>
                 </div>
 
-                <div class="form-check mb-2">
-                  <%= form.radio_button :status, Museum::PUBLISHED, { checked: museum.published?, class: "form-check-input" } %>
-                  <%= form.label t("activerecord.attributes.museum.statuses.published"), class: "form-check-label" %>
+                <%= form.label :image, class: "form-label mb-0" %>
+                <p class="small text-secondary mb-1">
+                  <%= t("global.forms.allowed_image_explanation") %>
+                </p>
+                <%= form.file_field :image, class: "form-control mb-3" %>
+
+              </div>
+
+              <div class="col pb-3">
+                <h6 class="my-3"><%= t("museums.show.section_contact") %></h6>
+                <%= form.label :phone, class: "form-label" %>
+                <%= form.text_field :phone, class: "form-control mb-3", placeholder: "(0985) 111 111" %>
+
+                <%= form.label :email, class: "form-label" %>
+                <%= form.email_field :email, class: "form-control mb-3", placeholder: "correo@museo.com.py" %>
+
+                <%= form.label :page, class: "form-label" %>
+                <%= form.text_field :page, class: "form-control mb-3", placeholder: "https://museo.com.py" %>
+
+                <%= form.label :schedule, class: "form-label" %>
+                <%= form.text_area :schedule, class: "form-control mb-3" %>
+
+                <%= form.label :accessibility_features, class: "form-label" %>
+                <p class="small text-secondary mb-1">
+                  <%= t("museums.edit.accessibility_features_explanation") %>
+                </p>
+                <%= form.text_area :accessibility_features, class: "form-control mb-3" %>
+
+                <div class="form-check form-switch mt-2">
+                  <%= form.check_box :free_entrance, class: "form-check-input", role: "switch" %>
+                  <%= form.label :free_entrance, class: "form-check-label" %>
                 </div>
+
+                <%= form.label :entrance_price, class: "form-label" %>
+                <%= form.text_field :entrance_price, class: "form-control mb-3" %>
+
+              </div>
+
+              <div class="col-sm-6 mb-3">
+                <%= form.submit class: "btn secondary_action", data: { turbo_frame: "_top" } %>
+                <%= link_to t("museums.show.cancel"), @museum, class: "link-dark px-3" %>
+                <% button_to "Eliminar Museo", @user, method: :delete, class: "btn btn-outline-danger px-3" %>
               </div>
             <% end %>
-
-            <div class="col pb-3 border-bottom">
-              <h6 class="my-3"><%= t("museums.show.section_general") %></h6>
-              <%= form.label :name, class: "form-label" %>
-              <%= form.text_field :name, class: "form-control mb-2" %>
-
-              <%= form.label :about, class: "form-label" %>
-              <%= form.text_area :about, class: "form-control mb-2" %>
-
-              <%= form.label :address, class: "form-label" %>
-              <%= form.text_field :address, class: "form-control mb-2" %>
-
-              <div data-controller="department-city-picker" class="row">
-                <div class="col-md-3 mb-2">
-                  <%= form.label t("museum_registration_requests.new.department"), class: "form-label" %>
-                  <%= form.select :department_id,
-                                  @departments,
-                                  { prompt: "Elegir" },
-                                  { class: "form-select", data: { action: "change->department-city-picker#change" } } %>
-
-                </div>
-
-                <div class="col-md-3 mb-2">
-                  <%= form.label t("museum_registration_requests.new.city"), class: "form-label" %>
-                  <%= form.select :city_id,
-                                  @cities,
-                                  { prompt: "Elegir" },
-                                  { class: "form-select", data: { department_city_picker_target: "citySelect" } } %>
-                </div>
-              </div>
-
-              <%= form.label :image, class: "form-label" %>
-              <%= form.file_field :image, class: "form-control mb-2" %>
-
-            </div>
-
-            <div class="col pb-3">
-              <h6 class="my-3"><%= t("museums.show.section_contact") %></h6>
-              <%= form.label :phone, class: "form-label" %>
-              <%= form.text_field :phone, class: "form-control mb-2", placeholder: "(0985) 111 111" %>
-
-              <%= form.label :email, class: "form-label" %>
-              <%= form.email_field :email, class: "form-control mb-2", placeholder: "correo@museo.com.py" %>
-
-              <%= form.label :page, class: "form-label" %>
-              <%= form.text_field :page, class: "form-control mb-2", placeholder: "https://museo.com.py" %>
-
-              <%= form.label :schedule, class: "form-label" %>
-              <%= form.text_area :schedule, class: "form-control mb-2" %>
-
-              <%= form.label :accessibility_features, class: "form-label" %>
-              <p class="small text-secondary mb-1">
-                <%= t("museums.edit.accessibility_features_explanation") %>
-              </p>
-              <%= form.text_area :accessibility_features, class: "form-control mb-2" %>
-
-              <div class="form-check form-switch mt-2">
-                <%= form.check_box :free_entrance, class: "form-check-input", role: "switch" %>
-                <%= form.label :free_entrance, class: "form-check-label" %>
-              </div>
-
-              <%= form.label :entrance_price, class: "form-label" %>
-              <%= form.text_field :entrance_price, class: "form-control mb-2" %>
-
-            </div>
-
-            <div class="col-sm-6 mb-3">
-              <%= form.submit class: "btn secondary_action", data: { turbo_frame: "_top" } %>
-              <%= link_to t("museums.show.cancel"), @museum, class: "link-dark px-3" %>
-              <% button_to "Eliminar Museo", @user, method: :delete, class: "btn btn-outline-danger px-3" %>
-            </div>
-          <% end %>
+          </div>
         </div>
-
-
       </div>
     </div>
   </div>

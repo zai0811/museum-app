@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  prepend_before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @q = User.ransack(params[:q])
+    @q.sorts = 'first_name asc' if @q.sorts.empty?
+    @pagy, @users = pagy(@q.result)
   end
 
   # GET /users/1 or /users/1.json
@@ -41,7 +43,7 @@ class UsersController < ApplicationController
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :show, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -66,11 +68,24 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :ci, :password_digest)
+    params.require(:user)
+          .permit(:first_name,
+                  :last_name,
+                  :email,
+                  :ci,
+                  :password_digest,
+                  :phone_number,
+                  :profile_picture
+          )
   end
 
   def authorize_user!
-    authorized = current_user.admin?
-    not_authorized  unless authorized
+    authorized = case action_name
+                 when "show", "update", "edit"
+                 then current_user
+                 else
+                   current_user.admin?
+                 end
+    not_authorized unless authorized
   end
 end
