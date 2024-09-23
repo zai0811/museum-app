@@ -1,7 +1,14 @@
-// source: https://www.hotrails.dev/turbo-rails/flash-messages-hotwire
+@keyframes appear-then-fade {
+  0%, 100% {
+    opacity: 0
+  }
+  5%, 60% {
+    opacity: 1
+  }
+}
 
 .flash {
-  position:fixed;
+  position: fixed;
   top: 5rem;
   left: 50%;
   transform: translateX(-50%);
@@ -15,17 +22,29 @@
   width: max-content;
   padding: 0 1rem;
 
-  &__message {
-    font-size: 0.875rem;
+  &__body {
+    font-size: 1rem;
     color: hsl(0, 0%, 100%);
     padding: 0.5rem 1rem;
     background-color: hsl(0, 1%, 16%);
-    animation: appear-then-fade 4s both;
-    border-radius: 999px;
+    animation: appear-then-fade 6s both;
+    border-radius: 15px;
+  }
+
+  &__error {
+    color: hsl(0, 85%, 45%);
+  }
+
+  &__success {
+    color: hsl(120, 85%, 35%);
+  }
+
+  &__button {
+    color: hsl(0, 0%, 100%);
   }
 }
 
-.validation-errors{
+.validation-errors {
   color: $red-600;
   padding: 0.5rem 1rem;
   border-radius: 8px;
