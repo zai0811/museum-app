@@ -3,19 +3,19 @@
     <thead class="table align-middle">
     <tr>
       <th scope="col">
-        <%= sort_link(@q, :name, t("piece_collections.show.piece_name"), class: "table-header-links") %>
+        <%= sort_link(@q, :name, default_order: :asc, class: "table-header-links") %>
       </th>
       <th scope="col">
-        <%= sort_link(@q, :status, t("piece_collections.show.piece_status"), class: "table-header-links") %>
+        <%= sort_link(@q, :status, class: "table-header-links") %>
       </th>
       <th scope="col">
-        <%= sort_link(@q, :number, t("piece_collections.show.piece_number"), class: "table-header-links") %>
+        <%= sort_link(@q, :number, class: "table-header-links") %>
       </th>
       <th scope="col">
-        <%= sort_link(@q, :created_at, t("piece_collections.show.piece_created_at"), class: "table-header-links") %>
+        <%= sort_link(@q, :created_at, class: "table-header-links") %>
       </th>
       <th scope="col">
-        <%= sort_link(@q, :updated_at, t("piece_collections.show.piece_updated_at"), class: "table-header-links") %>
+        <%= sort_link(@q, :updated_at, class: "table-header-links") %>
       </th>
       <th scope="col"> <%= t(".actions") %> </th>
     </tr>

@@ -9,9 +9,9 @@
             <div role="search">
               <%= search_form_for @q, class: "d-sm-flex flex-lg-column" do |f| %>
                 <div class="flex-mb-grow-1 mb-2 me-3 me-xl-5">
-                  <%= f.search_field :name_or_about_or_address_or_city_name_cont,
+                  <%= f.search_field :name_or_about_cont,
                                      class: "form-control form-control-lg",
-                                     placeholder: "Museo..." %>
+                                     placeholder: t("global.hero.search_placeholder") %>
                 </div>
                 <div class="flex-mb-grow-1">
                   <%= f.submit class: "btn btn-primary btn-lg cta" %>

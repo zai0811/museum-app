@@ -88,6 +88,7 @@ es:
         created_at: "Creado el"
         updated_at: "Actualizado el"
         is_temporary: "Marcar colección como temporal"
+        description: "Descripción"
         statuses:
           hidden: "Oculto"
           published: "Visible"

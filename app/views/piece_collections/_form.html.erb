@@ -1,16 +1,7 @@
 <div class="row">
   <%= form_with(model: [@museum, piece_collection]) do |form| %>
     <% if piece_collection.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(piece_collection.errors.count, "error") %> prohibited this piece_collection from being
-          saved:</h2>
-
-        <ul>
-          <% piece_collection.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
+      <%= render "layouts/validation_errors", errors_list: piece_collection.errors %>
     <% end %>
 
     <div class="col-sm-6 mb-3">
@@ -44,7 +35,7 @@
     </div>
 
     <div class="col-sm-6 mb-3">
-      <%= form.submit class: "btn btn-sm btn-dark" %>
+      <%= form.submit class: "btn btn-outline-dark" %>
       <% back_path = back_to_collection ? piece_collection : @museum %>
       <%= link_to t("piece_collections.show.cancel"), back_path, class: "link-body-emphasis px-3" %>
     </div>

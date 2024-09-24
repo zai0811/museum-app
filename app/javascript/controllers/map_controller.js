@@ -8,7 +8,7 @@ export default class extends Controller {
 
     connect() {
         this.createMap();
-        this.map.setView([-25.263741, -57.575928], 12);
+        this.map.setView([-23.653329937833263, -57.503814697265625], 7);
     }
 
     createMap() {

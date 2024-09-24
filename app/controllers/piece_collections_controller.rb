@@ -14,6 +14,7 @@ class PieceCollectionsController < ApplicationController
     @q = Piece
            .where(piece_collection_id: @piece_collection.id, status: [Piece::NOT_PUBLISHED, Piece::PUBLISHED])
            .ransack(params[:q])
+    @q.sorts = 'name asc' if @q.sorts.empty?
     @pagy, @pieces = pagy(@q.result)
   end
 
