@@ -23,9 +23,9 @@ export default class extends Controller {
 
         // New museums will not have any markers and will have a default view of Asuncion
         if (latitude === 0.0 && longitude === 0.0) {
-            this.map.setView([-25.280124, -57.635032], 15);
+            this.map.setView([-25.280124, -57.635032], 12);
         } else {
-            this.map.setView([latitude, longitude], 17);
+            this.map.setView([latitude, longitude], 12);
             this.marker = L.marker([latitude, longitude]).addTo(this.map);
         }
     }

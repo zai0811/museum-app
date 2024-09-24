@@ -42,7 +42,11 @@
       <%= turbo_frame_tag "information-body" do %>
         <div class="accordion shadow-sm my-4" id="record-accordion">
           <div class="accordion-item">
-            <div class="accordion-header" id="accordion-heading">
+            <div class="accordion-header"
+                 id="accordion-heading"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 data-bs-title='<%= t(".record_explanation") %>'>
               <button class="accordion-button collapsed record-header" type="button" data-bs-toggle="collapse" data-bs-target="#panel-collapseOne" aria-expanded="false" aria-controls="panel-collapseOne">
                 Ficha del Museo
               </button>
@@ -79,10 +83,10 @@
           <thead class="table align-miple">
           <tr>
             <th scope="col">
-              <%= sort_link(@q, :name, t(".piece_collection_name"), class: "table-header-links") %>
+              <%= sort_link(@q, :name, default_order: :asc, class: "table-header-links") %>
             </th>
             <th scope="col">
-              <%= sort_link(@q, :status, t(".piece_collection_status"), class: "table-header-links") %>
+              <%= sort_link(@q, :status, class: "table-header-links") %>
             </th>
             <th scope="col"> <%= t(".is_temporary") %> </th>
             <th scope="col" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="<%= t(".tooltip_published_pieces") %>">
@@ -91,7 +95,7 @@
             <th>
               <%= t(".pieces") %>
             </th>
-            <th scope="col"> <%= PieceCollection.human_attribute_name("updated_at") %> </th>
+            <th scope="col"> <%= sort_link(@q, :updated_at, class: "table-header-links") %> </th>
             <th scope="col"> <%= t(".actions") %> </th>
           </tr>
           </thead>
@@ -105,7 +109,7 @@
       <div class="d-flex flex-row-reverse justify-content-baseline">
         <div class="col-auto">
           <div class="justify-content-endy">
-            <%== pagy_bootstrap_nav(@pagy, classes:"pagination pagination-sm") %>
+            <%== pagy_bootstrap_nav(@pagy, classes: "pagination pagination-sm") %>
           </div>
         </div>
       </div>
@@ -137,7 +141,7 @@
           <%= form.text_field :latitude, class: "form-control mb-2", hidden: true %>
           <%= form.text_field :longitude, class: "form-control mb-2", hidden: true %>
           <div hidden="hidden" id="formActions">
-            <%= form.submit "Guardar", class: "btn btn-dark" %>
+            <%= form.submit "Guardar", class: "btn btn-outline-dark" %>
             <%= link_to t("museums.show.cancel"), @museum, class: "link-dark px-3" %>
           </div>
         <% end %>
@@ -146,8 +150,7 @@
     </div>
 
     <div data-museum-map-target="container"
-         class="p-1"
-         style="height: 350px; width: auto; background-color: rgba(0,0,255,0.1); border: 3px">
+         class="p-1 map-layout__museum" >
     </div>
   </div>
 </div>

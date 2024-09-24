@@ -23,6 +23,7 @@ class MuseumsController < ApplicationController
     @q = PieceCollection
            .where(museum_id: @museum.id, status: [PieceCollection::NOT_PUBLISHED, PieceCollection::PUBLISHED])
            .ransack(params[:q])
+    @q.sorts = 'name asc' if @q.sorts.empty?
     @pagy, @piece_collections = pagy(@q.result, limit: 5)
   end
 

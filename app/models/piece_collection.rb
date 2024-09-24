@@ -10,7 +10,7 @@ class PieceCollection < ApplicationRecord
   enum :status, { hidden: NOT_PUBLISHED, published: PUBLISHED, archived: ARCHIVED }, default: :hidden
 
   def self.ransackable_attributes(auth_object = nil)
-    ["name", "is_temporary", "status"]
+    %w[name is_temporary status updated_at]
   end
 
   def self.ransackable_associations(auth_object = nil)

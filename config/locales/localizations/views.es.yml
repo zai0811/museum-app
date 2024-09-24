@@ -4,12 +4,13 @@ es:
       empty_list: "No hay items para mostrar."
     hero:
       title: "Descubrí la Riqueza cultural del país"
-      sub_title: "Buscá museos por nombre, dirección, ciudad o descripción:"
+      sub_title: "Buscá museos por nombre o descripción"
+      search_placeholder: "Nombre o descripción"
     tooltips:
       header_icon_published: "Visible en la página"
       header_icon_hidden: "Oculto en la página"
     forms:
-      allowed_image_explanation: "Seleccione una foto del tipo JPEG, JPG o PNG. Tamaño máximo de 1MB."
+      allowed_image_explanation: "Seleccione una imagen del tipo JPEG, JPG o PNG. Tamaño máximo de 1MB."
   museum_registration_requests:
     index:
       view: " Ver"
@@ -58,7 +59,7 @@ es:
       cancel: "Cancelar"
     new:
       title: "Solicitud de Registro"
-      info: "Envía una solicitud para agregar un museo a nuestro sistema. Este sistema es solo para administradores de museos. Asegúrate de tener los permisos necesarios antes de continuar."
+      info: "Envía una solicitud para agregar un museo a esta aplicación. La solicitud es aceptable para administradores de museos registrados en la Secretaría Nacional de Cultura, asegúrate de tener los permisos necesarios antes de continuar."
       info_logged_user: "Serás asignado como el encargado de este museo automáticamente."
       back: "Volver a la lista de solicitudes"
       department: "Departamento"
@@ -67,7 +68,7 @@ es:
       requester_info: "Importante: El correo ingresado en esta sección será utilizado para acceder al sistema y gestionar el museo si se aprueba la solicitud."
       museum_data: "Datos del museo"
       museum_code_explanation: "Código de resolución otorgado por la Secretaría Nacional de Cultura."
-      museum_code_document: "Documento escaneado de la resolución. Se acepta pdf solamente."
+      museum_code_document: "Documento escaneado de la resolución. Se acepta pdf solamente y el tamaño máximo es 5 MB."
       send_request: "Enviar solicitud"
       optional: "(Opcional)"
     archived:
@@ -107,7 +108,7 @@ es:
       gallery_title: "Explorar Museos"
       gallery_collections_title: "Colecciones"
       record: "Ficha del Museo"
-      no_image_message: "Aún no has seleccionado una foto de portada. Esta imagen se mostrará a los visitantes cuando vean el museo. Te recomendamos elegir una foto de la fachada del museo o su logotipo. Solo se puede seleccionar una imagen."
+      no_image_message: "Aún no has seleccionado una imagen de portada. Esta imagen se mostrará a los visitantes cuando vean el museo. Te recomendamos elegir una imagen de la fachada del museo o su logotipo. Solo se puede seleccionar una imagen."
       edit_record: "Editar"
       section_admin: "Información Administrativa"
       section_general: "Información del Museo"
@@ -127,6 +128,7 @@ es:
       accessibility: "Accesibilidad"
       free: "Entrada libre y gratuita"
       payed: "Precio de entrada: %{price}"
+      record_explanation: "Hacer click para ver los detalles del museo"
     new:
       title: "Nuevo Museo"
       back: "Volver a explorar museos"

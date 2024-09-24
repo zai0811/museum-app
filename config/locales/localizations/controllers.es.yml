@@ -56,3 +56,10 @@ es:
     destroy:
       success: "El objeto fue eliminado exitosamente!"
       error: "No se puede eliminar porque está siendo utilizado en piezas."
+  users:
+    create:
+      success: "El usuario fue creado exitosamente!"
+    update:
+      success: "El usuario fue actualizado exitosamente!"
+    destroy:
+      success: "El usuario fue eliminado exitosamente!"
